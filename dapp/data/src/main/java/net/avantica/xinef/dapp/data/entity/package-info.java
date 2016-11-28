@@ -1,0 +1,1 @@
+package net.avantica.xinef.dapp.data.entity;
