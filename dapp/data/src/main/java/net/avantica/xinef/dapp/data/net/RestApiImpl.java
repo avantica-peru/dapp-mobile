@@ -12,6 +12,7 @@ import net.avantica.xinef.dapp.data.entity.PublicInvestmentProjectEntity;
 import net.avantica.xinef.dapp.data.entity.mapper.PublicInvestmentProjectEntityJsonMapper;
 import net.avantica.xinef.dapp.data.exception.NetworkConnectionException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import rx.Observable;
@@ -27,7 +28,7 @@ public class RestApiImpl implements RestApi {
     /**
      * Constructor of the class
      *
-     * @param context              {@link Context}.
+     * @param context                                 {@link Context}.
      * @param publicInvestmentProjectEntityJsonMapper {@link PublicInvestmentProjectEntityJsonMapper}.
      */
     public RestApiImpl(Context context, PublicInvestmentProjectEntityJsonMapper publicInvestmentProjectEntityJsonMapper) {
@@ -40,7 +41,22 @@ public class RestApiImpl implements RestApi {
     public Observable<List<PublicInvestmentProjectEntity>> publicInvestmentProjectEntityList() {
         return Observable.create(subscriber -> {
             if (isThereInternetConnection()) {
+                final List<PublicInvestmentProjectEntity> list = new ArrayList<>();
 
+                list.add(new PublicInvestmentProjectEntity());
+//                list.add(new PublicInvestmentProjectEntity());
+//                list.add(new PublicInvestmentProjectEntity());
+//                list.add(new PublicInvestmentProjectEntity());
+//                list.add(new PublicInvestmentProjectEntity());
+//                list.add(new PublicInvestmentProjectEntity());
+//                list.add(new PublicInvestmentProjectEntity());
+//                list.add(new PublicInvestmentProjectEntity());
+//                list.add(new PublicInvestmentProjectEntity());
+//                list.add(new PublicInvestmentProjectEntity());
+//                list.add(new PublicInvestmentProjectEntity());
+
+                subscriber.onCompleted();
+                subscriber.onNext(list);
             } else {
                 subscriber.onError(new NetworkConnectionException());
             }
@@ -49,7 +65,7 @@ public class RestApiImpl implements RestApi {
 
     @RxLogObservable
     @Override
-    public Observable<PublicInvestmentProjectEntity> publicInvestmentProjectEntityById(int uniqueCode) {
+    public Observable<PublicInvestmentProjectEntity> publicInvestmentProjectEntityById(String uniqueCode) {
         return null;
     }
 

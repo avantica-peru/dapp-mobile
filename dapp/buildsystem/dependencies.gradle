@@ -19,6 +19,7 @@ ext {
     recyclerViewVersion = '25.0.1'
     cardViewVersion = '25.0.1'
     designVersion = '25.0.1'
+    constraintLayoutVersion = '1.0.0-beta4'
     rxJavaVersion = '1.0.14'
     rxAndroidVersion = '1.0.1'
     javaxAnnotationVersion = '1.0'
@@ -49,6 +50,7 @@ ext {
             recyclerView       : "com.android.support:recyclerview-v7:${recyclerViewVersion}",
             cardView           : "com.android.support:cardview-v7:${recyclerViewVersion}",
             design             : "com.android.support:design:${designVersion}",
+            constraintLayout   : "com.android.support.constraint:constraint-layout:${constraintLayoutVersion}",
             rxJava             : "io.reactivex:rxjava:${rxJavaVersion}",
             rxAndroid          : "io.reactivex:rxandroid:${rxAndroidVersion}",
             javaxAnnotation    : "javax.annotation:jsr250-api:${javaxAnnotationVersion}",

@@ -1,6 +1,6 @@
 package net.avantica.xinef.dapp.view.adapter;
 
-import android.app.Activity;
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,18 +10,26 @@ import android.widget.TextView;
 import net.avantica.xinef.dapp.R;
 import net.avantica.xinef.dapp.model.PublicInvestmentProjectModel;
 
+import java.util.Collection;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ProjectListAdapter extends RecyclerView.Adapter<ProjectListAdapter.ProjectListViewHolder> {
-    private Activity activity;
+    public interface OnItemClickListener {
+        void onPublicInvestmentProjectItemClicked(PublicInvestmentProjectModel publicInvestmentProjectModel);
+    }
+
+    private OnItemClickListener onItemClickListener;
+    private Context activity;
     private List<PublicInvestmentProjectModel> publicInvestmentProjectModels;
 
-    public ProjectListAdapter(Activity activity, List<PublicInvestmentProjectModel> publicInvestmentProjectModels) {
+    @Inject
+    public ProjectListAdapter(Context activity) {
         this.activity = activity;
-        this.publicInvestmentProjectModels = publicInvestmentProjectModels;
     }
 
     @Override
@@ -32,13 +40,39 @@ public class ProjectListAdapter extends RecyclerView.Adapter<ProjectListAdapter.
 
     @Override
     public void onBindViewHolder(ProjectListViewHolder holder, int position) {
-        PublicInvestmentProjectModel publicInvestmentProjectModel = this.publicInvestmentProjectModels.get(position);
-        holder.bind(publicInvestmentProjectModel);
+        final PublicInvestmentProjectModel publicInvestmentProjectModel = this.publicInvestmentProjectModels.get(position);
+        holder.namePip.setText(publicInvestmentProjectModel.getName());
+        holder.functionPip.setText(publicInvestmentProjectModel.getFunction());
+        holder.costPip.setText(publicInvestmentProjectModel.getCost());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (ProjectListAdapter.this.onItemClickListener != null) {
+                    ProjectListAdapter.this.onItemClickListener.onPublicInvestmentProjectItemClicked(publicInvestmentProjectModel);
+                }
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
-        return publicInvestmentProjectModels.size();
+        return (this.publicInvestmentProjectModels != null) ? this.publicInvestmentProjectModels.size() : 0;
+    }
+
+    public void setPublicInvestmentProjectCollection(Collection<PublicInvestmentProjectModel> publicInvestmentProjectModelCollection) {
+        this.validateUsersCollection(publicInvestmentProjectModelCollection);
+        this.publicInvestmentProjectModels = (List<PublicInvestmentProjectModel>) publicInvestmentProjectModelCollection;
+        this.notifyDataSetChanged();
+    }
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
+
+    private void validateUsersCollection(Collection<PublicInvestmentProjectModel> publicInvestmentProjectModelCollection) {
+        if (publicInvestmentProjectModelCollection == null) {
+            throw new IllegalArgumentException("The list cannot be null");
+        }
     }
 
     public static class ProjectListViewHolder extends RecyclerView.ViewHolder {
@@ -52,12 +86,6 @@ public class ProjectListAdapter extends RecyclerView.Adapter<ProjectListAdapter.
         public ProjectListViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
-        }
-
-        public void bind(PublicInvestmentProjectModel publicInvestmentProjectModel) {
-            namePip.setText(publicInvestmentProjectModel.getName());
-            functionPip.setText(publicInvestmentProjectModel.getFunction());
-            costPip.setText(publicInvestmentProjectModel.getCost());
         }
     }
 }

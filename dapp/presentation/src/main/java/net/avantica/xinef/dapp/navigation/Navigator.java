@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import net.avantica.xinef.dapp.view.activity.ProjectDetailActivity;
-import net.avantica.xinef.dapp.view.activity.ProjectListActivity;
+import net.avantica.xinef.dapp.view.activity.MainActivity;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -27,7 +27,7 @@ public class Navigator {
      */
     public void navigateToPublicInvestmentProjectrList(Context context) {
         if (context != null) {
-            Intent intentToLaunch = ProjectListActivity.getCallingIntent(context);
+            Intent intentToLaunch = MainActivity.getCallingIntent(context);
             context.startActivity(intentToLaunch);
         }
     }

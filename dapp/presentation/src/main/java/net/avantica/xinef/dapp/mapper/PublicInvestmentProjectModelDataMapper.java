@@ -32,6 +32,17 @@ public class PublicInvestmentProjectModelDataMapper {
             throw new IllegalArgumentException("Cannot transform a null value");
         }
         PublicInvestmentProjectModel publicInvestmentProjectModel = new PublicInvestmentProjectModel();
+        publicInvestmentProjectModel.setDepartment(publicInvestmentProject.getDepartment());
+        publicInvestmentProjectModel.setProvince(publicInvestmentProject.getProvince());
+        publicInvestmentProjectModel.setDistrict(publicInvestmentProject.getDistrict());
+        publicInvestmentProjectModel.setUbigeo(publicInvestmentProject.getUbigeo());
+        publicInvestmentProjectModel.setLatitude(publicInvestmentProject.getLatitude());
+        publicInvestmentProjectModel.setLongitude(publicInvestmentProject.getLongitude());
+        publicInvestmentProjectModel.setName(publicInvestmentProject.getName());
+        publicInvestmentProjectModel.setFunction(publicInvestmentProject.getFunction());
+        publicInvestmentProjectModel.setUniqueCode(publicInvestmentProject.getUniqueCode());
+        publicInvestmentProjectModel.setSnipCode(publicInvestmentProject.getSnipCode());
+        publicInvestmentProjectModel.setCost(publicInvestmentProject.getCost());
 
         return publicInvestmentProjectModel;
     }

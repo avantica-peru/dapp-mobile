@@ -2,18 +2,22 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="net.avantica.xinef.dapp">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
+        android:name=".AndroidApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".view.activity.MainActivity"
+            android:name=".view.activity.MainActivity2"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-            android:name=".view.activity.ProjectListActivity"
+            android:name=".view.activity.MainActivity"
             android:label="@string/title_activity_project_list"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>

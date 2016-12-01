@@ -30,11 +30,11 @@ public class CloudPublicInvestmentProjectDataStore implements PublicInvestmentPr
 
     @Override
     public Observable<List<PublicInvestmentProjectEntity>> publicInvestmentProjectEntityList() {
-        return null;
+        return this.restApi.publicInvestmentProjectEntityList();
     }
 
     @Override
     public Observable<PublicInvestmentProjectEntity> publicInvestmentProjectEntityDetails(String uniqueCode) {
-        return null;
+        return this.restApi.publicInvestmentProjectEntityById(uniqueCode);
     }
 }

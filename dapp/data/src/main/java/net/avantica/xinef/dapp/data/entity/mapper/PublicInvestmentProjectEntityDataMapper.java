@@ -32,6 +32,17 @@ public class PublicInvestmentProjectEntityDataMapper {
         PublicInvestmentProject publicInvestmentProject = null;
         if (publicInvestmentProjectEntity != null) {
             publicInvestmentProject = new PublicInvestmentProject();
+            publicInvestmentProject.setDepartment(publicInvestmentProjectEntity.getDepartment());
+            publicInvestmentProject.setProvince(publicInvestmentProjectEntity.getProvince());
+            publicInvestmentProject.setDistrict(publicInvestmentProjectEntity.getDistrict());
+            publicInvestmentProject.setUbigeo(publicInvestmentProjectEntity.getUbigeo());
+            publicInvestmentProject.setLatitude(publicInvestmentProjectEntity.getLatitude());
+            publicInvestmentProject.setLongitude(publicInvestmentProjectEntity.getLongitude());
+            publicInvestmentProject.setName(publicInvestmentProjectEntity.getName());
+            publicInvestmentProject.setFunction(publicInvestmentProjectEntity.getFunction());
+            publicInvestmentProject.setUniqueCode(publicInvestmentProjectEntity.getUniqueCode());
+            publicInvestmentProject.setSnipCode(publicInvestmentProjectEntity.getSnipCode());
+            publicInvestmentProject.setCost(publicInvestmentProjectEntity.getCost());
         }
 
         return publicInvestmentProject;
