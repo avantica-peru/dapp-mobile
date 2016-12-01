@@ -13,12 +13,12 @@ public interface PublicInvestmentProjectRepository {
     /**
      * Get an {@link Observable} which will emit a List of {@link PublicInvestmentProject}.
      */
-    Observable<List<PublicInvestmentProject>> users();
+    Observable<List<PublicInvestmentProject>> publicInvestmentProjects();
 
     /**
      * Get an {@link Observable} which will emit a {@link PublicInvestmentProject}.
      *
-     * @param userId The user id used to retrieve user data.
+     * @param publicInvestmentProjectId The public investment project id used to retrieve public investment project data.
      */
-    Observable<PublicInvestmentProject> user(final String userId);
+    Observable<PublicInvestmentProject> publicInvestmentProject(final String publicInvestmentProjectId);
 }

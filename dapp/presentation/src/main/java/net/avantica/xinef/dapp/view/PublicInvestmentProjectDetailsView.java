@@ -5,13 +5,13 @@ import net.avantica.xinef.dapp.model.PublicInvestmentProjectModel;
 
 /**
  * Interface representing a View in a model view presenter (MVP) pattern.
- * In this case is used as a view representing a user profile.
+ * In this case is used as a view representing a public investment project.
  */
 public interface PublicInvestmentProjectDetailsView extends LoadDataView {
     /**
-     * Render a user in the UI.
+     * Render a public investment project in the UI.
      *
-     * @param user The {@link PublicInvestmentProjectModel} that will be shown.
+     * @param publicInvestmentProject The {@link PublicInvestmentProjectModel} that will be shown.
      */
-    void renderUser(PublicInvestmentProjectModel user);
+    void renderPublicInvestmentProject(PublicInvestmentProjectModel publicInvestmentProject);
 }

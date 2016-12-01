@@ -15,12 +15,12 @@ public interface RestApi {
     /**
      * Retrieves an {@link Observable} which will emit a List of {@link PublicInvestmentProjectEntity}.
      */
-    Observable<List<PublicInvestmentProjectEntity>> userEntityList();
+    Observable<List<PublicInvestmentProjectEntity>> publicInvestmentProjectEntityList();
 
     /**
      * Retrieves an {@link Observable} which will emit a {@link PublicInvestmentProjectEntity}.
      *
-     * @param userId The user id used to get user data.
+     * @param uniqueCode The unique code used to get public investment project data.
      */
-    Observable<PublicInvestmentProjectEntity> userEntityById(final int userId);
+    Observable<PublicInvestmentProjectEntity> publicInvestmentProjectEntityById(final int uniqueCode);
 }

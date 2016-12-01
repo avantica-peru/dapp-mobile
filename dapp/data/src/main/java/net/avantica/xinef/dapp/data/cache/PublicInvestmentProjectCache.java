@@ -9,16 +9,16 @@ public interface PublicInvestmentProjectCache {
     /**
      * Gets an {@link Observable} which will emit a {@link PublicInvestmentProjectEntity}.
      *
-     * @param uniqueCode The user id to retrieve data.
+     * @param uniqueCode The publicInvestmentProject id to retrieve data.
      */
     Observable<PublicInvestmentProjectEntity> get(final String uniqueCode);
 
     /**
      * Puts and element into the cache.
      *
-     * @param userEntity Element to insert in the cache.
+     * @param publicInvestmentProjectEntity Element to insert in the cache.
      */
-    void put(PublicInvestmentProjectEntity userEntity);
+    void put(PublicInvestmentProjectEntity publicInvestmentProjectEntity);
 
     /**
      * Checks if an element ({@link PublicInvestmentProject}) exists in the cache.

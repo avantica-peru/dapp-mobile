@@ -28,7 +28,7 @@ public class RestApiImpl implements RestApi {
      * Constructor of the class
      *
      * @param context              {@link Context}.
-     * @param publicInvestmentProjectEntityJsonMapper {@link UserEntityJsonMapper}.
+     * @param publicInvestmentProjectEntityJsonMapper {@link PublicInvestmentProjectEntityJsonMapper}.
      */
     public RestApiImpl(Context context, PublicInvestmentProjectEntityJsonMapper publicInvestmentProjectEntityJsonMapper) {
         this.context = context;
@@ -37,7 +37,7 @@ public class RestApiImpl implements RestApi {
 
     @RxLogObservable
     @Override
-    public Observable<List<PublicInvestmentProjectEntity>> userEntityList() {
+    public Observable<List<PublicInvestmentProjectEntity>> publicInvestmentProjectEntityList() {
         return Observable.create(subscriber -> {
             if (isThereInternetConnection()) {
 
@@ -49,7 +49,7 @@ public class RestApiImpl implements RestApi {
 
     @RxLogObservable
     @Override
-    public Observable<PublicInvestmentProjectEntity> userEntityById(int userId) {
+    public Observable<PublicInvestmentProjectEntity> publicInvestmentProjectEntityById(int uniqueCode) {
         return null;
     }
 

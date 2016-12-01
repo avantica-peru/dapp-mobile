@@ -21,11 +21,11 @@ public class Navigator {
     }
 
     /**
-     * Goes to the user list screen.
+     * Goes to the public investment project list screen.
      *
      * @param context A Context needed to open the destiny activity.
      */
-    public void navigateToUserList(Context context) {
+    public void navigateToPublicInvestmentProjectrList(Context context) {
         if (context != null) {
             Intent intentToLaunch = ProjectListActivity.getCallingIntent(context);
             context.startActivity(intentToLaunch);
@@ -33,11 +33,11 @@ public class Navigator {
     }
 
     /**
-     * Goes to the user details screen.
+     * Goes to the public investment project details screen.
      *
      * @param context A Context needed to open the destiny activity.
      */
-    public void navigateToUserDetails(Context context, String codeProject) {
+    public void navigateToPublicInvestmentProjectDetails(Context context, String codeProject) {
         if (context != null) {
             Intent intentToLaunch = ProjectDetailActivity.getCallingIntent(context, codeProject);
             context.startActivity(intentToLaunch);

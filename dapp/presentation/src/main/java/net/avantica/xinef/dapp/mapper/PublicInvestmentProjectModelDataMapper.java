@@ -24,36 +24,36 @@ public class PublicInvestmentProjectModelDataMapper {
     /**
      * Transform a {@link PublicInvestmentProject} into an {@link PublicInvestmentProjectModel}.
      *
-     * @param user Object to be transformed.
+     * @param publicInvestmentProject Object to be transformed.
      * @return {@link PublicInvestmentProjectModel}.
      */
-    public PublicInvestmentProjectModel transform(PublicInvestmentProject user) {
-        if (user == null) {
+    public PublicInvestmentProjectModel transform(PublicInvestmentProject publicInvestmentProject) {
+        if (publicInvestmentProject == null) {
             throw new IllegalArgumentException("Cannot transform a null value");
         }
-        PublicInvestmentProjectModel userModel = new PublicInvestmentProjectModel();
+        PublicInvestmentProjectModel publicInvestmentProjectModel = new PublicInvestmentProjectModel();
 
-        return userModel;
+        return publicInvestmentProjectModel;
     }
 
     /**
      * Transform a Collection of {@link PublicInvestmentProject} into a Collection of {@link PublicInvestmentProjectModel}.
      *
-     * @param usersCollection Objects to be transformed.
+     * @param publicInvestmentProjectsCollection Objects to be transformed.
      * @return List of {@link PublicInvestmentProjectModel}.
      */
-    public Collection<PublicInvestmentProjectModel> transform(Collection<PublicInvestmentProject> usersCollection) {
-        Collection<PublicInvestmentProjectModel> userModelsCollection;
+    public Collection<PublicInvestmentProjectModel> transform(Collection<PublicInvestmentProject> publicInvestmentProjectsCollection) {
+        Collection<PublicInvestmentProjectModel> publicInvestmentProjectModelsCollection;
 
-        if (usersCollection != null && !usersCollection.isEmpty()) {
-            userModelsCollection = new ArrayList<>();
-            for (PublicInvestmentProject user : usersCollection) {
-                userModelsCollection.add(transform(user));
+        if (publicInvestmentProjectsCollection != null && !publicInvestmentProjectsCollection.isEmpty()) {
+            publicInvestmentProjectModelsCollection = new ArrayList<>();
+            for (PublicInvestmentProject publicInvestmentProject : publicInvestmentProjectsCollection) {
+                publicInvestmentProjectModelsCollection.add(transform(publicInvestmentProject));
             }
         } else {
-            userModelsCollection = Collections.emptyList();
+            publicInvestmentProjectModelsCollection = Collections.emptyList();
         }
 
-        return userModelsCollection;
+        return publicInvestmentProjectModelsCollection;
     }
 }

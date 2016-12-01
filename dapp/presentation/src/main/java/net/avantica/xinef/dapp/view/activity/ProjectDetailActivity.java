@@ -10,11 +10,11 @@ import net.avantica.xinef.dapp.R;
 import net.avantica.xinef.dapp.view.fragment.ProjectDetailFragment;
 
 public class ProjectDetailActivity extends AppCompatActivity {
-    private static final String INTENT_EXTRA_PARAM_USER_ID = "net.avantica.xinef.dapp.INTENT_PARAM_CODE_PROJECT";
+    private static final String INTENT_EXTRA_PARAM_UNIQUE_CODE = "net.avantica.xinef.dapp.INTENT_PARAM_CODE_PROJECT";
 
     public static Intent getCallingIntent(Context context, String codeProject) {
         Intent callingIntent = new Intent(context, ProjectDetailActivity.class);
-        callingIntent.putExtra(INTENT_EXTRA_PARAM_USER_ID, codeProject);
+        callingIntent.putExtra(INTENT_EXTRA_PARAM_UNIQUE_CODE, codeProject);
         return callingIntent;
     }
 

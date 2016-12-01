@@ -13,22 +13,22 @@ import javax.inject.Singleton;
 @Singleton
 public class PublicInvestmentProjectDataStoreFactory {
     private final Context context;
-    private final PublicInvestmentProjectCache userCache;
+    private final PublicInvestmentProjectCache publicInvestmentProjectCache;
 
     @Inject
-    public PublicInvestmentProjectDataStoreFactory(Context context, PublicInvestmentProjectCache userCache) {
+    public PublicInvestmentProjectDataStoreFactory(Context context, PublicInvestmentProjectCache publicInvestmentProjectCache) {
         this.context = context;
-        this.userCache = userCache;
+        this.publicInvestmentProjectCache = publicInvestmentProjectCache;
     }
 
     /**
-     * Create {@link PublicInvestmentProjectDataStore} from a user id
+     * Create {@link PublicInvestmentProjectDataStore} from a public investment project id
      */
-    public PublicInvestmentProjectDataStore create(String userId) {
+    public PublicInvestmentProjectDataStore create(String publicInvestmentProjectId) {
         PublicInvestmentProjectDataStore publicInvestmentProjectDataStore;
 
-        if (!this.userCache.isExpired() && this.userCache.isCached(userId)) {
-            publicInvestmentProjectDataStore = new DiskPublicInvestmentProjectDataStore(this.userCache);
+        if (!this.publicInvestmentProjectCache.isExpired() && this.publicInvestmentProjectCache.isCached(publicInvestmentProjectId)) {
+            publicInvestmentProjectDataStore = new DiskPublicInvestmentProjectDataStore(this.publicInvestmentProjectCache);
         } else {
             publicInvestmentProjectDataStore = createCloudDataStore();
         }
@@ -43,6 +43,6 @@ public class PublicInvestmentProjectDataStoreFactory {
         PublicInvestmentProjectEntityJsonMapper publicInvestmentProjectEntityJsonMapper = new PublicInvestmentProjectEntityJsonMapper();
         RestApi restApi = new RestApiImpl(this.context, publicInvestmentProjectEntityJsonMapper);
 
-        return new CloudPublicInvestmentProjectDataStore(restApi, this.userCache);
+        return new CloudPublicInvestmentProjectDataStore(restApi, this.publicInvestmentProjectCache);
     }
 }

@@ -1,7 +1,7 @@
 package net.avantica.xinef.dapp.data.exception;
 
 /**
- * Exception throw by the application when a User search can't return a valid result.
+ * Exception throw by the application when a public investment project search can't return a valid result.
  */
 public class PublicInvestmentProjectNotFoundException extends Exception {
 

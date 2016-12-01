@@ -26,15 +26,15 @@ public class PublicInvestmentProjectEntityJsonMapper {
     /**
      * Transform from valid json string to {@link PublicInvestmentProjectEntity}.
      *
-     * @param userJsonResponse A json representing a user profile.
+     * @param publicInvestmentProjectJsonResponse A json representing a public investment project.
      * @return {@link PublicInvestmentProjectEntity}.
      * @throws JsonSyntaxException if the json string is not a valid json structure.
      */
-    public PublicInvestmentProjectEntity transformUserEntity(String userJsonResponse) throws JsonSyntaxException {
+    public PublicInvestmentProjectEntity transformPublicInvestmentProjectEntity(String publicInvestmentProjectJsonResponse) throws JsonSyntaxException {
         try {
-            Type userEntityType = new TypeToken<PublicInvestmentProjectEntity>() {
+            Type publicInvestmentProjectEntityType = new TypeToken<PublicInvestmentProjectEntity>() {
             }.getType();
-            PublicInvestmentProjectEntity publicInvestmentProjectEntity = this.gson.fromJson(userJsonResponse, userEntityType);
+            PublicInvestmentProjectEntity publicInvestmentProjectEntity = this.gson.fromJson(publicInvestmentProjectJsonResponse, publicInvestmentProjectEntityType);
 
             return publicInvestmentProjectEntity;
         } catch (JsonSyntaxException jsonException) {
@@ -45,20 +45,20 @@ public class PublicInvestmentProjectEntityJsonMapper {
     /**
      * Transform from valid json string to List of {@link PublicInvestmentProjectEntity}.
      *
-     * @param userListJsonResponse A json representing a collection of users.
+     * @param publicInvestmentProjectListJsonResponse A json representing a collection of public investment projects.
      * @return List of {@link PublicInvestmentProjectEntity}.
      * @throws JsonSyntaxException if the json string is not a valid json structure.
      */
-    public List<PublicInvestmentProjectEntity> transformUserEntityCollection(String userListJsonResponse)
+    public List<PublicInvestmentProjectEntity> transformPublicInvestmentProjectEntityCollection(String publicInvestmentProjectListJsonResponse)
             throws JsonSyntaxException {
 
-        List<PublicInvestmentProjectEntity> userEntityCollection;
+        List<PublicInvestmentProjectEntity> publicInvestmentProjectEntityCollection;
         try {
-            Type listOfUserEntityType = new TypeToken<List<PublicInvestmentProjectEntity>>() {
+            Type listOfPublicInvestmentProjectEntityType = new TypeToken<List<PublicInvestmentProjectEntity>>() {
             }.getType();
-            userEntityCollection = this.gson.fromJson(userListJsonResponse, listOfUserEntityType);
+            publicInvestmentProjectEntityCollection = this.gson.fromJson(publicInvestmentProjectListJsonResponse, listOfPublicInvestmentProjectEntityType);
 
-            return userEntityCollection;
+            return publicInvestmentProjectEntityCollection;
         } catch (JsonSyntaxException jsonException) {
             throw jsonException;
         }

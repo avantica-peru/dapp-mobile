@@ -25,34 +25,34 @@ public class PublicInvestmentProjectEntityDataMapper {
     /**
      * Transform a {@link PublicInvestmentProjectEntity} into an {@link PublicInvestmentProject}.
      *
-     * @param userEntity Object to be transformed.
+     * @param publicInvestmentProjectEntity Object to be transformed.
      * @return {@link PublicInvestmentProject} if valid {@link PublicInvestmentProjectEntity} otherwise null.
      */
-    public PublicInvestmentProject transform(PublicInvestmentProjectEntity userEntity) {
-        PublicInvestmentProject user = null;
-        if (userEntity != null) {
-            user = new PublicInvestmentProject();
+    public PublicInvestmentProject transform(PublicInvestmentProjectEntity publicInvestmentProjectEntity) {
+        PublicInvestmentProject publicInvestmentProject = null;
+        if (publicInvestmentProjectEntity != null) {
+            publicInvestmentProject = new PublicInvestmentProject();
         }
 
-        return user;
+        return publicInvestmentProject;
     }
 
     /**
      * Transform a List of {@link PublicInvestmentProjectEntity} into a Collection of {@link PublicInvestmentProject}.
      *
-     * @param userEntityCollection Object Collection to be transformed.
+     * @param publicInvestmentProjectEntityCollection Object Collection to be transformed.
      * @return {@link PublicInvestmentProject} if valid {@link PublicInvestmentProjectEntity} otherwise null.
      */
-    public List<PublicInvestmentProject> transform(Collection<PublicInvestmentProjectEntity> userEntityCollection) {
-        List<PublicInvestmentProject> userList = new ArrayList<>(20);
-        PublicInvestmentProject user;
-        for (PublicInvestmentProjectEntity userEntity : userEntityCollection) {
-            user = transform(userEntity);
-            if (user != null) {
-                userList.add(user);
+    public List<PublicInvestmentProject> transform(Collection<PublicInvestmentProjectEntity> publicInvestmentProjectEntityCollection) {
+        List<PublicInvestmentProject> publicInvestmentProjectList = new ArrayList<>(20);
+        PublicInvestmentProject publicInvestmentProject;
+        for (PublicInvestmentProjectEntity publicInvestmentProjectEntity : publicInvestmentProjectEntityCollection) {
+            publicInvestmentProject = transform(publicInvestmentProjectEntity);
+            if (publicInvestmentProject != null) {
+                publicInvestmentProjectList.add(publicInvestmentProject);
             }
         }
 
-        return userList;
+        return publicInvestmentProjectList;
     }
 }

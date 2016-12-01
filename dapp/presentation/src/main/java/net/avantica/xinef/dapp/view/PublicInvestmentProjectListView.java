@@ -10,16 +10,16 @@ import java.util.Collection;
  */
 public interface PublicInvestmentProjectListView extends LoadDataView {
     /**
-     * Render a user list in the UI.
+     * Render a public investment project list in the UI.
      *
-     * @param userModelCollection The collection of {@link PublicInvestmentProjectModel} that will be shown.
+     * @param publicInvestmentProjectModelCollection The collection of {@link PublicInvestmentProjectModel} that will be shown.
      */
-    void renderUserList(Collection<PublicInvestmentProjectModel> userModelCollection);
+    void renderPublicInvestmentProjectList(Collection<PublicInvestmentProjectModel> publicInvestmentProjectModelCollection);
 
     /**
      * View a {@link PublicInvestmentProjectModel} profile/details.
      *
-     * @param userModel The user that will be shown.
+     * @param publicInvestmentProjectModel The public investment project that will be shown.
      */
-    void viewUser(PublicInvestmentProjectModel userModel);
+    void viewPublicInvestmentProject(PublicInvestmentProjectModel publicInvestmentProjectModel);
 }

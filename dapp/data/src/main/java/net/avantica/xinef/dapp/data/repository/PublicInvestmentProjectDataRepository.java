@@ -14,35 +14,35 @@ import javax.inject.Singleton;
 import rx.Observable;
 
 /**
- * {@link PublicInvestmentProject} for retrieving user data.
+ * {@link PublicInvestmentProject} for retrieving publicInvestmentProject data.
  */
 @Singleton
 public class PublicInvestmentProjectDataRepository implements PublicInvestmentProjectRepository {
-    private final PublicInvestmentProjectDataStoreFactory userDataStoreFactory;
-    private final PublicInvestmentProjectEntityDataMapper userEntityDataMapper;
+    private final PublicInvestmentProjectDataStoreFactory publicInvestmentProjectDataStoreFactory;
+    private final PublicInvestmentProjectEntityDataMapper publicInvestmentProjectEntityDataMapper;
 
     /**
      * Constructs a {@link PublicInvestmentProject}.
      *
-     * @param userDataStoreFactory A factory to construct different data source implementations.
-     * @param userEntityDataMapper {@link PublicInvestmentProjectEntityDataMapper}.
+     * @param publicInvestmentProjectDataStoreFactory A factory to construct different data source implementations.
+     * @param publicInvestmentProjectEntityDataMapper {@link PublicInvestmentProjectEntityDataMapper}.
      */
     @Inject
-    public PublicInvestmentProjectDataRepository(PublicInvestmentProjectDataStoreFactory userDataStoreFactory, PublicInvestmentProjectEntityDataMapper userEntityDataMapper) {
-        this.userDataStoreFactory = userDataStoreFactory;
-        this.userEntityDataMapper = userEntityDataMapper;
+    public PublicInvestmentProjectDataRepository(PublicInvestmentProjectDataStoreFactory publicInvestmentProjectDataStoreFactory, PublicInvestmentProjectEntityDataMapper publicInvestmentProjectEntityDataMapper) {
+        this.publicInvestmentProjectDataStoreFactory = publicInvestmentProjectDataStoreFactory;
+        this.publicInvestmentProjectEntityDataMapper = publicInvestmentProjectEntityDataMapper;
     }
 
     @Override
-    public Observable<List<PublicInvestmentProject>> users() {
-        //we always get all users from the cloud
-        final PublicInvestmentProjectDataStore userDataStore = this.userDataStoreFactory.createCloudDataStore();
-        return userDataStore.publicInvestmentProjectEntityList().map(this.userEntityDataMapper::transform);
+    public Observable<List<PublicInvestmentProject>> publicInvestmentProjects() {
+        //we always get all publicInvestmentProjects from the cloud
+        final PublicInvestmentProjectDataStore publicInvestmentProjectDataStore = this.publicInvestmentProjectDataStoreFactory.createCloudDataStore();
+        return publicInvestmentProjectDataStore.publicInvestmentProjectEntityList().map(this.publicInvestmentProjectEntityDataMapper::transform);
     }
 
     @Override
-    public Observable<PublicInvestmentProject> user(String uniqueCode) {
-        final PublicInvestmentProjectDataStore userDataStore = this.userDataStoreFactory.create(uniqueCode);
-        return userDataStore.publicInvestmentProjectEntityDetails(uniqueCode).map(this.userEntityDataMapper::transform);
+    public Observable<PublicInvestmentProject> publicInvestmentProject(String uniqueCode) {
+        final PublicInvestmentProjectDataStore publicInvestmentProjectDataStore = this.publicInvestmentProjectDataStoreFactory.create(uniqueCode);
+        return publicInvestmentProjectDataStore.publicInvestmentProjectEntityDetails(uniqueCode).map(this.publicInvestmentProjectEntityDataMapper::transform);
     }
 }

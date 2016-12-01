@@ -23,7 +23,7 @@ public class PublicInvestmentProjectCacheImpl implements PublicInvestmentProject
     private static final String SETTINGS_FILE_NAME = "net.avantica.xinef.dapp.SETTINGS";
     private static final String SETTINGS_KEY_LAST_CACHE_UPDATE = "last_cache_update";
 
-    private static final String DEFAULT_FILE_NAME = "user_";
+    private static final String DEFAULT_FILE_NAME = "publicInvestmentProject_";
     private static final long EXPIRATION_TIME = 60 * 10 * 1000;
 
     private final Context context;
@@ -36,31 +36,31 @@ public class PublicInvestmentProjectCacheImpl implements PublicInvestmentProject
      * Constructor of the class {@link PublicInvestmentProjectCacheImpl}.
      *
      * @param context             A
-     * @param userCacheSerializer {@link JsonSerializer} for object serialization.
+     * @param publicInvestmentProjectCacheSerializer {@link JsonSerializer} for object serialization.
      * @param fileManager         {@link FileManager} for saving serialized objects to the file system.
      */
     @Inject
-    public PublicInvestmentProjectCacheImpl(Context context, JsonSerializer userCacheSerializer,
+    public PublicInvestmentProjectCacheImpl(Context context, JsonSerializer publicInvestmentProjectCacheSerializer,
                                             FileManager fileManager, ThreadExecutor executor) {
-        if (context == null || userCacheSerializer == null || fileManager == null || executor == null) {
+        if (context == null || publicInvestmentProjectCacheSerializer == null || fileManager == null || executor == null) {
             throw new IllegalArgumentException("Invalid null parameter");
         }
         this.context = context.getApplicationContext();
         this.cacheDir = this.context.getCacheDir();
-        this.serializer = userCacheSerializer;
+        this.serializer = publicInvestmentProjectCacheSerializer;
         this.fileManager = fileManager;
         this.threadExecutor = executor;
     }
 
     @Override
-    public Observable<PublicInvestmentProjectEntity> get(final String userId) {
+    public Observable<PublicInvestmentProjectEntity> get(final String publicInvestmentProjectId) {
         return Observable.create(subscriber -> {
-            File userEntityFile = PublicInvestmentProjectCacheImpl.this.buildFile(userId);
-            String fileContent = PublicInvestmentProjectCacheImpl.this.fileManager.readFileContent(userEntityFile);
-            PublicInvestmentProjectEntity userEntity = PublicInvestmentProjectCacheImpl.this.serializer.deserialize(fileContent);
+            File publicInvestmentProjectEntityFile = PublicInvestmentProjectCacheImpl.this.buildFile(publicInvestmentProjectId);
+            String fileContent = PublicInvestmentProjectCacheImpl.this.fileManager.readFileContent(publicInvestmentProjectEntityFile);
+            PublicInvestmentProjectEntity publicInvestmentProjectEntity = PublicInvestmentProjectCacheImpl.this.serializer.deserialize(fileContent);
 
-            if (userEntity != null) {
-                subscriber.onNext(userEntity);
+            if (publicInvestmentProjectEntity != null) {
+                subscriber.onNext(publicInvestmentProjectEntity);
                 subscriber.onCompleted();
             } else {
                 subscriber.onError(new PublicInvestmentProjectNotFoundException());
@@ -69,12 +69,12 @@ public class PublicInvestmentProjectCacheImpl implements PublicInvestmentProject
     }
 
     @Override
-    public void put(PublicInvestmentProjectEntity userEntity) {
-        if (userEntity != null) {
-            File userEntityFile = this.buildFile(userEntity.getUniqueCode());
-            if (!isCached(userEntity.getUniqueCode())) {
-                String jsonString = this.serializer.serialize(userEntity);
-                this.executeAsynchronously(new CacheWriter(this.fileManager, userEntityFile,
+    public void put(PublicInvestmentProjectEntity publicInvestmentProjectEntity) {
+        if (publicInvestmentProjectEntity != null) {
+            File publicInvestmentProjectEntityFile = this.buildFile(publicInvestmentProjectEntity.getUniqueCode());
+            if (!isCached(publicInvestmentProjectEntity.getUniqueCode())) {
+                String jsonString = this.serializer.serialize(publicInvestmentProjectEntity);
+                this.executeAsynchronously(new CacheWriter(this.fileManager, publicInvestmentProjectEntityFile,
                         jsonString));
                 setLastCacheUpdateTimeMillis();
             }
@@ -82,9 +82,9 @@ public class PublicInvestmentProjectCacheImpl implements PublicInvestmentProject
     }
 
     @Override
-    public boolean isCached(String userId) {
-        File userEntitiyFile = this.buildFile(userId);
-        return this.fileManager.exists(userEntitiyFile);
+    public boolean isCached(String publicInvestmentProjectId) {
+        File publicInvestmentProjectEntitiyFile = this.buildFile(publicInvestmentProjectId);
+        return this.fileManager.exists(publicInvestmentProjectEntitiyFile);
     }
 
     @Override
@@ -109,15 +109,15 @@ public class PublicInvestmentProjectCacheImpl implements PublicInvestmentProject
     /**
      * Build a file, used to be inserted in the disk cache.
      *
-     * @param userId The id user to build the file.
+     * @param publicInvestmentProjectId The id publicInvestmentProject to build the file.
      * @return A valid file.
      */
-    private File buildFile(String userId) {
+    private File buildFile(String publicInvestmentProjectId) {
         StringBuilder fileNameBuilder = new StringBuilder();
         fileNameBuilder.append(this.cacheDir.getPath());
         fileNameBuilder.append(File.separator);
         fileNameBuilder.append(DEFAULT_FILE_NAME);
-        fileNameBuilder.append(userId);
+        fileNameBuilder.append(publicInvestmentProjectId);
 
         return new File(fileNameBuilder.toString());
     }

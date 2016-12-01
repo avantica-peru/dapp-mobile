@@ -27,5 +27,5 @@ public interface ApplicationComponent {
 
     PostExecutionThread postExecutionThread();
 
-    PublicInvestmentProjectRepository userRepository();
+    PublicInvestmentProjectRepository publicInvestmentProjectRepository();
 }

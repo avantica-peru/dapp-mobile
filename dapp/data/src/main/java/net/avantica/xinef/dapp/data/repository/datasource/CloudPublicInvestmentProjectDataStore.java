@@ -15,17 +15,17 @@ import rx.functions.Action1;
 public class CloudPublicInvestmentProjectDataStore implements PublicInvestmentProjectDataStore {
 
     private final RestApi restApi;
-    private final PublicInvestmentProjectCache userCache;
+    private final PublicInvestmentProjectCache publicInvestmentProjectCache;
 
-    private final Action1<PublicInvestmentProjectEntity> saveTocacheAction = userEntity -> {
-        if (userEntity != null) {
-            CloudPublicInvestmentProjectDataStore.this.userCache.put(userEntity);
+    private final Action1<PublicInvestmentProjectEntity> saveTocacheAction = publicInvestmentProjectEntity -> {
+        if (publicInvestmentProjectEntity != null) {
+            CloudPublicInvestmentProjectDataStore.this.publicInvestmentProjectCache.put(publicInvestmentProjectEntity);
         }
     };
 
-    public CloudPublicInvestmentProjectDataStore(RestApi restApi, PublicInvestmentProjectCache userCache) {
+    public CloudPublicInvestmentProjectDataStore(RestApi restApi, PublicInvestmentProjectCache publicInvestmentProjectCache) {
         this.restApi = restApi;
-        this.userCache = userCache;
+        this.publicInvestmentProjectCache = publicInvestmentProjectCache;
     }
 
     @Override
@@ -34,7 +34,7 @@ public class CloudPublicInvestmentProjectDataStore implements PublicInvestmentPr
     }
 
     @Override
-    public Observable<PublicInvestmentProjectEntity> publicInvestmentProjectEntityDetails(String userId) {
+    public Observable<PublicInvestmentProjectEntity> publicInvestmentProjectEntityDetails(String uniqueCode) {
         return null;
     }
 }

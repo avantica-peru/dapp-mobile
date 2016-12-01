@@ -26,13 +26,13 @@ public class PublicInvestmentProjectDetailsPresenter implements Presenter {
 
     private PublicInvestmentProjectDetailsView viewDetailsView;
 
-    private final UseCase getUserDetailsUseCase;
-    private final PublicInvestmentProjectModelDataMapper userModelDataMapper;
+    private final UseCase getPublicInvestmentProjectDetailsUseCase;
+    private final PublicInvestmentProjectModelDataMapper publicInvestmentProjectModelDataMapper;
 
     @Inject
-    public PublicInvestmentProjectDetailsPresenter(@Named("userDetails") UseCase getUserDetailsUseCase, PublicInvestmentProjectModelDataMapper userModelDataMapper) {
-        this.getUserDetailsUseCase = getUserDetailsUseCase;
-        this.userModelDataMapper = userModelDataMapper;
+    public PublicInvestmentProjectDetailsPresenter(@Named("publicInvestmentProjectDetails") UseCase getPublicInvestmentProjectDetailsUseCase, PublicInvestmentProjectModelDataMapper publicInvestmentProjectModelDataMapper) {
+        this.getPublicInvestmentProjectDetailsUseCase = getPublicInvestmentProjectDetailsUseCase;
+        this.publicInvestmentProjectModelDataMapper = publicInvestmentProjectModelDataMapper;
     }
 
     public void setView(@NonNull PublicInvestmentProjectDetailsView view) {
@@ -49,24 +49,24 @@ public class PublicInvestmentProjectDetailsPresenter implements Presenter {
 
     @Override
     public void destroy() {
-        this.getUserDetailsUseCase.unsubscribe();
+        this.getPublicInvestmentProjectDetailsUseCase.unsubscribe();
         this.viewDetailsView = null;
     }
 
     /**
-     * Initializes the presenter by start retrieving user details.
+     * Initializes the presenter by start retrieving publicInvestmentProject details.
      */
     public void initialize() {
-        this.loadUserDetails();
+        this.loadPublicInvestmentProjectDetails();
     }
 
     /**
-     * Loads user details.
+     * Loads public investment project details.
      */
-    private void loadUserDetails() {
+    private void loadPublicInvestmentProjectDetails() {
         this.hideViewRetry();
         this.showViewLoading();
-        this.getUserDetails();
+        this.getPublicInvestmentProjectDetails();
     }
 
     private void showViewLoading() {
@@ -91,17 +91,17 @@ public class PublicInvestmentProjectDetailsPresenter implements Presenter {
         this.viewDetailsView.showError(errorMessage);
     }
 
-    private void showUserDetailsInView(PublicInvestmentProject user) {
-        final PublicInvestmentProjectModel userModel = this.userModelDataMapper.transform(user);
-        this.viewDetailsView.renderUser(userModel);
+    private void showPublicInvestmentProjectDetailsInView(PublicInvestmentProject publicInvestmentProject) {
+        final PublicInvestmentProjectModel publicInvestmentProjectModel = this.publicInvestmentProjectModelDataMapper.transform(publicInvestmentProject);
+        this.viewDetailsView.renderPublicInvestmentProject(publicInvestmentProjectModel);
     }
 
-    private void getUserDetails() {
-        this.getUserDetailsUseCase.execute(new UserDetailsSubscriber());
+    private void getPublicInvestmentProjectDetails() {
+        this.getPublicInvestmentProjectDetailsUseCase.execute(new PublicInvestmentProjectDetailsSubscriber());
     }
 
     @RxLogSubscriber
-    private final class UserDetailsSubscriber extends DefaultSubscriber<PublicInvestmentProject> {
+    private final class PublicInvestmentProjectDetailsSubscriber extends DefaultSubscriber<PublicInvestmentProject> {
 
         @Override
         public void onCompleted() {
@@ -116,8 +116,8 @@ public class PublicInvestmentProjectDetailsPresenter implements Presenter {
         }
 
         @Override
-        public void onNext(PublicInvestmentProject user) {
-            PublicInvestmentProjectDetailsPresenter.this.showUserDetailsInView(user);
+        public void onNext(PublicInvestmentProject publicInvestmentProject) {
+            PublicInvestmentProjectDetailsPresenter.this.showPublicInvestmentProjectDetailsInView(publicInvestmentProject);
         }
     }
 }

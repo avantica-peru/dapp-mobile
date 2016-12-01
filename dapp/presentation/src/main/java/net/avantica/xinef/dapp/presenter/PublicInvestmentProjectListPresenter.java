@@ -28,14 +28,13 @@ public class PublicInvestmentProjectListPresenter implements Presenter {
 
     private PublicInvestmentProjectListView viewListView;
 
-    private final UseCase getUserListUseCase;
-    private final PublicInvestmentProjectModelDataMapper userModelDataMapper;
+    private final UseCase getPublicInvestmentProjectListUseCase;
+    private final PublicInvestmentProjectModelDataMapper publicInvestmentProjectModelDataMapper;
 
     @Inject
-    public PublicInvestmentProjectListPresenter(@Named("userList") UseCase getUserListUserCase,
-                                                PublicInvestmentProjectModelDataMapper userModelDataMapper) {
-        this.getUserListUseCase = getUserListUserCase;
-        this.userModelDataMapper = userModelDataMapper;
+    public PublicInvestmentProjectListPresenter(@Named("publicInvestmentProjectList") UseCase getPublicInvestmentProjectListUseCase, PublicInvestmentProjectModelDataMapper publicInvestmentProjectModelDataMapper) {
+        this.getPublicInvestmentProjectListUseCase = getPublicInvestmentProjectListUseCase;
+        this.publicInvestmentProjectModelDataMapper = publicInvestmentProjectModelDataMapper;
     }
 
     public void setView(@NonNull PublicInvestmentProjectListView view) {
@@ -52,28 +51,28 @@ public class PublicInvestmentProjectListPresenter implements Presenter {
 
     @Override
     public void destroy() {
-        this.getUserListUseCase.unsubscribe();
+        this.getPublicInvestmentProjectListUseCase.unsubscribe();
         this.viewListView = null;
     }
 
     /**
-     * Initializes the presenter by start retrieving the user list.
+     * Initializes the presenter by start retrieving the publicInvestmentProject list.
      */
     public void initialize() {
-        this.loadUserList();
+        this.loadPublicInvestmentProjectList();
     }
 
     /**
-     * Loads all users.
+     * Loads all public investment projects.
      */
-    private void loadUserList() {
+    private void loadPublicInvestmentProjectList() {
         this.hideViewRetry();
         this.showViewLoading();
-        this.getUserList();
+        this.getPublicInvestmentProjectList();
     }
 
-    public void onUserClicked(PublicInvestmentProjectModel userModel) {
-        this.viewListView.viewUser(userModel);
+    public void onPublicInvestmentProjectClicked(PublicInvestmentProjectModel publicInvestmentProjectModel) {
+        this.viewListView.viewPublicInvestmentProject(publicInvestmentProjectModel);
     }
 
     private void showViewLoading() {
@@ -98,17 +97,17 @@ public class PublicInvestmentProjectListPresenter implements Presenter {
         this.viewListView.showError(errorMessage);
     }
 
-    private void showUsersCollectionInView(Collection<PublicInvestmentProject> usersCollection) {
-        final Collection<PublicInvestmentProjectModel> userModelsCollection =
-                this.userModelDataMapper.transform(usersCollection);
-        this.viewListView.renderUserList(userModelsCollection);
+    private void showPublicInvestmentProjectCollectionInView(Collection<PublicInvestmentProject> publicInvestmentProjectsCollection) {
+        final Collection<PublicInvestmentProjectModel> publicInvestmentProjectModelsCollection =
+                this.publicInvestmentProjectModelDataMapper.transform(publicInvestmentProjectsCollection);
+        this.viewListView.renderPublicInvestmentProjectList(publicInvestmentProjectModelsCollection);
     }
 
-    private void getUserList() {
-        this.getUserListUseCase.execute(new UserListSubscriber());
+    private void getPublicInvestmentProjectList() {
+        this.getPublicInvestmentProjectListUseCase.execute(new PublicInvestmentProjectListSubscriber());
     }
 
-    private final class UserListSubscriber extends DefaultSubscriber<List<PublicInvestmentProject>> {
+    private final class PublicInvestmentProjectListSubscriber extends DefaultSubscriber<List<PublicInvestmentProject>> {
 
         @Override
         public void onCompleted() {
@@ -123,8 +122,8 @@ public class PublicInvestmentProjectListPresenter implements Presenter {
         }
 
         @Override
-        public void onNext(List<PublicInvestmentProject> users) {
-            PublicInvestmentProjectListPresenter.this.showUsersCollectionInView(users);
+        public void onNext(List<PublicInvestmentProject> publicInvestmentProject) {
+            PublicInvestmentProjectListPresenter.this.showPublicInvestmentProjectCollectionInView(publicInvestmentProject);
         }
     }
 }

@@ -8,7 +8,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 /**
- * Class user as Serializer/Deserializer for user entities.
+ * Class public investment project as Serializer/Deserializer for public investment project entities.
  */
 @Singleton
 public class JsonSerializer {
@@ -22,10 +22,10 @@ public class JsonSerializer {
     /**
      * Serialize an object to Json.
      *
-     * @param userEntity {@link PublicInvestmentProjectEntity} to serialize.
+     * @param publicInvestmentProjectEntity {@link PublicInvestmentProjectEntity} to serialize.
      */
-    public String serialize(PublicInvestmentProjectEntity userEntity) {
-        String jsonString = gson.toJson(userEntity, PublicInvestmentProjectEntity.class);
+    public String serialize(PublicInvestmentProjectEntity publicInvestmentProjectEntity) {
+        String jsonString = gson.toJson(publicInvestmentProjectEntity, PublicInvestmentProjectEntity.class);
         return jsonString;
     }
 
@@ -36,7 +36,7 @@ public class JsonSerializer {
      * @return {@link PublicInvestmentProjectEntity}
      */
     public PublicInvestmentProjectEntity deserialize(String jsonString) {
-        PublicInvestmentProjectEntity userEntity = gson.fromJson(jsonString, PublicInvestmentProjectEntity.class);
-        return userEntity;
+        PublicInvestmentProjectEntity publicInvestmentProjectEntity = gson.fromJson(jsonString, PublicInvestmentProjectEntity.class);
+        return publicInvestmentProjectEntity;
     }
 }

@@ -13,15 +13,15 @@ import rx.Observable;
  */
 public class DiskPublicInvestmentProjectDataStore implements PublicInvestmentProjectDataStore {
 
-    private final PublicInvestmentProjectCache userCache;
+    private final PublicInvestmentProjectCache publicInvestmentProjectCache;
 
     /**
      * Construct a {@link PublicInvestmentProjectDataStore} based file system data store.
      *
-     * @param userCache A {@link PublicInvestmentProject} to cache data retrieved from the api.
+     * @param publicInvestmentProjectCache A {@link PublicInvestmentProject} to cache data retrieved from the api.
      */
-    public DiskPublicInvestmentProjectDataStore(PublicInvestmentProjectCache userCache) {
-        this.userCache = userCache;
+    public DiskPublicInvestmentProjectDataStore(PublicInvestmentProjectCache publicInvestmentProjectCache) {
+        this.publicInvestmentProjectCache = publicInvestmentProjectCache;
     }
 
     @Override
@@ -30,7 +30,7 @@ public class DiskPublicInvestmentProjectDataStore implements PublicInvestmentPro
     }
 
     @Override
-    public Observable<PublicInvestmentProjectEntity> publicInvestmentProjectEntityDetails(String userId) {
-        return this.userCache.get(userId);
+    public Observable<PublicInvestmentProjectEntity> publicInvestmentProjectEntityDetails(String uniqueCode) {
+        return this.publicInvestmentProjectCache.get(uniqueCode);
     }
 }

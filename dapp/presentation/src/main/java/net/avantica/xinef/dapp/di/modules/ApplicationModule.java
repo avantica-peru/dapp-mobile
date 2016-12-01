@@ -48,13 +48,13 @@ public class ApplicationModule {
 
     @Provides
     @Singleton
-    PublicInvestmentProjectCache provideUserCache(PublicInvestmentProjectCacheImpl userCache) {
-        return userCache;
+    PublicInvestmentProjectCache providePublicInvestmentProjectCache(PublicInvestmentProjectCacheImpl publicInvestmentProjectCache) {
+        return publicInvestmentProjectCache;
     }
 
     @Provides
     @Singleton
-    PublicInvestmentProjectRepository provideUserRepository(PublicInvestmentProjectDataRepository userDataRepository) {
-        return userDataRepository;
+    PublicInvestmentProjectRepository providePublicInvestmentProjectRepository(PublicInvestmentProjectDataRepository publicInvestmentProjectDataRepository) {
+        return publicInvestmentProjectDataRepository;
     }
 }
