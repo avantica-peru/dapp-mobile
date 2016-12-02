@@ -16,11 +16,13 @@ android {
 
     compileSdkVersion globalConfiguration.getAt("androidCompileSdkVersion")
     buildToolsVersion globalConfiguration.getAt("androidBuildToolsVersion")
+    publishNonDefault true
 
     defaultConfig {
         minSdkVersion globalConfiguration.getAt("androidMinSdkVersion")
         targetSdkVersion globalConfiguration.getAt("androidTargetSdkVersion")
         versionCode globalConfiguration.getAt("androidVersionCode")
+        multiDexEnabled true
     }
 
     compileOptions {
@@ -42,6 +44,30 @@ android {
         ignoreWarnings true
         disable 'InvalidPackage'  // Some libraries have issues with this
         disable 'OldTargetApi'
+    }
+
+    buildTypes {
+        release {
+            debuggable false
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            debuggable true
+        }
+    }
+
+    productFlavors {
+        prd {
+            versionName globalConfiguration.getAt("androidPrdVersionName")
+            buildConfigField 'String', 'HOST', '"http://api.datosabiertos.mef.gob.pe/api/v2/"'
+        }
+
+        qa {
+            versionName globalConfiguration.getAt("androidQAVersionName")
+            buildConfigField 'String', 'HOST', '"http://api.datosabiertos.mef.gob.pe/api/v2/"'
+        }
     }
 }
 

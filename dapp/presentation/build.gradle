@@ -13,8 +13,14 @@ android {
 
         applicationId globalConfiguration.getAt("androidApplicationId")
         versionCode globalConfiguration.getAt("androidVersionCode")
-        versionName globalConfiguration.getAt("androidVersionName")
         testInstrumentationRunner globalConfiguration.getAt("testInstrumentationRunner")
+        multiDexEnabled true
+    }
+
+    dexOptions {
+        incremental true
+        maxProcessCount 4
+        javaMaxHeapSize "2g"
     }
 
     compileOptions {
@@ -43,10 +49,47 @@ android {
 
     buildTypes {
         release {
+            debuggable false
             minifyEnabled false
+            manifestPlaceholders = [build_type_suffix: ""]
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+
+        debug {
+            debuggable true
+            applicationIdSuffix ".debug"
+            manifestPlaceholders = [build_type_suffix: " debug"]
+        }
     }
+
+    productFlavors {
+        prd {
+            versionName globalConfiguration.getAt("androidPrdVersionName")
+            manifestPlaceholders = [app_name: "DAPP", flavor_suffix: ""]
+        }
+
+//        dev {
+//            versionName globalConfiguration.getAt("androidDevVersionName")
+//            manifestPlaceholders = [app_name: "DAPP", flavor_suffix: " dev"]
+//        }
+
+        qa {
+            applicationIdSuffix ".qa"
+            versionName globalConfiguration.getAt("androidQAVersionName")
+            manifestPlaceholders = [app_name: "DAPP", flavor_suffix: " qa"]
+        }
+    }
+
+    dataBinding {
+        enabled = true
+    }
+}
+
+configurations {
+    qaDebugCompile
+    prdDebugCompile
+    qaReleaseCompile
+    prdReleaseCompile
 }
 
 dependencies {
@@ -54,7 +97,11 @@ dependencies {
     def developmentDependencies = rootProject.ext.developmentDependencies
 
     compile project(':domain')
-    compile project(':data')
+
+    qaDebugCompile project(path: ':data', configuration: 'qaDebug')
+    prdDebugCompile project(path: ':data', configuration: 'prdDebug')
+    qaReleaseCompile project(path: ':data', configuration: 'qaRelease')
+    prdReleaseCompile project(path: ':data', configuration: 'prdRelease')
 
     apt presentationDependencies.daggerCompiler
     compile presentationDependencies.dagger

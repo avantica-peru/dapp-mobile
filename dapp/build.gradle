@@ -17,9 +17,11 @@ buildscript {
 
 allprojects {
     ext {
-        androidApplicationId = 'pe.com.edward.baseproject'
+        androidApplicationId = 'net.avantica.xinef.dapp'
         androidVersionCode = 1
-        androidVersionName = "1.0"
+        androidPrdVersionName = "1.0"
+        androidDevVersionName = "1.0"
+        androidQAVersionName = "1.0"
         testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
     }
 }
