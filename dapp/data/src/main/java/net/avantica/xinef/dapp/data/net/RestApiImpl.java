@@ -12,6 +12,7 @@ import net.avantica.xinef.dapp.data.entity.PublicInvestmentProjectEntity;
 import net.avantica.xinef.dapp.data.entity.mapper.PublicInvestmentProjectEntityJsonMapper;
 import net.avantica.xinef.dapp.data.exception.NetworkConnectionException;
 
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,9 +42,12 @@ public class RestApiImpl implements RestApi {
     public Observable<List<PublicInvestmentProjectEntity>> publicInvestmentProjectEntityList() {
         return Observable.create(subscriber -> {
             if (isThereInternetConnection()) {
-                final List<PublicInvestmentProjectEntity> list = new ArrayList<>();
+                try {
+                    String responseUserEntities = getPublicInvestmentProjectListFromApi();
 
-                list.add(new PublicInvestmentProjectEntity());
+                    final List<PublicInvestmentProjectEntity> list = new ArrayList<>();
+
+                    list.add(new PublicInvestmentProjectEntity());
 //                list.add(new PublicInvestmentProjectEntity());
 //                list.add(new PublicInvestmentProjectEntity());
 //                list.add(new PublicInvestmentProjectEntity());
@@ -55,8 +59,11 @@ public class RestApiImpl implements RestApi {
 //                list.add(new PublicInvestmentProjectEntity());
 //                list.add(new PublicInvestmentProjectEntity());
 
-                subscriber.onCompleted();
-                subscriber.onNext(list);
+                    subscriber.onCompleted();
+                    subscriber.onNext(list);
+                } catch (Exception e) {
+                    subscriber.onError(new NetworkConnectionException(e.getCause()));
+                }
             } else {
                 subscriber.onError(new NetworkConnectionException());
             }
@@ -67,6 +74,15 @@ public class RestApiImpl implements RestApi {
     @Override
     public Observable<PublicInvestmentProjectEntity> publicInvestmentProjectEntityById(String uniqueCode) {
         return null;
+    }
+
+    private String getPublicInvestmentProjectListFromApi() throws MalformedURLException {
+        return ApiConnection.createGET(API_URL_GET_PUBLIC_INVESTMENT_LIST).requestSyncCall();
+    }
+
+    private String getPublicInvestmentProjectDetailsFromApi(int userId) throws MalformedURLException {
+        String apiUrl = API_URL_GET_PUBLIC_INVESTMENT_DETAIL;
+        return ApiConnection.createGET(apiUrl).requestSyncCall();
     }
 
     /**

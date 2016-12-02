@@ -1,5 +1,6 @@
 package net.avantica.xinef.dapp.data.net;
 
+import net.avantica.xinef.dapp.data.BuildConfig;
 import net.avantica.xinef.dapp.data.entity.PublicInvestmentProjectEntity;
 
 import java.util.List;
@@ -10,7 +11,8 @@ public interface RestApi {
 
     String API_BASE_URL = "";
 
-    String API_URL_LOGIN = API_BASE_URL + "";
+    String API_URL_GET_PUBLIC_INVESTMENT_LIST = BuildConfig.HOST + "datastreams/PIP-GEORE-DE-GOBIE-LOCAL/data.json/?auth_key=" + BuildConfig.AUTH_KEY + "&limit=2";
+    String API_URL_GET_PUBLIC_INVESTMENT_DETAIL = BuildConfig.HOST + "datastreams/PIP-GEORE-DE-GOBIE-LOCAL/data.json/?auth_key=" + BuildConfig.AUTH_KEY + "&limit=2";
 
     /**
      * Retrieves an {@link Observable} which will emit a List of {@link PublicInvestmentProjectEntity}.

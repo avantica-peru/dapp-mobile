@@ -62,11 +62,13 @@ android {
         prd {
             versionName globalConfiguration.getAt("androidPrdVersionName")
             buildConfigField 'String', 'HOST', '"http://api.datosabiertos.mef.gob.pe/api/v2/"'
+            buildConfigField 'String', 'AUTH_KEY', '"6acbfd912e4e0005152999134b066e64f44396e8"'
         }
 
         qa {
             versionName globalConfiguration.getAt("androidQAVersionName")
             buildConfigField 'String', 'HOST', '"http://api.datosabiertos.mef.gob.pe/api/v2/"'
+            buildConfigField 'String', 'AUTH_KEY', '"6acbfd912e4e0005152999134b066e64f44396e8"'
         }
     }
 }
