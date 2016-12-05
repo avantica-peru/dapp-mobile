@@ -8,6 +8,7 @@ import android.net.NetworkInfo;
 import android.util.Log;
 
 import net.avantica.xinef.dapp.data.annotation.RxLogObservable;
+import net.avantica.xinef.dapp.data.entity.PIPResult;
 import net.avantica.xinef.dapp.data.entity.PublicInvestmentProjectEntity;
 import net.avantica.xinef.dapp.data.entity.mapper.PublicInvestmentProjectEntityJsonMapper;
 import net.avantica.xinef.dapp.data.exception.NetworkConnectionException;
@@ -44,6 +45,8 @@ public class RestApiImpl implements RestApi {
             if (isThereInternetConnection()) {
                 try {
                     String responseUserEntities = getPublicInvestmentProjectListFromApi();
+
+                    PIPResult pipResult = publicInvestmentProjectEntityJsonMapper.transformPublicInvestmentProjectEntity(responseUserEntities);
 
                     final List<PublicInvestmentProjectEntity> list = new ArrayList<>();
 

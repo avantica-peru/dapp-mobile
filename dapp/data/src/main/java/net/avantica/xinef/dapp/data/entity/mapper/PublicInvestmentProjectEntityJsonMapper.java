@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 
+import net.avantica.xinef.dapp.data.entity.PIPResult;
 import net.avantica.xinef.dapp.data.entity.PublicInvestmentProjectEntity;
 
 import java.lang.reflect.Type;
@@ -24,19 +25,19 @@ public class PublicInvestmentProjectEntityJsonMapper {
     }
 
     /**
-     * Transform from valid json string to {@link PublicInvestmentProjectEntity}.
+     * Transform from valid json string to {@link PIPResult}.
      *
-     * @param publicInvestmentProjectJsonResponse A json representing a public investment project.
-     * @return {@link PublicInvestmentProjectEntity}.
+     * @param pipResultResponse A json representing a public investment project.
+     * @return {@link PIPResult}.
      * @throws JsonSyntaxException if the json string is not a valid json structure.
      */
-    public PublicInvestmentProjectEntity transformPublicInvestmentProjectEntity(String publicInvestmentProjectJsonResponse) throws JsonSyntaxException {
+    public PIPResult transformPublicInvestmentProjectEntity(String pipResultResponse) throws JsonSyntaxException {
         try {
-            Type publicInvestmentProjectEntityType = new TypeToken<PublicInvestmentProjectEntity>() {
+            Type pipResult = new TypeToken<PIPResult>() {
             }.getType();
-            PublicInvestmentProjectEntity publicInvestmentProjectEntity = this.gson.fromJson(publicInvestmentProjectJsonResponse, publicInvestmentProjectEntityType);
+            PIPResult result = this.gson.fromJson(pipResultResponse, pipResult);
 
-            return publicInvestmentProjectEntity;
+            return result;
         } catch (JsonSyntaxException jsonException) {
             throw jsonException;
         }
@@ -45,20 +46,20 @@ public class PublicInvestmentProjectEntityJsonMapper {
     /**
      * Transform from valid json string to List of {@link PublicInvestmentProjectEntity}.
      *
-     * @param publicInvestmentProjectListJsonResponse A json representing a collection of public investment projects.
+     * @param pipResultResponse A json representing a collection of public investment projects.
      * @return List of {@link PublicInvestmentProjectEntity}.
      * @throws JsonSyntaxException if the json string is not a valid json structure.
      */
-    public List<PublicInvestmentProjectEntity> transformPublicInvestmentProjectEntityCollection(String publicInvestmentProjectListJsonResponse)
+    public List<PIPResult> transformPublicInvestmentProjectEntityCollection(String pipResultResponse)
             throws JsonSyntaxException {
 
-        List<PublicInvestmentProjectEntity> publicInvestmentProjectEntityCollection;
+        List<PIPResult> pipResults;
         try {
-            Type listOfPublicInvestmentProjectEntityType = new TypeToken<List<PublicInvestmentProjectEntity>>() {
+            Type listOfPublicInvestmentProjectEntityType = new TypeToken<List<PIPResult>>() {
             }.getType();
-            publicInvestmentProjectEntityCollection = this.gson.fromJson(publicInvestmentProjectListJsonResponse, listOfPublicInvestmentProjectEntityType);
+            pipResults = this.gson.fromJson(pipResultResponse, listOfPublicInvestmentProjectEntityType);
 
-            return publicInvestmentProjectEntityCollection;
+            return pipResults;
         } catch (JsonSyntaxException jsonException) {
             throw jsonException;
         }
