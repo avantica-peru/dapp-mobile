@@ -8,6 +8,7 @@ import android.net.NetworkInfo;
 import android.util.Log;
 
 import net.avantica.xinef.dapp.data.annotation.RxLogObservable;
+import net.avantica.xinef.dapp.data.entity.Array;
 import net.avantica.xinef.dapp.data.entity.PIPResult;
 import net.avantica.xinef.dapp.data.entity.PublicInvestmentProjectEntity;
 import net.avantica.xinef.dapp.data.entity.mapper.PublicInvestmentProjectEntityJsonMapper;
@@ -48,22 +49,141 @@ public class RestApiImpl implements RestApi {
 
                     PIPResult pipResult = publicInvestmentProjectEntityJsonMapper.transformPublicInvestmentProjectEntity(responseUserEntities);
 
-                    final List<PublicInvestmentProjectEntity> list = new ArrayList<>();
+                    final List<PublicInvestmentProjectEntity> entities = new ArrayList<>();
+                    final List<Array> arrayResult = pipResult.getResult().getfArray();
+                    int totalCols = pipResult.getResult().getfCols();
+                    int totalSize = pipResult.getResult().getfArray().size();
+                    int row = 0;
 
-                    list.add(new PublicInvestmentProjectEntity());
-//                list.add(new PublicInvestmentProjectEntity());
-//                list.add(new PublicInvestmentProjectEntity());
-//                list.add(new PublicInvestmentProjectEntity());
-//                list.add(new PublicInvestmentProjectEntity());
-//                list.add(new PublicInvestmentProjectEntity());
-//                list.add(new PublicInvestmentProjectEntity());
-//                list.add(new PublicInvestmentProjectEntity());
-//                list.add(new PublicInvestmentProjectEntity());
-//                list.add(new PublicInvestmentProjectEntity());
-//                list.add(new PublicInvestmentProjectEntity());
 
+                    Array array;
+                    int x;
+
+                    for (int i = totalCols; i < totalSize; i += totalCols) {
+                        x = i;
+                        final PublicInvestmentProjectEntity entity = new PublicInvestmentProjectEntity();
+
+//                        array = arrayResult.get(x);
+//                        entity.setDepartment(array.getfStr());
+//                        x++;
+//
+//                        array = arrayResult.get(x);
+//                        entity.setProvince(array.getfStr());
+//                        x++;
+//
+//                        array = arrayResult.get(x);
+//                        entity.setDistrict(array.getfStr());
+//                        x++;
+//
+//                        array = arrayResult.get(x);
+//                        entity.setZipCode(array.getfStr());
+//                        x++;
+//
+//                        array = arrayResult.get(x);
+//                        entity.setLatitude(array.getfStr());
+//                        x++;
+//
+//                        array = arrayResult.get(x);
+//                        entity.setLongitude(array.getfStr());
+//                        x++;
+//
+//                        array = arrayResult.get(x);
+//                        entity.set(array.getfStr());
+//                        x++;
+//
+//                        array = arrayResult.get(x);
+//                        entity.set(array.getfStr());
+//                        x++;
+//
+//                        array = arrayResult.get(x);
+//                        entity.set(array.getfStr());
+//                        x++;
+//
+//                        array = arrayResult.get(x);
+//                        entity.set(array.getfStr());
+//                        x++;
+//
+//                        array = arrayResult.get(x);
+//                        entity.set(array.getfStr());
+//                        x++;
+//
+//                        array = arrayResult.get(x);
+//                        entity.set(array.getfStr());
+//                        x++;
+//
+//                        array = arrayResult.get(x);
+//                        entity.set(array.getfStr());
+//                        x++;
+//
+//                        array = arrayResult.get(x);
+//                        entity.set(array.getfStr());
+//                        x++;
+//
+//                        array = arrayResult.get(x);
+//                        entity.set(array.getfStr());
+//                        x++;
+//
+//                        array = arrayResult.get(x);
+//                        entity.set(array.getfStr());
+//                        x++;
+//
+//                        array = arrayResult.get(x);
+//                        entity.set(array.getfStr());
+//                        x++;
+//
+//                        array = arrayResult.get(x);
+//                        entity.set(array.getfStr());
+//                        x++;
+//
+//                        array = arrayResult.get(x);
+//                        entity.set(array.getfStr());
+//                        x++;
+//
+//                        array = arrayResult.get(x);
+//                        entity.set(array.getfStr());
+//                        x++;
+//
+//                        array = arrayResult.get(x);
+//                        entity.set(array.getfStr());
+//                        x++;
+//
+//                        array = arrayResult.get(x);
+//                        entity.set(array.getfStr());
+//                        x++;
+//
+//                        array = arrayResult.get(x);
+//                        entity.set(array.getfStr());
+//                        x++;
+//
+//                        array = arrayResult.get(x);
+//                        entity.set(array.getfStr());
+//                        x++;
+//
+//                        array = arrayResult.get(x);
+//                        entity.set(array.getfStr());
+//                        x++;
+//
+//                        array = arrayResult.get(x);
+//                        entity.set(array.getfStr());
+//                        x++;
+//
+//                        array = arrayResult.get(x);
+//                        entity.set(array.getfStr());
+//                        x++;
+//
+//                        array = arrayResult.get(x);
+//                        entity.set(array.getfStr());
+//                        x++;
+//
+//                        array = arrayResult.get(x);
+//                        entity.set(array.getfStr());
+//                        x++;
+
+                        entities.add(entity);
+                    }
+
+                    subscriber.onNext(entities);
                     subscriber.onCompleted();
-                    subscriber.onNext(list);
                 } catch (Exception e) {
                     subscriber.onError(new NetworkConnectionException(e.getCause()));
                 }
@@ -80,11 +200,11 @@ public class RestApiImpl implements RestApi {
     }
 
     private String getPublicInvestmentProjectListFromApi() throws MalformedURLException {
-        return ApiConnection.createGET(API_URL_GET_PUBLIC_INVESTMENT_LIST).requestSyncCall();
+        return ApiConnection.createGET(API_URL_GET_PUBLIC_INVESTMENT_PROJECT_LIST).requestSyncCall();
     }
 
     private String getPublicInvestmentProjectDetailsFromApi(int userId) throws MalformedURLException {
-        String apiUrl = API_URL_GET_PUBLIC_INVESTMENT_DETAIL;
+        String apiUrl = API_URL_GET_PUBLIC_INVESTMENT_PROJECT_DETAIL;
         return ApiConnection.createGET(apiUrl).requestSyncCall();
     }
 

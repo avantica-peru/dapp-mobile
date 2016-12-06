@@ -1,10 +1,13 @@
 package net.avantica.xinef.dapp.model;
 
-public class PublicInvestmentProjectModel {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class PublicInvestmentProjectModel implements Parcelable {
     private String department;
     private String province;
     private String district;
-    private String ubigeo;
+    private String zipCode;
     private String latitude;
     private String longitude;
     private String name;
@@ -14,6 +17,52 @@ public class PublicInvestmentProjectModel {
     private String cost;
 
     public PublicInvestmentProjectModel() {
+    }
+
+    public PublicInvestmentProjectModel(Parcel in) {
+        department = in.readString();
+        province = in.readString();
+        district = in.readString();
+        zipCode = in.readString();
+        latitude = in.readString();
+        longitude = in.readString();
+        name = in.readString();
+        function = in.readString();
+        uniqueCode = in.readString();
+        snipCode = in.readString();
+        cost = in.readString();
+    }
+
+    public static final Creator<PublicInvestmentProjectModel> CREATOR = new Creator<PublicInvestmentProjectModel>() {
+        @Override
+        public PublicInvestmentProjectModel createFromParcel(Parcel parcel) {
+            return new PublicInvestmentProjectModel(parcel);
+        }
+
+        @Override
+        public PublicInvestmentProjectModel[] newArray(int size) {
+            return new PublicInvestmentProjectModel[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(department);
+        parcel.writeString(province);
+        parcel.writeString(district);
+        parcel.writeString(zipCode);
+        parcel.writeString(latitude);
+        parcel.writeString(longitude);
+        parcel.writeString(name);
+        parcel.writeString(function);
+        parcel.writeString(uniqueCode);
+        parcel.writeString(snipCode);
+        parcel.writeString(cost);
     }
 
     public String getDepartment() {
@@ -40,12 +89,12 @@ public class PublicInvestmentProjectModel {
         this.district = district;
     }
 
-    public String getUbigeo() {
-        return ubigeo;
+    public String getZipCode() {
+        return zipCode;
     }
 
-    public void setUbigeo(String ubigeo) {
-        this.ubigeo = ubigeo;
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
     }
 
     public String getLatitude() {

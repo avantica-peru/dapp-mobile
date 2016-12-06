@@ -90,7 +90,7 @@ public class ProjectListFragment extends BaseFragment implements PublicInvestmen
         this.publicInvestmentProjectListPresenter.setView(this);
 
         if (savedInstanceState == null) {
-            this.loadPublicInvestmentProjectList();
+//            this.loadPublicInvestmentProjectList();
         }
     }
 

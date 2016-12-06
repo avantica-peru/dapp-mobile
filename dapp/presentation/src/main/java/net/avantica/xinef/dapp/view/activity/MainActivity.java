@@ -13,10 +13,14 @@ import net.avantica.xinef.dapp.di.components.PublicInvestmentProjectComponent;
 import net.avantica.xinef.dapp.model.PublicInvestmentProjectModel;
 import net.avantica.xinef.dapp.view.fragment.ProjectListFragment;
 
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends BaseActivity implements HasComponent<PublicInvestmentProjectComponent>, ProjectListFragment.PublicInvestmentProjectListListener {
+    public static final String PIP_ARRAY_KEY = "PIP_ARRAY_KEY";
+
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
@@ -36,6 +40,9 @@ public class MainActivity extends BaseActivity implements HasComponent<PublicInv
 
         this.initializeInjector();
         if (savedInstanceState == null) {
+            Bundle extras = getIntent().getExtras();
+            List<PublicInvestmentProjectModel> publicInvestmentProjectModels = extras.getParcelableArrayList(PIP_ARRAY_KEY);
+
             showProjectListView();
         }
     }

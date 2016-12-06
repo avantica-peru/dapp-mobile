@@ -20,6 +20,7 @@ import net.avantica.xinef.dapp.di.modules.ActivityModule;
 import net.avantica.xinef.dapp.di.modules.PublicInvestmentProjectModule;
 import net.avantica.xinef.dapp.view.fragment.ProjectDetailFragment;
 import net.avantica.xinef.dapp.view.fragment.ProjectListFragment;
+import net.avantica.xinef.dapp.view.fragment.SplashFragment;
 
 import dagger.Component;
 
@@ -30,6 +31,8 @@ import dagger.Component;
 @PerActivity
 @Component(dependencies = ApplicationComponent.class, modules = {ActivityModule.class, PublicInvestmentProjectModule.class})
 public interface PublicInvestmentProjectComponent extends ActivityComponent {
+    void inject(SplashFragment splashFragment);
+
     void inject(ProjectListFragment userListFragment);
 
     void inject(ProjectDetailFragment userDetailsFragment);

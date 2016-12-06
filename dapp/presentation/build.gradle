@@ -127,4 +127,5 @@ dependencies {
 
     //Development
     compile developmentDependencies.leakCanary
+    compile 'com.android.support:support-v4:25.0.1'
 }

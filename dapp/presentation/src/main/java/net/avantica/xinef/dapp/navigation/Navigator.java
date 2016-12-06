@@ -2,9 +2,14 @@ package net.avantica.xinef.dapp.navigation;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 
-import net.avantica.xinef.dapp.view.activity.ProjectDetailActivity;
+import net.avantica.xinef.dapp.model.PublicInvestmentProjectModel;
 import net.avantica.xinef.dapp.view.activity.MainActivity;
+import net.avantica.xinef.dapp.view.activity.ProjectDetailActivity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -25,9 +30,14 @@ public class Navigator {
      *
      * @param context A Context needed to open the destiny activity.
      */
-    public void navigateToPublicInvestmentProjectrList(Context context) {
+    public void navigateToPublicInvestmentProjectrList(Context context, List<PublicInvestmentProjectModel> publicInvestmentProjectModels) {
         if (context != null) {
             Intent intentToLaunch = MainActivity.getCallingIntent(context);
+
+            Bundle bundle = new Bundle();
+            bundle.putParcelableArrayList(MainActivity.PIP_ARRAY_KEY, (ArrayList<PublicInvestmentProjectModel>) publicInvestmentProjectModels);
+            intentToLaunch.putExtras(bundle);
+
             context.startActivity(intentToLaunch);
         }
     }

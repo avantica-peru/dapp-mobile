@@ -35,7 +35,7 @@ public class PublicInvestmentProjectEntityDataMapper {
             publicInvestmentProject.setDepartment(publicInvestmentProjectEntity.getDepartment());
             publicInvestmentProject.setProvince(publicInvestmentProjectEntity.getProvince());
             publicInvestmentProject.setDistrict(publicInvestmentProjectEntity.getDistrict());
-            publicInvestmentProject.setUbigeo(publicInvestmentProjectEntity.getUbigeo());
+            publicInvestmentProject.setZipCode(publicInvestmentProjectEntity.getZipCode());
             publicInvestmentProject.setLatitude(publicInvestmentProjectEntity.getLatitude());
             publicInvestmentProject.setLongitude(publicInvestmentProjectEntity.getLongitude());
             publicInvestmentProject.setName(publicInvestmentProjectEntity.getName());

@@ -14,16 +14,31 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".view.activity.MainActivity"
-            android:label="${app_name}${flavor_suffix}${build_type_suffix}"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:name=".view.activity.SplashActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_splash"
+            android:theme="@style/FullscreenTheme"
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.activity.ProjectDetailActivity"></activity>
+
+        <activity
+            android:name=".view.activity.MainActivity"
+            android:label="@string/title_activity_project_list"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".view.activity.ProjectDetailActivity" />
+
     </application>
 
 </manifest>

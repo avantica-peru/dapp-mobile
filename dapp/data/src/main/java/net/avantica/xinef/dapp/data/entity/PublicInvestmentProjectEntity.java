@@ -1,44 +1,37 @@
 package net.avantica.xinef.dapp.data.entity;
 
-import com.google.gson.annotations.SerializedName;
-
 public class PublicInvestmentProjectEntity {
-    @SerializedName("departamento")
     private String department;
-    @SerializedName("provincia")
     private String province;
-    @SerializedName("distrito")
     private String district;
-    @SerializedName("ubigeo")
-    private String ubigeo;
-    @SerializedName("latitud")
+    private String zipCode;
     private String latitude;
-    @SerializedName("longitud")
     private String longitude;
-    @SerializedName("nombre")
-    private String name;
-    @SerializedName("funcion")
-    private String function;
-    @SerializedName("codigoUnico")
-    private String uniqueCode;
-    @SerializedName("codigoSnip")
+    private String populatedCenter;
+    private String formulatingUnit;
+    private String sector;
+    private String folder;
+    private String executor;
+    private String level;
     private String snipCode;
-    @SerializedName("costo")
+    private String uniqueCode;
+    private String name;
+    private String function;
+    private String program;
+    private String subprogram;
+    private String fundingSource;
+    private String registrationDate;
+    private String situation;
+    private String state;
+    private String closed;
+    private String viabDate;
+    private String viableAmount;
+    private String beneficiary;
+    private String objective;
+    private String alternative;
     private String cost;
 
     public PublicInvestmentProjectEntity() {
-        //TODO edward.carrion mock data, remove this data
-        department = "LIMA";
-        province = "LIMA";
-        district = "LIMA";
-        ubigeo = "150101";
-        latitude = "35";
-        longitude = "35";
-        name = "MEJORAMIENTO DEL TECHO Y LOSA DEPORTIVA DE LA INSTITUCIÓN EDUCATIVA VIRGEN DE ASUNTA CHACHAPOYAS, PROVINCIA DE CHACHAPOYAS - AMAZONAS";
-        function = "EDUCACIÓN";
-        uniqueCode = "2295844";
-        snipCode = "338552";
-        cost = "486,550.05";
     }
 
     public String getDepartment() {
@@ -65,12 +58,12 @@ public class PublicInvestmentProjectEntity {
         this.district = district;
     }
 
-    public String getUbigeo() {
-        return ubigeo;
+    public String getZipCode() {
+        return zipCode;
     }
 
-    public void setUbigeo(String ubigeo) {
-        this.ubigeo = ubigeo;
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
     }
 
     public String getLatitude() {

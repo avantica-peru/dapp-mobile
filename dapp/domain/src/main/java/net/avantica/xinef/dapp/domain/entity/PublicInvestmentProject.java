@@ -4,7 +4,7 @@ public class PublicInvestmentProject {
     private String department;
     private String province;
     private String district;
-    private String ubigeo;
+    private String zipCode;
     private String latitude;
     private String longitude;
     private String name;
@@ -40,12 +40,12 @@ public class PublicInvestmentProject {
         this.district = district;
     }
 
-    public String getUbigeo() {
-        return ubigeo;
+    public String getZipCode() {
+        return zipCode;
     }
 
-    public void setUbigeo(String ubigeo) {
-        this.ubigeo = ubigeo;
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
     }
 
     public String getLatitude() {

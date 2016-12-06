@@ -18,4 +18,6 @@
     <string name="exception_message_generic">There was an application error</string>
     <string name="exception_message_no_connection">There is no internet connection</string>
     <string name="exception_message_public_investment_project_not_found">Cannot retrieve public investment project data. Check your internet connection</string>
+
+    <string name="title_activity_splash">DAPP</string>
 </resources>
