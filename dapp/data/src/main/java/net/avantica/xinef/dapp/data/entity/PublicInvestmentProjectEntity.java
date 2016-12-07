@@ -1,37 +1,85 @@
 package net.avantica.xinef.dapp.data.entity;
 
-public class PublicInvestmentProjectEntity {
+import com.raizlabs.android.dbflow.annotation.Column;
+import com.raizlabs.android.dbflow.annotation.PrimaryKey;
+import com.raizlabs.android.dbflow.annotation.Table;
+import com.raizlabs.android.dbflow.structure.BaseModel;
+
+import net.avantica.xinef.dapp.data.repository.AppDataBase;
+
+@Table(database = AppDataBase.class, name = "PublicInvestmentProject")
+public class PublicInvestmentProjectEntity extends BaseModel {
+    @PrimaryKey(autoincrement = true)
+    @Column(name = "id")
+    private int id;
+    @Column(name = "Department")
     private String department;
+    @Column(name = "Province")
     private String province;
+    @Column(name = "District")
     private String district;
+    @Column(name = "ZipCode")
     private String zipCode;
+    @Column(name = "Latitude")
     private String latitude;
+    @Column(name = "Longitude")
     private String longitude;
+    @Column(name = "PopulatedCenter")
     private String populatedCenter;
+    @Column(name = "FormulatingUnit")
     private String formulatingUnit;
+    @Column(name = "Sector")
     private String sector;
+    @Column(name = "Folder")
     private String folder;
+    @Column(name = "Executor")
     private String executor;
+    @Column(name = "Level")
     private String level;
+    @Column(name = "SnipCode")
     private String snipCode;
+    @Column(name = "UniqueCode")
     private String uniqueCode;
+    @Column(name = "Name")
     private String name;
+    @Column(name = "Function")
     private String function;
+    @Column(name = "Program")
     private String program;
+    @Column(name = "Subprogram")
     private String subprogram;
+    @Column(name = "FundingSource")
     private String fundingSource;
+    @Column(name = "RegistrationDate")
     private String registrationDate;
+    @Column(name = "Situation")
     private String situation;
+    @Column(name = "State")
     private String state;
+    @Column(name = "Closed")
     private String closed;
+    @Column(name = "ViabDate")
     private String viabDate;
+    @Column(name = "viableAmount")
     private String viableAmount;
+    @Column(name = "Beneficiary")
     private String beneficiary;
+    @Column(name = "Objective")
     private String objective;
+    @Column(name = "Alternative")
     private String alternative;
+    @Column(name = "Cost")
     private String cost;
 
     public PublicInvestmentProjectEntity() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getDepartment() {

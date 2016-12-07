@@ -17,8 +17,8 @@
             android:name=".view.activity.SplashActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_splash"
-            android:theme="@style/FullscreenTheme"
-            android:noHistory="true">
+            android:noHistory="true"
+            android:theme="@style/FullscreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -37,7 +37,10 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".view.activity.ProjectDetailActivity" />
+        <activity
+            android:name=".view.activity.ProjectDetailActivity"
+            android:label="@string/title_activity_project_list"
+            android:parentActivityName="view.activity.MainActivity" />
 
     </application>
 

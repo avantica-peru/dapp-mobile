@@ -2,6 +2,7 @@ package net.avantica.xinef.dapp.view.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,23 +15,22 @@ import net.avantica.xinef.dapp.view.PublicInvestmentProjectDetailsView;
 
 import javax.inject.Inject;
 
-public class ProjectDetailFragment extends BaseFragment implements PublicInvestmentProjectDetailsView {
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
-    private String mParam1;
+public class ProjectDetailFragment extends BaseFragment implements PublicInvestmentProjectDetailsView {
 
     @Inject
     PublicInvestmentProjectDetailsPresenter publicInvestmentProjectDetailsPresenter;
 
+    private Unbinder unbinder;
+
     public ProjectDetailFragment() {
     }
 
-    public static ProjectDetailFragment newInstance(String param1, String param2) {
+    public static ProjectDetailFragment newInstance() {
         ProjectDetailFragment fragment = new ProjectDetailFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -40,26 +40,46 @@ public class ProjectDetailFragment extends BaseFragment implements PublicInvestm
         super.onCreate(savedInstanceState);
 
         this.getComponent(PublicInvestmentProjectComponent.class).inject(this);
-
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_project_detail, container, false);
+        unbinder = ButterKnife.bind(this, view);
         return view;
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        this.publicInvestmentProjectDetailsPresenter.setView(this);
+        if (savedInstanceState == null) {
+            this.loadPublicInvestmentProjectDetails();
+        }
     }
 
     @Override
-    public void onDetach() {
-        super.onDetach();
+    public void onResume() {
+        super.onResume();
+        this.publicInvestmentProjectDetailsPresenter.resume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        this.publicInvestmentProjectDetailsPresenter.pause();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        this.publicInvestmentProjectDetailsPresenter.destroy();
     }
 
     @Override
@@ -94,6 +114,15 @@ public class ProjectDetailFragment extends BaseFragment implements PublicInvestm
 
     @Override
     public Context context() {
-        return null;
+        return getActivity().getApplicationContext();
+    }
+
+    /**
+     * Loads project detail.
+     */
+    private void loadPublicInvestmentProjectDetails() {
+        if (this.publicInvestmentProjectDetailsPresenter != null) {
+            this.publicInvestmentProjectDetailsPresenter.initialize();
+        }
     }
 }

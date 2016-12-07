@@ -34,13 +34,13 @@ import dagger.Provides;
 @Module
 public class PublicInvestmentProjectModule {
 
-    private String userId = "";
+    private String uniqueCode = "";
 
     public PublicInvestmentProjectModule() {
     }
 
-    public PublicInvestmentProjectModule(String userId) {
-        this.userId = userId;
+    public PublicInvestmentProjectModule(String uniqueCode) {
+        this.uniqueCode = uniqueCode;
     }
 
     @Provides
@@ -53,10 +53,10 @@ public class PublicInvestmentProjectModule {
 
     @Provides
     @PerActivity
-    @Named("userDetails")
-    UseCase provideGetUserDetailsUseCase(
-            PublicInvestmentProjectRepository userRepository, ThreadExecutor threadExecutor,
+    @Named("publicInvestmentProjectDetails")
+    UseCase provideGetPublicInvestmentProjectDetailsUseCase(
+            PublicInvestmentProjectRepository publicInvestmentProjectRepository, ThreadExecutor threadExecutor,
             PostExecutionThread postExecutionThread) {
-        return new GetPublicInvestmentProjectDetails(userId, userRepository, threadExecutor, postExecutionThread);
+        return new GetPublicInvestmentProjectDetails(uniqueCode, publicInvestmentProjectRepository, threadExecutor, postExecutionThread);
     }
 }

@@ -2,7 +2,10 @@ package net.avantica.xinef.dapp;
 
 import android.app.Application;
 
-import net.avantica.xinef.dapp.BuildConfig;
+import com.raizlabs.android.dbflow.config.FlowConfig;
+import com.raizlabs.android.dbflow.config.FlowLog;
+import com.raizlabs.android.dbflow.config.FlowManager;
+
 import net.avantica.xinef.dapp.di.components.ApplicationComponent;
 import net.avantica.xinef.dapp.di.components.DaggerApplicationComponent;
 import net.avantica.xinef.dapp.di.modules.ApplicationModule;
@@ -17,6 +20,11 @@ public class AndroidApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        FlowManager.init(new FlowConfig.Builder(getApplicationContext()).build());
+        if (BuildConfig.DEBUG)
+            FlowLog.setMinimumLoggingLevel(FlowLog.Level.V);
+
         this.initializeInjector();
         this.initializeLeakDetection();
     }

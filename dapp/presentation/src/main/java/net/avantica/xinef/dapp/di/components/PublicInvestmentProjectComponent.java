@@ -33,7 +33,7 @@ import dagger.Component;
 public interface PublicInvestmentProjectComponent extends ActivityComponent {
     void inject(SplashFragment splashFragment);
 
-    void inject(ProjectListFragment userListFragment);
+    void inject(ProjectListFragment projectListFragment);
 
-    void inject(ProjectDetailFragment userDetailsFragment);
+    void inject(ProjectDetailFragment projectDetailFragment);
 }

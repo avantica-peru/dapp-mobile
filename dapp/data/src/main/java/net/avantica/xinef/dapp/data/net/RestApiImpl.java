@@ -59,7 +59,6 @@ public class RestApiImpl implements RestApi {
 
 //                    String[] columns = {"department", "province", "district", "zipCode"};
 
-
                     for (int row = totalCols; row < totalSize; row += totalCols) {
                         col = row;
                         final PublicInvestmentProjectEntity entity = new PublicInvestmentProjectEntity();
@@ -180,6 +179,9 @@ public class RestApiImpl implements RestApi {
                         entity.setCost(array.getfStr());
                         col++;
 
+//                        entity.setId(entities.size() + 1);
+
+                        entity.save();
                         entities.add(entity);
                     }
 
@@ -197,14 +199,30 @@ public class RestApiImpl implements RestApi {
     @RxLogObservable
     @Override
     public Observable<PublicInvestmentProjectEntity> publicInvestmentProjectEntityById(String uniqueCode) {
-        return null;
+        return Observable.create(subscriber -> {
+            if (isThereInternetConnection()) {
+                try {
+                    String responseUserEntities = getPublicInvestmentProjectDetailsFromApi(uniqueCode);
+
+                    PIPResult pipResult = publicInvestmentProjectEntityJsonMapper.transformPublicInvestmentProjectEntity(responseUserEntities);
+
+
+                    subscriber.onNext(null);
+                    subscriber.onCompleted();
+                } catch (Exception e) {
+                    subscriber.onError(new NetworkConnectionException(e.getCause()));
+                }
+            } else {
+                subscriber.onError(new NetworkConnectionException());
+            }
+        });
     }
 
     private String getPublicInvestmentProjectListFromApi() throws MalformedURLException {
         return ApiConnection.createGET(API_URL_GET_PUBLIC_INVESTMENT_PROJECT_LIST).requestSyncCall();
     }
 
-    private String getPublicInvestmentProjectDetailsFromApi(int userId) throws MalformedURLException {
+    private String getPublicInvestmentProjectDetailsFromApi(String uniqueCode) throws MalformedURLException {
         String apiUrl = API_URL_GET_PUBLIC_INVESTMENT_PROJECT_DETAIL;
         return ApiConnection.createGET(apiUrl).requestSyncCall();
     }

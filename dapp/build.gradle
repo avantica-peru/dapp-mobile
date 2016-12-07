@@ -24,6 +24,10 @@ allprojects {
         androidQAVersionName = "1.0"
         testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
     }
+
+    repositories {
+        maven { url "https://www.jitpack.io" }
+    }
 }
 
 task wrapper(type: Wrapper) {

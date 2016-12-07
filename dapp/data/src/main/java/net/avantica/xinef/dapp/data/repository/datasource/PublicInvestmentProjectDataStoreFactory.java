@@ -27,11 +27,11 @@ public class PublicInvestmentProjectDataStoreFactory {
     public PublicInvestmentProjectDataStore create(String publicInvestmentProjectId) {
         PublicInvestmentProjectDataStore publicInvestmentProjectDataStore;
 
-        if (!this.publicInvestmentProjectCache.isExpired() && this.publicInvestmentProjectCache.isCached(publicInvestmentProjectId)) {
-            publicInvestmentProjectDataStore = new DiskPublicInvestmentProjectDataStore(this.publicInvestmentProjectCache);
-        } else {
-            publicInvestmentProjectDataStore = createCloudDataStore();
-        }
+//        if (!this.publicInvestmentProjectCache.isExpired() && this.publicInvestmentProjectCache.isCached(publicInvestmentProjectId)) {
+        publicInvestmentProjectDataStore = new DiskPublicInvestmentProjectDataStore(this.publicInvestmentProjectCache);
+//        } else {
+//            publicInvestmentProjectDataStore = createCloudDataStore();
+//        }
 
         return publicInvestmentProjectDataStore;
     }
