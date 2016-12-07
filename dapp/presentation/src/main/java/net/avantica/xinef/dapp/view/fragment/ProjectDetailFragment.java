@@ -2,18 +2,26 @@ package net.avantica.xinef.dapp.view.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import net.avantica.xinef.dapp.R;
+import net.avantica.xinef.dapp.di.components.PublicInvestmentProjectComponent;
+import net.avantica.xinef.dapp.model.PublicInvestmentProjectModel;
+import net.avantica.xinef.dapp.presenter.PublicInvestmentProjectDetailsPresenter;
+import net.avantica.xinef.dapp.view.PublicInvestmentProjectDetailsView;
 
-public class ProjectDetailFragment extends Fragment {
+import javax.inject.Inject;
+
+public class ProjectDetailFragment extends BaseFragment implements PublicInvestmentProjectDetailsView {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
     private String mParam1;
+
+    @Inject
+    PublicInvestmentProjectDetailsPresenter publicInvestmentProjectDetailsPresenter;
 
     public ProjectDetailFragment() {
     }
@@ -30,6 +38,9 @@ public class ProjectDetailFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        this.getComponent(PublicInvestmentProjectComponent.class).inject(this);
+
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
         }
@@ -49,5 +60,40 @@ public class ProjectDetailFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
+    }
+
+    @Override
+    public void renderPublicInvestmentProject(PublicInvestmentProjectModel publicInvestmentProject) {
+
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
+    }
+
+    @Override
+    public void showRetry() {
+
+    }
+
+    @Override
+    public void hideRetry() {
+
+    }
+
+    @Override
+    public void showError(String message) {
+
+    }
+
+    @Override
+    public Context context() {
+        return null;
     }
 }

@@ -16,8 +16,10 @@ import net.avantica.xinef.dapp.di.components.PublicInvestmentProjectComponent;
 import net.avantica.xinef.dapp.model.PublicInvestmentProjectModel;
 import net.avantica.xinef.dapp.presenter.PublicInvestmentProjectListPresenter;
 import net.avantica.xinef.dapp.view.PublicInvestmentProjectListView;
+import net.avantica.xinef.dapp.view.activity.MainActivity;
 import net.avantica.xinef.dapp.view.adapter.ProjectListAdapter;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.inject.Inject;
@@ -50,9 +52,10 @@ public class ProjectListFragment extends BaseFragment implements PublicInvestmen
         setRetainInstance(true);
     }
 
-    public static ProjectListFragment newInstance() {
+    public static ProjectListFragment newInstance(ArrayList<PublicInvestmentProjectModel> publicInvestmentProjectModels) {
         ProjectListFragment fragment = new ProjectListFragment();
         Bundle args = new Bundle();
+        args.putParcelableArrayList(MainActivity.PIP_ARRAY_KEY, publicInvestmentProjectModels);
         fragment.setArguments(args);
         return fragment;
     }
@@ -61,10 +64,6 @@ public class ProjectListFragment extends BaseFragment implements PublicInvestmen
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.getComponent(PublicInvestmentProjectComponent.class).inject(this);
-
-        if (getArguments() != null) {
-
-        }
     }
 
     @Override
@@ -77,6 +76,13 @@ public class ProjectListFragment extends BaseFragment implements PublicInvestmen
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_project_list, container, false);
         unbinder = ButterKnife.bind(this, view);
+
+        if (getArguments() != null) {
+//            if (getArguments().containsKey(MainActivity.PIP_ARRAY_KEY)) {
+            ArrayList<PublicInvestmentProjectModel> aux = getArguments().getParcelableArrayList(MainActivity.PIP_ARRAY_KEY);
+//            }
+        }
+
         setupRecyclerView();
         setHasOptionsMenu(true);
 
@@ -90,7 +96,7 @@ public class ProjectListFragment extends BaseFragment implements PublicInvestmen
         this.publicInvestmentProjectListPresenter.setView(this);
 
         if (savedInstanceState == null) {
-//            this.loadPublicInvestmentProjectList();
+            this.loadPublicInvestmentProjectList();
         }
     }
 

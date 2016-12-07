@@ -128,4 +128,5 @@ dependencies {
     //Development
     compile developmentDependencies.leakCanary
     compile 'com.android.support:support-v4:25.0.1'
+    compile 'com.android.support.constraint:constraint-layout:1.0.0-beta4'
 }

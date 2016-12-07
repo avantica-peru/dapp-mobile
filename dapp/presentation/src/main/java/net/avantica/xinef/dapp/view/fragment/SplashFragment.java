@@ -133,11 +133,11 @@ public class SplashFragment extends BaseFragment implements PublicInvestmentProj
 
     @Override
     public void showError(String message) {
-
+        showToastMessage("Error!");
     }
 
     @Override
     public Context context() {
-        return null;
+        return this.getActivity().getApplicationContext();
     }
 }

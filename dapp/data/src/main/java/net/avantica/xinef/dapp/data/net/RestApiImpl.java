@@ -53,131 +53,132 @@ public class RestApiImpl implements RestApi {
                     final List<Array> arrayResult = pipResult.getResult().getfArray();
                     int totalCols = pipResult.getResult().getfCols();
                     int totalSize = pipResult.getResult().getfArray().size();
-                    int row = 0;
-
 
                     Array array;
-                    int x;
+                    int col;
 
-                    for (int i = totalCols; i < totalSize; i += totalCols) {
-                        x = i;
+//                    String[] columns = {"department", "province", "district", "zipCode"};
+
+
+                    for (int row = totalCols; row < totalSize; row += totalCols) {
+                        col = row;
                         final PublicInvestmentProjectEntity entity = new PublicInvestmentProjectEntity();
 
-//                        array = arrayResult.get(x);
-//                        entity.setDepartment(array.getfStr());
-//                        x++;
-//
-//                        array = arrayResult.get(x);
-//                        entity.setProvince(array.getfStr());
-//                        x++;
-//
-//                        array = arrayResult.get(x);
-//                        entity.setDistrict(array.getfStr());
-//                        x++;
-//
-//                        array = arrayResult.get(x);
-//                        entity.setZipCode(array.getfStr());
-//                        x++;
-//
-//                        array = arrayResult.get(x);
-//                        entity.setLatitude(array.getfStr());
-//                        x++;
-//
-//                        array = arrayResult.get(x);
-//                        entity.setLongitude(array.getfStr());
-//                        x++;
-//
-//                        array = arrayResult.get(x);
-//                        entity.set(array.getfStr());
-//                        x++;
-//
-//                        array = arrayResult.get(x);
-//                        entity.set(array.getfStr());
-//                        x++;
-//
-//                        array = arrayResult.get(x);
-//                        entity.set(array.getfStr());
-//                        x++;
-//
-//                        array = arrayResult.get(x);
-//                        entity.set(array.getfStr());
-//                        x++;
-//
-//                        array = arrayResult.get(x);
-//                        entity.set(array.getfStr());
-//                        x++;
-//
-//                        array = arrayResult.get(x);
-//                        entity.set(array.getfStr());
-//                        x++;
-//
-//                        array = arrayResult.get(x);
-//                        entity.set(array.getfStr());
-//                        x++;
-//
-//                        array = arrayResult.get(x);
-//                        entity.set(array.getfStr());
-//                        x++;
-//
-//                        array = arrayResult.get(x);
-//                        entity.set(array.getfStr());
-//                        x++;
-//
-//                        array = arrayResult.get(x);
-//                        entity.set(array.getfStr());
-//                        x++;
-//
-//                        array = arrayResult.get(x);
-//                        entity.set(array.getfStr());
-//                        x++;
-//
-//                        array = arrayResult.get(x);
-//                        entity.set(array.getfStr());
-//                        x++;
-//
-//                        array = arrayResult.get(x);
-//                        entity.set(array.getfStr());
-//                        x++;
-//
-//                        array = arrayResult.get(x);
-//                        entity.set(array.getfStr());
-//                        x++;
-//
-//                        array = arrayResult.get(x);
-//                        entity.set(array.getfStr());
-//                        x++;
-//
-//                        array = arrayResult.get(x);
-//                        entity.set(array.getfStr());
-//                        x++;
-//
-//                        array = arrayResult.get(x);
-//                        entity.set(array.getfStr());
-//                        x++;
-//
-//                        array = arrayResult.get(x);
-//                        entity.set(array.getfStr());
-//                        x++;
-//
-//                        array = arrayResult.get(x);
-//                        entity.set(array.getfStr());
-//                        x++;
-//
-//                        array = arrayResult.get(x);
-//                        entity.set(array.getfStr());
-//                        x++;
-//
-//                        array = arrayResult.get(x);
-//                        entity.set(array.getfStr());
-//                        x++;
-//
-//                        array = arrayResult.get(x);
-//                        entity.set(array.getfStr());
-//                        x++;
-//
-//                        array = arrayResult.get(x);
-//                        entity.set(array.getfStr());
-//                        x++;
+                        array = arrayResult.get(col);
+                        entity.setDepartment(array.getfStr());
+                        col++;
+
+                        array = arrayResult.get(col);
+                        entity.setProvince(array.getfStr());
+                        col++;
+
+                        array = arrayResult.get(col);
+                        entity.setDistrict(array.getfStr());
+                        col++;
+
+                        array = arrayResult.get(col);
+                        entity.setZipCode(array.getfStr());
+                        col++;
+
+                        array = arrayResult.get(col);
+                        entity.setLatitude(array.getfStr());
+                        col++;
+
+                        array = arrayResult.get(col);
+                        entity.setLongitude(array.getfStr());
+                        col++;
+
+                        array = arrayResult.get(col);
+                        entity.setPopulatedCenter(array.getfStr());
+                        col++;
+
+                        array = arrayResult.get(col);
+                        entity.setFormulatingUnit(array.getfStr());
+                        col++;
+
+                        array = arrayResult.get(col);
+                        entity.setSector(array.getfStr());
+                        col++;
+
+                        array = arrayResult.get(col);
+                        entity.setFolder(array.getfStr());
+                        col++;
+
+                        array = arrayResult.get(col);
+                        entity.setExecutor(array.getfStr());
+                        col++;
+
+                        array = arrayResult.get(col);
+                        entity.setLevel(array.getfStr());
+                        col++;
+
+                        array = arrayResult.get(col);
+                        entity.setSnipCode(array.getfStr());
+                        col++;
+
+                        array = arrayResult.get(col);
+                        entity.setUniqueCode(array.getfStr());
+                        col++;
+
+                        array = arrayResult.get(col);
+                        entity.setName(array.getfStr());
+                        col++;
+
+                        array = arrayResult.get(col);
+                        entity.setFunction(array.getfStr());
+                        col++;
+
+                        array = arrayResult.get(col);
+                        entity.setProgram(array.getfStr());
+                        col++;
+
+                        array = arrayResult.get(col);
+                        entity.setSubprogram(array.getfStr());
+                        col++;
+
+                        array = arrayResult.get(col);
+                        entity.setFundingSource(array.getfStr());
+                        col++;
+
+                        array = arrayResult.get(col);
+                        entity.setRegistrationDate(array.getfStr());
+                        col++;
+
+                        array = arrayResult.get(col);
+                        entity.setSituation(array.getfStr());
+                        col++;
+
+                        array = arrayResult.get(col);
+                        entity.setState(array.getfStr());
+                        col++;
+
+                        array = arrayResult.get(col);
+                        entity.setClosed(array.getfStr());
+                        col++;
+
+                        array = arrayResult.get(col);
+                        entity.setViabDate(array.getfStr());
+                        col++;
+
+                        array = arrayResult.get(col);
+                        entity.setViableAmount(array.getfStr());
+                        col++;
+
+                        array = arrayResult.get(col);
+                        entity.setBeneficiary(array.getfStr());
+                        col++;
+
+                        array = arrayResult.get(col);
+                        entity.setObjective(array.getfStr());
+                        col++;
+
+                        array = arrayResult.get(col);
+                        entity.setAlternative(array.getfStr());
+                        col++;
+
+                        array = arrayResult.get(col);
+                        entity.setCost(array.getfStr());
+                        col++;
 
                         entities.add(entity);
                     }

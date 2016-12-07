@@ -82,6 +82,70 @@ public class PublicInvestmentProjectEntity {
         this.longitude = longitude;
     }
 
+    public String getPopulatedCenter() {
+        return populatedCenter;
+    }
+
+    public void setPopulatedCenter(String populatedCenter) {
+        this.populatedCenter = populatedCenter;
+    }
+
+    public String getFormulatingUnit() {
+        return formulatingUnit;
+    }
+
+    public void setFormulatingUnit(String formulatingUnit) {
+        this.formulatingUnit = formulatingUnit;
+    }
+
+    public String getSector() {
+        return sector;
+    }
+
+    public void setSector(String sector) {
+        this.sector = sector;
+    }
+
+    public String getFolder() {
+        return folder;
+    }
+
+    public void setFolder(String folder) {
+        this.folder = folder;
+    }
+
+    public String getExecutor() {
+        return executor;
+    }
+
+    public void setExecutor(String executor) {
+        this.executor = executor;
+    }
+
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
+    }
+
+    public String getSnipCode() {
+        return snipCode;
+    }
+
+    public void setSnipCode(String snipCode) {
+        this.snipCode = snipCode;
+    }
+
+    public String getUniqueCode() {
+        return uniqueCode;
+    }
+
+    public void setUniqueCode(String uniqueCode) {
+        this.uniqueCode = uniqueCode;
+    }
+
     public String getName() {
         return name;
     }
@@ -98,20 +162,100 @@ public class PublicInvestmentProjectEntity {
         this.function = function;
     }
 
-    public String getUniqueCode() {
-        return uniqueCode;
+    public String getProgram() {
+        return program;
     }
 
-    public void setUniqueCode(String uniqueCode) {
-        this.uniqueCode = uniqueCode;
+    public void setProgram(String program) {
+        this.program = program;
     }
 
-    public String getSnipCode() {
-        return snipCode;
+    public String getSubprogram() {
+        return subprogram;
     }
 
-    public void setSnipCode(String snipCode) {
-        this.snipCode = snipCode;
+    public void setSubprogram(String subprogram) {
+        this.subprogram = subprogram;
+    }
+
+    public String getFundingSource() {
+        return fundingSource;
+    }
+
+    public void setFundingSource(String fundingSource) {
+        this.fundingSource = fundingSource;
+    }
+
+    public String getRegistrationDate() {
+        return registrationDate;
+    }
+
+    public void setRegistrationDate(String registrationDate) {
+        this.registrationDate = registrationDate;
+    }
+
+    public String getSituation() {
+        return situation;
+    }
+
+    public void setSituation(String situation) {
+        this.situation = situation;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getClosed() {
+        return closed;
+    }
+
+    public void setClosed(String closed) {
+        this.closed = closed;
+    }
+
+    public String getViabDate() {
+        return viabDate;
+    }
+
+    public void setViabDate(String viabDate) {
+        this.viabDate = viabDate;
+    }
+
+    public String getViableAmount() {
+        return viableAmount;
+    }
+
+    public void setViableAmount(String viableAmount) {
+        this.viableAmount = viableAmount;
+    }
+
+    public String getBeneficiary() {
+        return beneficiary;
+    }
+
+    public void setBeneficiary(String beneficiary) {
+        this.beneficiary = beneficiary;
+    }
+
+    public String getObjective() {
+        return objective;
+    }
+
+    public void setObjective(String objective) {
+        this.objective = objective;
+    }
+
+    public String getAlternative() {
+        return alternative;
+    }
+
+    public void setAlternative(String alternative) {
+        this.alternative = alternative;
     }
 
     public String getCost() {

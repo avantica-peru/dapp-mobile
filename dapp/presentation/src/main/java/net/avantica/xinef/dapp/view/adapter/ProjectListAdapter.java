@@ -60,7 +60,7 @@ public class ProjectListAdapter extends RecyclerView.Adapter<ProjectListAdapter.
     }
 
     public void setPublicInvestmentProjectCollection(Collection<PublicInvestmentProjectModel> publicInvestmentProjectModelCollection) {
-        this.validateUsersCollection(publicInvestmentProjectModelCollection);
+        this.validatePublicInvestmentProjectsCollection(publicInvestmentProjectModelCollection);
         this.publicInvestmentProjectModels = (List<PublicInvestmentProjectModel>) publicInvestmentProjectModelCollection;
         this.notifyDataSetChanged();
     }
@@ -69,7 +69,7 @@ public class ProjectListAdapter extends RecyclerView.Adapter<ProjectListAdapter.
         this.onItemClickListener = onItemClickListener;
     }
 
-    private void validateUsersCollection(Collection<PublicInvestmentProjectModel> publicInvestmentProjectModelCollection) {
+    private void validatePublicInvestmentProjectsCollection(Collection<PublicInvestmentProjectModel> publicInvestmentProjectModelCollection) {
         if (publicInvestmentProjectModelCollection == null) {
             throw new IllegalArgumentException("The list cannot be null");
         }

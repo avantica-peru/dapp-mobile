@@ -13,7 +13,7 @@ import net.avantica.xinef.dapp.di.components.PublicInvestmentProjectComponent;
 import net.avantica.xinef.dapp.model.PublicInvestmentProjectModel;
 import net.avantica.xinef.dapp.view.fragment.ProjectListFragment;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -41,16 +41,16 @@ public class MainActivity extends BaseActivity implements HasComponent<PublicInv
         this.initializeInjector();
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
-            List<PublicInvestmentProjectModel> publicInvestmentProjectModels = extras.getParcelableArrayList(PIP_ARRAY_KEY);
+            ArrayList<PublicInvestmentProjectModel> publicInvestmentProjectModels = extras.getParcelableArrayList(PIP_ARRAY_KEY);
 
-            showProjectListView();
+            showProjectListView(publicInvestmentProjectModels);
         }
     }
 
-    private void showProjectListView() {
+    private void showProjectListView(ArrayList<PublicInvestmentProjectModel> publicInvestmentProjectModels) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 
-        ProjectListFragment newFragment = ProjectListFragment.newInstance();
+        ProjectListFragment newFragment = ProjectListFragment.newInstance(publicInvestmentProjectModels);
         Bundle bundle = new Bundle();
         newFragment.setArguments(bundle);
         fragmentTransaction.replace(R.id.container, newFragment, ProjectListFragment.class.getName());
