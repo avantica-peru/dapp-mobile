@@ -9,8 +9,8 @@ import net.avantica.xinef.dapp.data.repository.AppDataBase;
 
 @Table(database = AppDataBase.class, name = "PublicInvestmentProject")
 public class PublicInvestmentProjectEntity extends BaseModel {
+    @Column(name = "Id")
     @PrimaryKey(autoincrement = true)
-    @Column(name = "id")
     private int id;
     @Column(name = "Department")
     private String department;
@@ -60,7 +60,7 @@ public class PublicInvestmentProjectEntity extends BaseModel {
     private String closed;
     @Column(name = "ViabDate")
     private String viabDate;
-    @Column(name = "viableAmount")
+    @Column(name = "ViableAmount")
     private String viableAmount;
     @Column(name = "Beneficiary")
     private String beneficiary;

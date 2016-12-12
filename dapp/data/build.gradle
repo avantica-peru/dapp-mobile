@@ -86,7 +86,8 @@ dependencies {
     compile dataDependencies.rxJava
     compile dataDependencies.rxAndroid
     compile dataDependencies.androidAnnotations
-    apt dataDependencies.dbFlowCompiler
+    annotationProcessor dataDependencies.dbFlowProcessor
+    apt dataDependencies.dbFlowProcessor
     compile dataDependencies.dbFlowCore
     compile dataDependencies.dbFlow
 

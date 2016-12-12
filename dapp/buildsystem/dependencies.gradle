@@ -28,7 +28,7 @@ ext {
     okHttpVersion = '3.5.0'
     androidAnnotationsVersion = '21.0.3'
     glideVersion = '3.7.0'
-    dbFlowCompilerVersion = '3.1.1'
+    dbFlowProcessorVersion = '3.1.1'
     dbFlowCoreVersion = '3.1.1'
     dbFlowVersion = '3.1.1'
 
@@ -81,18 +81,18 @@ ext {
     ]
 
     dataDependencies = [
-            daggerCompiler    : "com.google.dagger:dagger-compiler:${daggerVersion}",
-            dagger            : "com.google.dagger:dagger:${daggerVersion}",
-            okHttp            : "com.squareup.okhttp3:okhttp:${okHttpVersion}",
-            gson              : "com.google.code.gson:gson:${gsonVersion}",
-            rxJava            : "io.reactivex:rxjava:${rxJavaVersion}",
-            rxAndroid         : "io.reactivex:rxandroid:${rxAndroidVersion}",
-            javaxAnnotation   : "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
-            javaxInject       : "javax.inject:javax.inject:${javaxInjectVersion}",
-            androidAnnotations: "com.android.support:support-annotations:${androidAnnotationsVersion}",
-            dbFlowCompiler    : "com.github.Raizlabs.DBFlow:dbflow-processor:${dbFlowCompilerVersion}",
-            dbFlowCore        : "com.github.Raizlabs.DBFlow:dbflow-core:${dbFlowCoreVersion}",
-            dbFlow            : "com.github.Raizlabs.DBFlow:dbflow:${dbFlowVersion}"
+            daggerCompiler           : "com.google.dagger:dagger-compiler:${daggerVersion}",
+            dagger                   : "com.google.dagger:dagger:${daggerVersion}",
+            okHttp                   : "com.squareup.okhttp3:okhttp:${okHttpVersion}",
+            gson                     : "com.google.code.gson:gson:${gsonVersion}",
+            rxJava                   : "io.reactivex:rxjava:${rxJavaVersion}",
+            rxAndroid                : "io.reactivex:rxandroid:${rxAndroidVersion}",
+            javaxAnnotation          : "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
+            javaxInject              : "javax.inject:javax.inject:${javaxInjectVersion}",
+            androidAnnotations       : "com.android.support:support-annotations:${androidAnnotationsVersion}",
+            dbFlowProcessor          : "com.github.Raizlabs.DBFlow:dbflow-processor:${dbFlowProcessorVersion}",
+            dbFlowCore               : "com.github.Raizlabs.DBFlow:dbflow-core:${dbFlowCoreVersion}",
+            dbFlow                   : "com.github.Raizlabs.DBFlow:dbflow:${dbFlowVersion}"
     ]
 
     dataTestDependencies = [

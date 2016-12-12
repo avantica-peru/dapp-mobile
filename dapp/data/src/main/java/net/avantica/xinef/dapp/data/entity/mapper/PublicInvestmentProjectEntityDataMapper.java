@@ -38,10 +38,28 @@ public class PublicInvestmentProjectEntityDataMapper {
             publicInvestmentProject.setZipCode(publicInvestmentProjectEntity.getZipCode());
             publicInvestmentProject.setLatitude(publicInvestmentProjectEntity.getLatitude());
             publicInvestmentProject.setLongitude(publicInvestmentProjectEntity.getLongitude());
+            publicInvestmentProject.setPopulatedCenter(publicInvestmentProjectEntity.getPopulatedCenter());
+            publicInvestmentProject.setFormulatingUnit(publicInvestmentProjectEntity.getFormulatingUnit());
+            publicInvestmentProject.setSector(publicInvestmentProjectEntity.getSector());
+            publicInvestmentProject.setFolder(publicInvestmentProjectEntity.getFolder());
+            publicInvestmentProject.setExecutor(publicInvestmentProjectEntity.getExecutor());
+            publicInvestmentProject.setLevel(publicInvestmentProjectEntity.getLevel());
+            publicInvestmentProject.setSnipCode(publicInvestmentProjectEntity.getSnipCode());
+            publicInvestmentProject.setUniqueCode(publicInvestmentProjectEntity.getUniqueCode());
             publicInvestmentProject.setName(publicInvestmentProjectEntity.getName());
             publicInvestmentProject.setFunction(publicInvestmentProjectEntity.getFunction());
-            publicInvestmentProject.setUniqueCode(publicInvestmentProjectEntity.getUniqueCode());
-            publicInvestmentProject.setSnipCode(publicInvestmentProjectEntity.getSnipCode());
+            publicInvestmentProject.setProgram(publicInvestmentProjectEntity.getProgram());
+            publicInvestmentProject.setSubprogram(publicInvestmentProjectEntity.getSubprogram());
+            publicInvestmentProject.setFundingSource(publicInvestmentProjectEntity.getFundingSource());
+            publicInvestmentProject.setRegistrationDate(publicInvestmentProjectEntity.getRegistrationDate());
+            publicInvestmentProject.setSituation(publicInvestmentProjectEntity.getSituation());
+            publicInvestmentProject.setState(publicInvestmentProjectEntity.getState());
+            publicInvestmentProject.setClosed(publicInvestmentProjectEntity.getClosed());
+            publicInvestmentProject.setViabDate(publicInvestmentProjectEntity.getViabDate());
+            publicInvestmentProject.setViableAmount(publicInvestmentProjectEntity.getViableAmount());
+            publicInvestmentProject.setBeneficiary(publicInvestmentProjectEntity.getBeneficiary());
+            publicInvestmentProject.setObjective(publicInvestmentProjectEntity.getObjective());
+            publicInvestmentProject.setAlternative(publicInvestmentProjectEntity.getAlternative());
             publicInvestmentProject.setCost(publicInvestmentProjectEntity.getCost());
         }
 

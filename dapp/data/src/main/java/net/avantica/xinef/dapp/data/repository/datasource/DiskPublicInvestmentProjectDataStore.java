@@ -1,6 +1,9 @@
 package net.avantica.xinef.dapp.data.repository.datasource;
 
+import com.raizlabs.android.dbflow.sql.language.From;
+import com.raizlabs.android.dbflow.sql.language.SQLite;
 import com.raizlabs.android.dbflow.sql.language.Select;
+import com.raizlabs.android.dbflow.sql.language.Where;
 
 import net.avantica.xinef.dapp.data.cache.PublicInvestmentProjectCache;
 import net.avantica.xinef.dapp.data.entity.PublicInvestmentProjectEntity;
@@ -33,7 +36,9 @@ public class DiskPublicInvestmentProjectDataStore implements PublicInvestmentPro
     public Observable<List<PublicInvestmentProjectEntity>> publicInvestmentProjectEntityList() {
         return Observable.create(subscriber -> {
             try {
-                List<PublicInvestmentProjectEntity> list = new Select().from(PublicInvestmentProjectEntity.class).as("PublicInvestmentProject").queryList();
+                final Select select = SQLite.select();
+                final From from = select.from(PublicInvestmentProjectEntity.class);
+                List<PublicInvestmentProjectEntity> list = from.queryList();
 
                 subscriber.onNext(list);
                 subscriber.onCompleted();
@@ -44,10 +49,14 @@ public class DiskPublicInvestmentProjectDataStore implements PublicInvestmentPro
     }
 
     @Override
-    public Observable<PublicInvestmentProjectEntity> publicInvestmentProjectEntityDetails(String uniqueCode) {
+    public Observable<List<PublicInvestmentProjectEntity>> publicInvestmentProjectEntityDetails(String uniqueCode) {
         return Observable.create(subscriber -> {
             try {
-                PublicInvestmentProjectEntity publicInvestmentProjectEntity = new Select().from(PublicInvestmentProjectEntity.class).as("PublicInvestmentProject").where(PublicInvestmentProjectEntity_Table.UniqueCode.like(uniqueCode)).querySingle();
+                final Select select = SQLite.select();
+                final From from = select.from(PublicInvestmentProjectEntity.class);
+                final Where where = from.where(PublicInvestmentProjectEntity_Table.UniqueCode.like(uniqueCode));
+
+                List<PublicInvestmentProjectEntity> publicInvestmentProjectEntity = where.queryList();
 
                 if (publicInvestmentProjectEntity != null) {
                     subscriber.onNext(publicInvestmentProjectEntity);

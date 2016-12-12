@@ -21,5 +21,5 @@ public interface RestApi {
      *
      * @param uniqueCode The unique code used to get public investment project data.
      */
-    Observable<PublicInvestmentProjectEntity> publicInvestmentProjectEntityById(final String uniqueCode);
+    Observable<List<PublicInvestmentProjectEntity>> publicInvestmentProjectEntityById(final String uniqueCode);
 }

@@ -20,5 +20,5 @@ public interface PublicInvestmentProjectRepository {
      *
      * @param publicInvestmentProjectId The public investment project id used to retrieve public investment project data.
      */
-    Observable<PublicInvestmentProject> publicInvestmentProject(final String publicInvestmentProjectId);
+    Observable<List<PublicInvestmentProject>> publicInvestmentProject(final String publicInvestmentProjectId);
 }

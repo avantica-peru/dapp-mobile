@@ -20,4 +20,24 @@
     <string name="exception_message_public_investment_project_not_found">Cannot retrieve public investment project data. Check your internet connection</string>
 
     <string name="title_activity_splash">DAPP</string>
+    <string name="centro_poblado">Centro poblado</string>
+    <string name="unidad_formuladora">Unidad formuladora</string>
+    <string name="sector">Sector</string>
+    <string name="pliego">Pliego</string>
+    <string name="ejecutora">Ejecutora</string>
+    <string name="c_digo_snip">Código SNIP</string>
+    <string name="c_digo_nico">Código único</string>
+    <string name="funci_n">Función</string>
+    <string name="programa">Programa</string>
+    <string name="sub_programa">Sub programa</string>
+    <string name="fuente_financiamiento">Fuente financiamiento</string>
+    <string name="fecha_registro">Fecha registro</string>
+    <string name="situacion">Situacion</string>
+    <string name="closed">Cerrado</string>
+    <string name="fecha_viab">Fecha viab</string>
+    <string name="monto_viable">Monto viable</string>
+    <string name="beneficiario">Beneficiario</string>
+    <string name="objetivo">Objetivo</string>
+    <string name="alternativa">Alternativa</string>
+    <string name="costo">Costo</string>
 </resources>

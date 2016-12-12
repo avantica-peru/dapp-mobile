@@ -10,5 +10,5 @@ public interface PublicInvestmentProjectDataStore {
 
     Observable<List<PublicInvestmentProjectEntity>> publicInvestmentProjectEntityList();
 
-    Observable<PublicInvestmentProjectEntity> publicInvestmentProjectEntityDetails(final String uniqueCode);
+    Observable<List<PublicInvestmentProjectEntity>> publicInvestmentProjectEntityDetails(final String uniqueCode);
 }

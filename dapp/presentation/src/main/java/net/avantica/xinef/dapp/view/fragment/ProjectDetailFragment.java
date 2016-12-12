@@ -13,6 +13,8 @@ import net.avantica.xinef.dapp.model.PublicInvestmentProjectModel;
 import net.avantica.xinef.dapp.presenter.PublicInvestmentProjectDetailsPresenter;
 import net.avantica.xinef.dapp.view.PublicInvestmentProjectDetailsView;
 
+import java.util.Collection;
+
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;
@@ -22,6 +24,8 @@ public class ProjectDetailFragment extends BaseFragment implements PublicInvestm
 
     @Inject
     PublicInvestmentProjectDetailsPresenter publicInvestmentProjectDetailsPresenter;
+
+//    @BindViews({})
 
     private Unbinder unbinder;
 
@@ -83,7 +87,7 @@ public class ProjectDetailFragment extends BaseFragment implements PublicInvestm
     }
 
     @Override
-    public void renderPublicInvestmentProject(PublicInvestmentProjectModel publicInvestmentProject) {
+    public void renderPublicInvestmentProject(Collection<PublicInvestmentProjectModel> publicInvestmentProject) {
 
     }
 

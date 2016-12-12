@@ -7,6 +7,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
 
+import com.raizlabs.android.dbflow.sql.language.Delete;
+
 import net.avantica.xinef.dapp.data.annotation.RxLogObservable;
 import net.avantica.xinef.dapp.data.entity.Array;
 import net.avantica.xinef.dapp.data.entity.PIPResult;
@@ -58,6 +60,8 @@ public class RestApiImpl implements RestApi {
                     int col;
 
 //                    String[] columns = {"department", "province", "district", "zipCode"};
+
+                    Delete.table(PublicInvestmentProjectEntity.class);
 
                     for (int row = totalCols; row < totalSize; row += totalCols) {
                         col = row;
@@ -198,7 +202,7 @@ public class RestApiImpl implements RestApi {
 
     @RxLogObservable
     @Override
-    public Observable<PublicInvestmentProjectEntity> publicInvestmentProjectEntityById(String uniqueCode) {
+    public Observable<List<PublicInvestmentProjectEntity>> publicInvestmentProjectEntityById(String uniqueCode) {
         return Observable.create(subscriber -> {
             if (isThereInternetConnection()) {
                 try {

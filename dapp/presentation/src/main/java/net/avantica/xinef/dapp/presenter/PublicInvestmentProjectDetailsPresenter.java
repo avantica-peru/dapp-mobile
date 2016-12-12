@@ -14,6 +14,9 @@ import net.avantica.xinef.dapp.mapper.PublicInvestmentProjectModelDataMapper;
 import net.avantica.xinef.dapp.model.PublicInvestmentProjectModel;
 import net.avantica.xinef.dapp.view.PublicInvestmentProjectDetailsView;
 
+import java.util.Collection;
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -91,8 +94,8 @@ public class PublicInvestmentProjectDetailsPresenter implements Presenter {
         this.viewDetailsView.showError(errorMessage);
     }
 
-    private void showPublicInvestmentProjectDetailsInView(PublicInvestmentProject publicInvestmentProject) {
-        final PublicInvestmentProjectModel publicInvestmentProjectModel = this.publicInvestmentProjectModelDataMapper.transform(publicInvestmentProject);
+    private void showPublicInvestmentProjectDetailsInView(Collection<PublicInvestmentProject> publicInvestmentProject) {
+        final Collection<PublicInvestmentProjectModel> publicInvestmentProjectModel = this.publicInvestmentProjectModelDataMapper.transform(publicInvestmentProject);
         this.viewDetailsView.renderPublicInvestmentProject(publicInvestmentProjectModel);
     }
 
@@ -101,7 +104,7 @@ public class PublicInvestmentProjectDetailsPresenter implements Presenter {
     }
 
     @RxLogSubscriber
-    private final class PublicInvestmentProjectDetailsSubscriber extends DefaultSubscriber<PublicInvestmentProject> {
+    private final class PublicInvestmentProjectDetailsSubscriber extends DefaultSubscriber<List<PublicInvestmentProject>> {
 
         @Override
         public void onCompleted() {
@@ -116,7 +119,7 @@ public class PublicInvestmentProjectDetailsPresenter implements Presenter {
         }
 
         @Override
-        public void onNext(PublicInvestmentProject publicInvestmentProject) {
+        public void onNext(List<PublicInvestmentProject> publicInvestmentProject) {
             PublicInvestmentProjectDetailsPresenter.this.showPublicInvestmentProjectDetailsInView(publicInvestmentProject);
         }
     }
