@@ -75,7 +75,7 @@ public class ProjectListAdapter extends RecyclerView.Adapter<ProjectListAdapter.
         }
     }
 
-    public static class ProjectListViewHolder extends RecyclerView.ViewHolder {
+    static class ProjectListViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.tv_name_pip)
         TextView namePip;
         @BindView(R.id.tv_function_pip)

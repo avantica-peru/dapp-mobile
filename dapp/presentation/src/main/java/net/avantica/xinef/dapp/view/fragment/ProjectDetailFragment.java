@@ -3,33 +3,46 @@ package net.avantica.xinef.dapp.view.fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import net.avantica.xinef.dapp.R;
 import net.avantica.xinef.dapp.di.components.PublicInvestmentProjectComponent;
+import net.avantica.xinef.dapp.model.ItemPublicInvestmentProjectDetailModel;
 import net.avantica.xinef.dapp.model.PublicInvestmentProjectModel;
 import net.avantica.xinef.dapp.presenter.PublicInvestmentProjectDetailsPresenter;
 import net.avantica.xinef.dapp.view.PublicInvestmentProjectDetailsView;
+import net.avantica.xinef.dapp.view.adapter.ProjectDetailAdapter;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 public class ProjectDetailFragment extends BaseFragment implements PublicInvestmentProjectDetailsView {
 
+    @BindView(R.id.rv_project_detail)
+    RecyclerView projectDetailRecyclerView;
+
     @Inject
     PublicInvestmentProjectDetailsPresenter publicInvestmentProjectDetailsPresenter;
 
-//    @BindViews({})
+    @Inject
+    ProjectDetailAdapter projectDetailAdapter;
 
     private Unbinder unbinder;
 
     public ProjectDetailFragment() {
+        // Required empty public constructor
+        setRetainInstance(true);
     }
 
     public static ProjectDetailFragment newInstance() {
@@ -50,6 +63,9 @@ public class ProjectDetailFragment extends BaseFragment implements PublicInvestm
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_project_detail, container, false);
         unbinder = ButterKnife.bind(this, view);
+
+        setupRecyclerView();
+
         return view;
     }
 
@@ -77,6 +93,7 @@ public class ProjectDetailFragment extends BaseFragment implements PublicInvestm
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        projectDetailRecyclerView.setAdapter(null);
         unbinder.unbind();
     }
 
@@ -88,7 +105,44 @@ public class ProjectDetailFragment extends BaseFragment implements PublicInvestm
 
     @Override
     public void renderPublicInvestmentProject(Collection<PublicInvestmentProjectModel> publicInvestmentProject) {
+        if (publicInvestmentProject != null && publicInvestmentProject.size() > 0) {
 
+            PublicInvestmentProjectModel publicInvestmentProjectModel = (PublicInvestmentProjectModel) publicInvestmentProject.toArray()[0];
+            List<ItemPublicInvestmentProjectDetailModel> itemPublicInvestmentProjectDetailModels = new ArrayList<>();
+
+            itemPublicInvestmentProjectDetailModels.add(new ItemPublicInvestmentProjectDetailModel(getString(R.string.centro_poblado), publicInvestmentProjectModel.getPopulatedCenter()));
+            itemPublicInvestmentProjectDetailModels.add(new ItemPublicInvestmentProjectDetailModel(getString(R.string.unidad_formuladora), publicInvestmentProjectModel.getFormulatingUnit()));
+            itemPublicInvestmentProjectDetailModels.add(new ItemPublicInvestmentProjectDetailModel(getString(R.string.sector), publicInvestmentProjectModel.getSector()));
+            itemPublicInvestmentProjectDetailModels.add(new ItemPublicInvestmentProjectDetailModel(getString(R.string.pliego), publicInvestmentProjectModel.getFolder()));
+            itemPublicInvestmentProjectDetailModels.add(new ItemPublicInvestmentProjectDetailModel(getString(R.string.ejecutora), publicInvestmentProjectModel.getExecutor()));
+            itemPublicInvestmentProjectDetailModels.add(new ItemPublicInvestmentProjectDetailModel(getString(R.string.c_digo_snip), publicInvestmentProjectModel.getSnipCode()));
+            itemPublicInvestmentProjectDetailModels.add(new ItemPublicInvestmentProjectDetailModel(getString(R.string.c_digo_nico), publicInvestmentProjectModel.getUniqueCode()));
+            itemPublicInvestmentProjectDetailModels.add(new ItemPublicInvestmentProjectDetailModel(getString(R.string.funci_n), publicInvestmentProjectModel.getFunction()));
+            itemPublicInvestmentProjectDetailModels.add(new ItemPublicInvestmentProjectDetailModel(getString(R.string.programa), publicInvestmentProjectModel.getProgram()));
+            itemPublicInvestmentProjectDetailModels.add(new ItemPublicInvestmentProjectDetailModel(getString(R.string.sub_programa), publicInvestmentProjectModel.getSubprogram()));
+            itemPublicInvestmentProjectDetailModels.add(new ItemPublicInvestmentProjectDetailModel(getString(R.string.fuente_financiamiento), publicInvestmentProjectModel.getFundingSource()));
+            itemPublicInvestmentProjectDetailModels.add(new ItemPublicInvestmentProjectDetailModel(getString(R.string.fecha_registro), publicInvestmentProjectModel.getRegistrationDate()));
+            itemPublicInvestmentProjectDetailModels.add(new ItemPublicInvestmentProjectDetailModel(getString(R.string.situacion), publicInvestmentProjectModel.getState()));
+            itemPublicInvestmentProjectDetailModels.add(new ItemPublicInvestmentProjectDetailModel(getString(R.string.situacion), publicInvestmentProjectModel.getSituation()));
+            itemPublicInvestmentProjectDetailModels.add(new ItemPublicInvestmentProjectDetailModel(getString(R.string.closed), publicInvestmentProjectModel.getClosed()));
+            itemPublicInvestmentProjectDetailModels.add(new ItemPublicInvestmentProjectDetailModel(getString(R.string.fecha_viab), publicInvestmentProjectModel.getViabDate()));
+            itemPublicInvestmentProjectDetailModels.add(new ItemPublicInvestmentProjectDetailModel(getString(R.string.monto_viable), publicInvestmentProjectModel.getViableAmount()));
+            itemPublicInvestmentProjectDetailModels.add(new ItemPublicInvestmentProjectDetailModel(getString(R.string.beneficiario), publicInvestmentProjectModel.getBeneficiary()));
+            itemPublicInvestmentProjectDetailModels.add(new ItemPublicInvestmentProjectDetailModel(getString(R.string.objetivo), publicInvestmentProjectModel.getObjective()));
+            itemPublicInvestmentProjectDetailModels.add(new ItemPublicInvestmentProjectDetailModel(getString(R.string.alternativa), publicInvestmentProjectModel.getAlternative()));
+            itemPublicInvestmentProjectDetailModels.add(new ItemPublicInvestmentProjectDetailModel(getString(R.string.costo), publicInvestmentProjectModel.getCost()));
+
+            this.projectDetailAdapter.setItemPublicInvestmentProjectDetailCollection(itemPublicInvestmentProjectDetailModels);
+        }
+    }
+
+    public void setupRecyclerView() {
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+        linearLayoutManager.setAutoMeasureEnabled(true);
+
+        projectDetailRecyclerView.setLayoutManager(linearLayoutManager);
+        projectDetailRecyclerView.setHasFixedSize(true);
+        projectDetailRecyclerView.setAdapter(projectDetailAdapter);
     }
 
     @Override
