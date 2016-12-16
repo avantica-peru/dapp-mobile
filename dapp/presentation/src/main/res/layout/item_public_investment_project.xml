@@ -9,7 +9,7 @@
     android:layout_marginTop="6dp"
     android:clickable="true"
     android:foreground="?android:attr/selectableItemBackground"
-    android:padding="8dp"
+    android:padding="16dp"
     card_view:cardCornerRadius="2dp"
     card_view:contentPadding="10dp">
 

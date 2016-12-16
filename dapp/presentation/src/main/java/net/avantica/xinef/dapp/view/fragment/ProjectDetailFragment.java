@@ -11,13 +11,13 @@ import android.view.ViewGroup;
 
 import net.avantica.xinef.dapp.R;
 import net.avantica.xinef.dapp.di.components.PublicInvestmentProjectComponent;
+import net.avantica.xinef.dapp.mapper.PublicInvestmentProjectDetailModelDataMapper;
 import net.avantica.xinef.dapp.model.ItemPublicInvestmentProjectDetailModel;
 import net.avantica.xinef.dapp.model.PublicInvestmentProjectModel;
 import net.avantica.xinef.dapp.presenter.PublicInvestmentProjectDetailsPresenter;
 import net.avantica.xinef.dapp.view.PublicInvestmentProjectDetailsView;
 import net.avantica.xinef.dapp.view.adapter.ProjectDetailAdapter;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -37,6 +37,9 @@ public class ProjectDetailFragment extends BaseFragment implements PublicInvestm
 
     @Inject
     ProjectDetailAdapter projectDetailAdapter;
+
+    @Inject
+    PublicInvestmentProjectDetailModelDataMapper publicInvestmentProjectDetailModelDataMapper;
 
     private Unbinder unbinder;
 
@@ -106,32 +109,8 @@ public class ProjectDetailFragment extends BaseFragment implements PublicInvestm
     @Override
     public void renderPublicInvestmentProject(Collection<PublicInvestmentProjectModel> publicInvestmentProject) {
         if (publicInvestmentProject != null && publicInvestmentProject.size() > 0) {
-
             PublicInvestmentProjectModel publicInvestmentProjectModel = (PublicInvestmentProjectModel) publicInvestmentProject.toArray()[0];
-            List<ItemPublicInvestmentProjectDetailModel> itemPublicInvestmentProjectDetailModels = new ArrayList<>();
-
-            itemPublicInvestmentProjectDetailModels.add(new ItemPublicInvestmentProjectDetailModel(getString(R.string.centro_poblado), publicInvestmentProjectModel.getPopulatedCenter()));
-            itemPublicInvestmentProjectDetailModels.add(new ItemPublicInvestmentProjectDetailModel(getString(R.string.unidad_formuladora), publicInvestmentProjectModel.getFormulatingUnit()));
-            itemPublicInvestmentProjectDetailModels.add(new ItemPublicInvestmentProjectDetailModel(getString(R.string.sector), publicInvestmentProjectModel.getSector()));
-            itemPublicInvestmentProjectDetailModels.add(new ItemPublicInvestmentProjectDetailModel(getString(R.string.pliego), publicInvestmentProjectModel.getFolder()));
-            itemPublicInvestmentProjectDetailModels.add(new ItemPublicInvestmentProjectDetailModel(getString(R.string.ejecutora), publicInvestmentProjectModel.getExecutor()));
-            itemPublicInvestmentProjectDetailModels.add(new ItemPublicInvestmentProjectDetailModel(getString(R.string.c_digo_snip), publicInvestmentProjectModel.getSnipCode()));
-            itemPublicInvestmentProjectDetailModels.add(new ItemPublicInvestmentProjectDetailModel(getString(R.string.c_digo_nico), publicInvestmentProjectModel.getUniqueCode()));
-            itemPublicInvestmentProjectDetailModels.add(new ItemPublicInvestmentProjectDetailModel(getString(R.string.funci_n), publicInvestmentProjectModel.getFunction()));
-            itemPublicInvestmentProjectDetailModels.add(new ItemPublicInvestmentProjectDetailModel(getString(R.string.programa), publicInvestmentProjectModel.getProgram()));
-            itemPublicInvestmentProjectDetailModels.add(new ItemPublicInvestmentProjectDetailModel(getString(R.string.sub_programa), publicInvestmentProjectModel.getSubprogram()));
-            itemPublicInvestmentProjectDetailModels.add(new ItemPublicInvestmentProjectDetailModel(getString(R.string.fuente_financiamiento), publicInvestmentProjectModel.getFundingSource()));
-            itemPublicInvestmentProjectDetailModels.add(new ItemPublicInvestmentProjectDetailModel(getString(R.string.fecha_registro), publicInvestmentProjectModel.getRegistrationDate()));
-            itemPublicInvestmentProjectDetailModels.add(new ItemPublicInvestmentProjectDetailModel(getString(R.string.situacion), publicInvestmentProjectModel.getState()));
-            itemPublicInvestmentProjectDetailModels.add(new ItemPublicInvestmentProjectDetailModel(getString(R.string.situacion), publicInvestmentProjectModel.getSituation()));
-            itemPublicInvestmentProjectDetailModels.add(new ItemPublicInvestmentProjectDetailModel(getString(R.string.closed), publicInvestmentProjectModel.getClosed()));
-            itemPublicInvestmentProjectDetailModels.add(new ItemPublicInvestmentProjectDetailModel(getString(R.string.fecha_viab), publicInvestmentProjectModel.getViabDate()));
-            itemPublicInvestmentProjectDetailModels.add(new ItemPublicInvestmentProjectDetailModel(getString(R.string.monto_viable), publicInvestmentProjectModel.getViableAmount()));
-            itemPublicInvestmentProjectDetailModels.add(new ItemPublicInvestmentProjectDetailModel(getString(R.string.beneficiario), publicInvestmentProjectModel.getBeneficiary()));
-            itemPublicInvestmentProjectDetailModels.add(new ItemPublicInvestmentProjectDetailModel(getString(R.string.objetivo), publicInvestmentProjectModel.getObjective()));
-            itemPublicInvestmentProjectDetailModels.add(new ItemPublicInvestmentProjectDetailModel(getString(R.string.alternativa), publicInvestmentProjectModel.getAlternative()));
-            itemPublicInvestmentProjectDetailModels.add(new ItemPublicInvestmentProjectDetailModel(getString(R.string.costo), publicInvestmentProjectModel.getCost()));
-
+            List<ItemPublicInvestmentProjectDetailModel> itemPublicInvestmentProjectDetailModels = publicInvestmentProjectDetailModelDataMapper.transform(getContext(), publicInvestmentProjectModel);
             this.projectDetailAdapter.setItemPublicInvestmentProjectDetailCollection(itemPublicInvestmentProjectDetailModels);
         }
     }

@@ -22,9 +22,19 @@ public class PublicInvestmentProjectDataStoreFactory {
     }
 
     /**
+     * Create {@link PublicInvestmentProjectDataStore} to retrieve data from the Cloud.
+     */
+    public PublicInvestmentProjectDataStore createCloudDataStore() {
+        PublicInvestmentProjectEntityJsonMapper publicInvestmentProjectEntityJsonMapper = new PublicInvestmentProjectEntityJsonMapper();
+        RestApi restApi = new RestApiImpl(this.context, publicInvestmentProjectEntityJsonMapper);
+
+        return new CloudPublicInvestmentProjectDataStore(restApi, this.publicInvestmentProjectCache);
+    }
+
+    /**
      * Create {@link PublicInvestmentProjectDataStore} from a public investment project id
      */
-    public PublicInvestmentProjectDataStore create(String publicInvestmentProjectId) {
+    public PublicInvestmentProjectDataStore create() {
         PublicInvestmentProjectDataStore publicInvestmentProjectDataStore;
 
 //        if (!this.publicInvestmentProjectCache.isExpired() && this.publicInvestmentProjectCache.isCached(publicInvestmentProjectId)) {
@@ -37,12 +47,17 @@ public class PublicInvestmentProjectDataStoreFactory {
     }
 
     /**
-     * Create {@link PublicInvestmentProjectDataStore} to retrieve data from the Cloud.
+     * Create {@link PublicInvestmentProjectDataStore} from a public investment project id
      */
-    public PublicInvestmentProjectDataStore createCloudDataStore() {
-        PublicInvestmentProjectEntityJsonMapper publicInvestmentProjectEntityJsonMapper = new PublicInvestmentProjectEntityJsonMapper();
-        RestApi restApi = new RestApiImpl(this.context, publicInvestmentProjectEntityJsonMapper);
+    public PublicInvestmentProjectDataStore create(boolean cloud) {
+        PublicInvestmentProjectDataStore publicInvestmentProjectDataStore;
 
-        return new CloudPublicInvestmentProjectDataStore(restApi, this.publicInvestmentProjectCache);
+        if (cloud) {
+            publicInvestmentProjectDataStore = createCloudDataStore();
+        } else {
+            publicInvestmentProjectDataStore = new DiskPublicInvestmentProjectDataStore(this.publicInvestmentProjectCache);
+        }
+
+        return publicInvestmentProjectDataStore;
     }
 }

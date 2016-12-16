@@ -38,7 +38,8 @@ public class DiskPublicInvestmentProjectDataStore implements PublicInvestmentPro
             try {
                 final Select select = SQLite.select();
                 final From from = select.from(PublicInvestmentProjectEntity.class);
-                List<PublicInvestmentProjectEntity> list = from.queryList();
+                final Where where = from.groupBy(PublicInvestmentProjectEntity_Table.UniqueCode);
+                List<PublicInvestmentProjectEntity> list = where.queryList();
 
                 subscriber.onNext(list);
                 subscriber.onCompleted();

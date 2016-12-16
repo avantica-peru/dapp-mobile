@@ -34,15 +34,15 @@ public class PublicInvestmentProjectDataRepository implements PublicInvestmentPr
     }
 
     @Override
-    public Observable<List<PublicInvestmentProject>> publicInvestmentProjects() {
+    public Observable<List<PublicInvestmentProject>> publicInvestmentProjects(boolean cloud) {
         //we always get all publicInvestmentProjects from the cloud
-        final PublicInvestmentProjectDataStore publicInvestmentProjectDataStore = this.publicInvestmentProjectDataStoreFactory.createCloudDataStore();
+        final PublicInvestmentProjectDataStore publicInvestmentProjectDataStore = this.publicInvestmentProjectDataStoreFactory.create(cloud);
         return publicInvestmentProjectDataStore.publicInvestmentProjectEntityList().map(this.publicInvestmentProjectEntityDataMapper::transform);
     }
 
     @Override
     public Observable<List<PublicInvestmentProject>> publicInvestmentProject(String uniqueCode) {
-        final PublicInvestmentProjectDataStore publicInvestmentProjectDataStore = this.publicInvestmentProjectDataStoreFactory.create(uniqueCode);
+        final PublicInvestmentProjectDataStore publicInvestmentProjectDataStore = this.publicInvestmentProjectDataStoreFactory.create();
         return publicInvestmentProjectDataStore.publicInvestmentProjectEntityDetails(uniqueCode).map(this.publicInvestmentProjectEntityDataMapper::transform);
     }
 }

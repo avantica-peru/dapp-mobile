@@ -35,6 +35,7 @@ import dagger.Provides;
 public class PublicInvestmentProjectModule {
 
     private String uniqueCode = "";
+    private boolean cloud;
 
     public PublicInvestmentProjectModule() {
     }
@@ -43,12 +44,17 @@ public class PublicInvestmentProjectModule {
         this.uniqueCode = uniqueCode;
     }
 
+    public PublicInvestmentProjectModule(boolean cloud) {
+        this.cloud = cloud;
+    }
+
     @Provides
     @PerActivity
     @Named("publicInvestmentProjectList")
     UseCase provideGetUserListUseCase(
-            GetPublicInvestmentProjectList getUserList) {
-        return getUserList;
+            PublicInvestmentProjectRepository publicInvestmentProjectRepository, ThreadExecutor threadExecutor,
+            PostExecutionThread postExecutionThread) {
+        return new GetPublicInvestmentProjectList(this.cloud, publicInvestmentProjectRepository, threadExecutor, postExecutionThread);
     }
 
     @Provides

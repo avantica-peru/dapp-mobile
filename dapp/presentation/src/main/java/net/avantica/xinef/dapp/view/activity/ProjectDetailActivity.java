@@ -3,6 +3,7 @@ package net.avantica.xinef.dapp.view.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 
 import net.avantica.xinef.dapp.R;
 import net.avantica.xinef.dapp.di.HasComponent;
@@ -55,5 +56,14 @@ public class ProjectDetailActivity extends BaseActivity implements HasComponent<
     @Override
     public PublicInvestmentProjectComponent getComponent() {
         return this.publicInvestmentProjectComponent;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (android.R.id.home == item.getItemId()) {
+            finish();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

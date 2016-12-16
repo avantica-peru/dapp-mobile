@@ -13,7 +13,7 @@ public interface PublicInvestmentProjectRepository {
     /**
      * Get an {@link Observable} which will emit a List of {@link PublicInvestmentProject}.
      */
-    Observable<List<PublicInvestmentProject>> publicInvestmentProjects();
+    Observable<List<PublicInvestmentProject>> publicInvestmentProjects(boolean cloud);
 
     /**
      * Get an {@link Observable} which will emit a {@link PublicInvestmentProject}.

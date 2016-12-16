@@ -4,14 +4,14 @@
     android:layout_height="wrap_content"
     android:layout_marginEnd="12dp"
     android:layout_marginStart="12dp"
-    android:paddingBottom="4dp"
-    android:paddingTop="4dp">
+    android:paddingBottom="8dp"
+    android:orientation="vertical"
+    android:paddingTop="8dp">
 
     <TextView
         android:id="@+id/tv_key"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Función:"
         android:textColor="@android:color/black"
         android:textStyle="bold" />
 
@@ -19,8 +19,13 @@
         android:id="@+id/tv_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="qwertyuioasdfghjklzxcvbnmqwertyuio qwertyuiopasdfghjklzxcvbnm"
         android:textColor="@color/colorAccent" />
+
+    <View
+        android:id="@+id/vw_separator"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="12dp"
+        android:background="#1A415261" />
 
 </LinearLayout>

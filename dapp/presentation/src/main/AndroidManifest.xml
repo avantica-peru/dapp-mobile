@@ -39,7 +39,7 @@
 
         <activity
             android:name=".view.activity.ProjectDetailActivity"
-            android:label="@string/title_activity_project_list"
+            android:label="@string/title_activity_project_detail"
             android:parentActivityName="view.activity.MainActivity" />
 
     </application>

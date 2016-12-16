@@ -5,29 +5,6 @@
     android:orientation="vertical"
     tools:context="net.avantica.xinef.dapp.view.fragment.ProjectDetailFragment">
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="120dp">
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="fitXY" />
-
-
-        <TextView
-            android:id="@+id/tv_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:gravity="center_horizontal"
-            android:text="MEJORAMIENTO DEL TECHO Y LOSA DEPORTIVA DE LA INSTITUCIÓN EDUCATIVA VIRGEN DE ASUNTA CHACHAPOYAS, PROVINCIA DE CHACHAPOYAS - AMAZONAS	"
-            android:textColor="@android:color/black"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
-    </FrameLayout>
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_project_detail"
         android:layout_width="match_parent"

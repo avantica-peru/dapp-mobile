@@ -15,6 +15,9 @@ android {
         versionCode globalConfiguration.getAt("androidVersionCode")
         testInstrumentationRunner globalConfiguration.getAt("testInstrumentationRunner")
         multiDexEnabled true
+
+        renderscriptTargetApi 19
+        renderscriptSupportModeEnabled true
     }
 
     dexOptions {
