@@ -109,8 +109,7 @@ public class ProjectDetailFragment extends BaseFragment implements PublicInvestm
     @Override
     public void renderPublicInvestmentProject(Collection<PublicInvestmentProjectModel> publicInvestmentProject) {
         if (publicInvestmentProject != null && publicInvestmentProject.size() > 0) {
-            PublicInvestmentProjectModel publicInvestmentProjectModel = (PublicInvestmentProjectModel) publicInvestmentProject.toArray()[0];
-            List<ItemPublicInvestmentProjectDetailModel> itemPublicInvestmentProjectDetailModels = publicInvestmentProjectDetailModelDataMapper.transform(getContext(), publicInvestmentProjectModel);
+            List<ItemPublicInvestmentProjectDetailModel> itemPublicInvestmentProjectDetailModels = publicInvestmentProjectDetailModelDataMapper.transform(getContext(), publicInvestmentProject);
             this.projectDetailAdapter.setItemPublicInvestmentProjectDetailCollection(itemPublicInvestmentProjectDetailModels);
         }
     }

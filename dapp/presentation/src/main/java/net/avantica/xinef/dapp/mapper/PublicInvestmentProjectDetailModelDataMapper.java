@@ -9,6 +9,7 @@ import net.avantica.xinef.dapp.model.PublicInvestmentProjectModel;
 import net.avantica.xinef.dapp.util.Constant;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -20,21 +21,24 @@ public class PublicInvestmentProjectDetailModelDataMapper {
     public PublicInvestmentProjectDetailModelDataMapper() {
     }
 
-    /**
-     * Transform a {@link PublicInvestmentProjectModel} into an {@link ItemPublicInvestmentProjectDetailModel}.
-     *
-     * @param publicInvestmentProjectModel Object to be transformed.
-     * @return {@link PublicInvestmentProjectModel}.
-     */
-    public List<ItemPublicInvestmentProjectDetailModel> transform(Context context, PublicInvestmentProjectModel publicInvestmentProjectModel) {
-        if (publicInvestmentProjectModel == null) {
+    public List<ItemPublicInvestmentProjectDetailModel> transform(Context context, Collection<PublicInvestmentProjectModel> publicInvestmentProject) {
+        if (publicInvestmentProject == null) {
             throw new IllegalArgumentException("Cannot transform a null value");
         }
         List<ItemPublicInvestmentProjectDetailModel> itemPublicInvestmentProjectDetailModels = new ArrayList<>();
+        PublicInvestmentProjectModel publicInvestmentProjectModel = (PublicInvestmentProjectModel) publicInvestmentProject.toArray()[0];
+
+        final StringBuilder populatedCenterString = new StringBuilder();
+        String delim = "";
+
+        for (PublicInvestmentProjectModel model : publicInvestmentProject) {
+            populatedCenterString.append(delim).append(model.getPopulatedCenter());
+            delim = ", ";
+        }
 
         itemPublicInvestmentProjectDetailModels.add(new ItemPublicInvestmentProjectDetailModel(Constant.EMPTY_STRING, publicInvestmentProjectModel.getName()));
         itemPublicInvestmentProjectDetailModels.add(new ItemPublicInvestmentProjectDetailModel(context.getString(R.string.costo), String.format(context.getString(R.string.currency_x), publicInvestmentProjectModel.getCost())));
-        itemPublicInvestmentProjectDetailModels.add(new ItemPublicInvestmentProjectDetailModel(context.getString(R.string.centro_poblado), publicInvestmentProjectModel.getPopulatedCenter()));
+        itemPublicInvestmentProjectDetailModels.add(new ItemPublicInvestmentProjectDetailModel(context.getString(R.string.centro_poblado), populatedCenterString.toString()));
         itemPublicInvestmentProjectDetailModels.add(new ItemPublicInvestmentProjectDetailModel(context.getString(R.string.unidad_formuladora), publicInvestmentProjectModel.getFormulatingUnit()));
         itemPublicInvestmentProjectDetailModels.add(new ItemPublicInvestmentProjectDetailModel(context.getString(R.string.sector), publicInvestmentProjectModel.getSector()));
         itemPublicInvestmentProjectDetailModels.add(new ItemPublicInvestmentProjectDetailModel(context.getString(R.string.pliego), publicInvestmentProjectModel.getFolder()));
@@ -57,5 +61,4 @@ public class PublicInvestmentProjectDetailModelDataMapper {
 
         return itemPublicInvestmentProjectDetailModels;
     }
-
 }
