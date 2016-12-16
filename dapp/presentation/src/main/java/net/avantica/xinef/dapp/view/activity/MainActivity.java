@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 
 import net.avantica.xinef.dapp.R;
 import net.avantica.xinef.dapp.di.HasComponent;
@@ -12,15 +13,12 @@ import net.avantica.xinef.dapp.di.components.DaggerPublicInvestmentProjectCompon
 import net.avantica.xinef.dapp.di.components.PublicInvestmentProjectComponent;
 import net.avantica.xinef.dapp.model.PublicInvestmentProjectModel;
 import net.avantica.xinef.dapp.view.fragment.ProjectListFragment;
-
-import java.util.ArrayList;
+import net.avantica.xinef.dapp.view.fragment.ProjectsMapFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends BaseActivity implements HasComponent<PublicInvestmentProjectComponent>, ProjectListFragment.PublicInvestmentProjectListListener {
-    public static final String PIP_ARRAY_KEY = "PIP_ARRAY_KEY";
-
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
@@ -39,20 +37,14 @@ public class MainActivity extends BaseActivity implements HasComponent<PublicInv
         setSupportActionBar(toolbar);
 
         this.initializeInjector();
-        if (savedInstanceState == null) {
-            Bundle extras = getIntent().getExtras();
-            ArrayList<PublicInvestmentProjectModel> publicInvestmentProjectModels = extras.getParcelableArrayList(PIP_ARRAY_KEY);
 
-            showProjectListView(publicInvestmentProjectModels);
-        }
+        replaceFragment(R.id.container, ProjectListFragment.newInstance());
     }
 
-    private void showProjectListView(ArrayList<PublicInvestmentProjectModel> publicInvestmentProjectModels) {
+    private void showProjectListView() {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 
-        ProjectListFragment newFragment = ProjectListFragment.newInstance(publicInvestmentProjectModels);
-        Bundle bundle = new Bundle();
-        newFragment.setArguments(bundle);
+        ProjectListFragment newFragment = ProjectListFragment.newInstance();
         fragmentTransaction.replace(R.id.container, newFragment, ProjectListFragment.class.getName());
         fragmentTransaction.commit();
     }
@@ -72,5 +64,19 @@ public class MainActivity extends BaseActivity implements HasComponent<PublicInv
     @Override
     public void onPublicInvestmentProjectClicked(PublicInvestmentProjectModel userModel) {
         this.navigator.navigateToPublicInvestmentProjectDetails(this, userModel.getUniqueCode());
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_maps_map:
+                replaceFragment(R.id.container, ProjectsMapFragment.newInstance());
+                return true;
+            case R.id.action_action_view_list:
+                replaceFragment(R.id.container, ProjectListFragment.newInstance());
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

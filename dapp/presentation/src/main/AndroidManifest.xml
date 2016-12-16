@@ -42,6 +42,10 @@
             android:label="@string/title_activity_project_detail"
             android:parentActivityName="view.activity.MainActivity" />
 
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDRfCeoZzEBw9QVnWxs-GUC7OVVXMoB_XI" />
+
     </application>
 
 </manifest>

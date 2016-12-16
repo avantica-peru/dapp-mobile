@@ -3,8 +3,6 @@ package net.avantica.xinef.dapp.view.fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,42 +14,34 @@ import net.avantica.xinef.dapp.di.components.PublicInvestmentProjectComponent;
 import net.avantica.xinef.dapp.model.PublicInvestmentProjectModel;
 import net.avantica.xinef.dapp.presenter.PublicInvestmentProjectListPresenter;
 import net.avantica.xinef.dapp.view.PublicInvestmentProjectListView;
-import net.avantica.xinef.dapp.view.adapter.ProjectListAdapter;
 
 import java.util.Collection;
 
 import javax.inject.Inject;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class ProjectListFragment extends BaseFragment implements PublicInvestmentProjectListView {
+public class ProjectsMapFragment extends BaseFragment implements PublicInvestmentProjectListView {
 
-    public interface PublicInvestmentProjectListListener {
+    public interface PublicInvestmentProjectsMapListener {
         void onPublicInvestmentProjectClicked(final PublicInvestmentProjectModel userModel);
     }
-
-    @BindView(R.id.rv_project_list)
-    RecyclerView projectListRecyclerView;
 
     @Inject
     PublicInvestmentProjectListPresenter publicInvestmentProjectListPresenter;
 
-    @Inject
-    ProjectListAdapter projectListAdapter;
-
-    private PublicInvestmentProjectListListener publicInvestmentProjectListListener;
+//    private PublicInvestmentProjectsMapListener publicInvestmentProjectListListener;
 
     private Unbinder unbinder;
 
-    public ProjectListFragment() {
+    public ProjectsMapFragment() {
         // Required empty public constructor
         setRetainInstance(true);
     }
 
-    public static ProjectListFragment newInstance() {
-        ProjectListFragment fragment = new ProjectListFragment();
+    public static ProjectsMapFragment newInstance() {
+        ProjectsMapFragment fragment = new ProjectsMapFragment();
         return fragment;
     }
 
@@ -64,15 +54,14 @@ public class ProjectListFragment extends BaseFragment implements PublicInvestmen
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        this.publicInvestmentProjectListListener = (PublicInvestmentProjectListListener) context;
+//        this.publicInvestmentProjectListListener = (PublicInvestmentProjectsMapListener) context;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.fragment_project_list, container, false);
+        final View view = inflater.inflate(R.layout.fragment_project_map, container, false);
         unbinder = ButterKnife.bind(this, view);
 
-        setupRecyclerView();
         setHasOptionsMenu(true);
 
         return view;
@@ -104,7 +93,6 @@ public class ProjectListFragment extends BaseFragment implements PublicInvestmen
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        projectListRecyclerView.setAdapter(null);
         unbinder.unbind();
     }
 
@@ -117,17 +105,7 @@ public class ProjectListFragment extends BaseFragment implements PublicInvestmen
     @Override
     public void onDetach() {
         super.onDetach();
-        this.publicInvestmentProjectListListener = null;
-    }
-
-    public void setupRecyclerView() {
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-        linearLayoutManager.setAutoMeasureEnabled(true);
-
-        this.projectListAdapter.setOnItemClickListener(onItemClickListener);
-        projectListRecyclerView.setLayoutManager(linearLayoutManager);
-        projectListRecyclerView.setHasFixedSize(true);
-        projectListRecyclerView.setAdapter(projectListAdapter);
+//        this.publicInvestmentProjectListListener = null;
     }
 
     private void loadPublicInvestmentProjectList() {
@@ -136,20 +114,20 @@ public class ProjectListFragment extends BaseFragment implements PublicInvestmen
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_map, menu);
+        inflater.inflate(R.menu.menu_list, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
     public void renderPublicInvestmentProjectList(Collection<PublicInvestmentProjectModel> publicInvestmentProjectModelCollection) {
         if (publicInvestmentProjectModelCollection != null) {
-            this.projectListAdapter.setPublicInvestmentProjectCollection(publicInvestmentProjectModelCollection);
+
         }
     }
 
     @Override
     public void viewPublicInvestmentProject(PublicInvestmentProjectModel publicInvestmentProjectModel) {
-        this.publicInvestmentProjectListListener.onPublicInvestmentProjectClicked(publicInvestmentProjectModel);
+//        this.publicInvestmentProjectListListener.onPublicInvestmentProjectClicked(publicInvestmentProjectModel);
     }
 
     @Override
@@ -181,14 +159,4 @@ public class ProjectListFragment extends BaseFragment implements PublicInvestmen
     public Context context() {
         return this.getActivity().getApplicationContext();
     }
-
-    private ProjectListAdapter.OnItemClickListener onItemClickListener =
-            new ProjectListAdapter.OnItemClickListener() {
-                @Override
-                public void onPublicInvestmentProjectItemClicked(PublicInvestmentProjectModel publicInvestmentProjectModel) {
-                    if (ProjectListFragment.this.publicInvestmentProjectListPresenter != null && publicInvestmentProjectModel != null) {
-                        ProjectListFragment.this.publicInvestmentProjectListPresenter.onPublicInvestmentProjectClicked(publicInvestmentProjectModel);
-                    }
-                }
-            };
 }

@@ -33,11 +33,6 @@ public class Navigator {
     public void navigateToPublicInvestmentProjectrList(Context context, List<PublicInvestmentProjectModel> publicInvestmentProjectModels) {
         if (context != null) {
             Intent intentToLaunch = MainActivity.getCallingIntent(context);
-
-            Bundle bundle = new Bundle();
-            bundle.putParcelableArrayList(MainActivity.PIP_ARRAY_KEY, (ArrayList<PublicInvestmentProjectModel>) publicInvestmentProjectModels);
-            intentToLaunch.putExtras(bundle);
-
             context.startActivity(intentToLaunch);
         }
     }
