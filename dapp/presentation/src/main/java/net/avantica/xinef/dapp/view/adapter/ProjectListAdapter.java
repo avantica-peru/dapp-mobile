@@ -56,6 +56,7 @@ public class ProjectListAdapter extends RecyclerView.Adapter<ProjectListAdapter.
         holder.costPip.setTypeface(fontBlack);
 
         holder.namePip.setText(publicInvestmentProjectModel.getName());
+        holder.department.setText(publicInvestmentProjectModel.getDepartment());
         holder.functionPip.setText(publicInvestmentProjectModel.getFunction());
         holder.costPip.setText(String.format(this.activity.getString(R.string.currency_x), publicInvestmentProjectModel.getCost()));
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -92,6 +93,8 @@ public class ProjectListAdapter extends RecyclerView.Adapter<ProjectListAdapter.
     static class ProjectListViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.tv_name_pip)
         TextView namePip;
+        @BindView(R.id.tv_department)
+        TextView department;
         @BindView(R.id.tv_function_pip)
         TextView functionPip;
         @BindView(R.id.tv_cost_pip)

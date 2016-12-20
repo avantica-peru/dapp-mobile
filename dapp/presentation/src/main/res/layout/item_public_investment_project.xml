@@ -22,12 +22,20 @@
             android:id="@+id/tv_name_pip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="4dp"
             android:ellipsize="end"
             android:lines="3"
             android:textColor="@android:color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_department"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/tv_function_pip"

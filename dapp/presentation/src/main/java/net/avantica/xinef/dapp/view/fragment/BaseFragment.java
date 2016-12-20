@@ -14,6 +14,10 @@ import net.avantica.xinef.dapp.di.HasComponent;
  * Base {@link android.app.Fragment} class for every fragment in this application.
  */
 public abstract class BaseFragment extends Fragment {
+    public interface PublicInvestmentProjectListListener {
+        void onPublicInvestmentProjectClicked(final String uniqueCode);
+    }
+
     /**
      * Shows a {@link android.widget.Toast} message.
      *

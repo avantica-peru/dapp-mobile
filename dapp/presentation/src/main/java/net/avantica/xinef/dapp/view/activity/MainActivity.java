@@ -12,13 +12,14 @@ import net.avantica.xinef.dapp.di.HasComponent;
 import net.avantica.xinef.dapp.di.components.DaggerPublicInvestmentProjectComponent;
 import net.avantica.xinef.dapp.di.components.PublicInvestmentProjectComponent;
 import net.avantica.xinef.dapp.model.PublicInvestmentProjectModel;
+import net.avantica.xinef.dapp.view.fragment.BaseFragment;
 import net.avantica.xinef.dapp.view.fragment.ProjectListFragment;
 import net.avantica.xinef.dapp.view.fragment.ProjectsMapFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends BaseActivity implements HasComponent<PublicInvestmentProjectComponent>, ProjectListFragment.PublicInvestmentProjectListListener {
+public class MainActivity extends BaseActivity implements HasComponent<PublicInvestmentProjectComponent>, BaseFragment.PublicInvestmentProjectListListener {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
@@ -38,7 +39,7 @@ public class MainActivity extends BaseActivity implements HasComponent<PublicInv
 
         this.initializeInjector();
 
-        replaceFragment(R.id.container, ProjectListFragment.newInstance());
+        replaceFragment(R.id.container, ProjectsMapFragment.newInstance());
     }
 
     private void showProjectListView() {
@@ -62,8 +63,8 @@ public class MainActivity extends BaseActivity implements HasComponent<PublicInv
     }
 
     @Override
-    public void onPublicInvestmentProjectClicked(PublicInvestmentProjectModel userModel) {
-        this.navigator.navigateToPublicInvestmentProjectDetails(this, userModel.getUniqueCode());
+    public void onPublicInvestmentProjectClicked(String uniqueCode) {
+        this.navigator.navigateToPublicInvestmentProjectDetails(this, uniqueCode);
     }
 
     @Override
@@ -78,5 +79,6 @@ public class MainActivity extends BaseActivity implements HasComponent<PublicInv
             default:
                 return super.onOptionsItemSelected(item);
         }
+//        replaceFragment(R.id.container, ProjectListFragment.newInstance());return true;
     }
 }

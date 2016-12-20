@@ -62,8 +62,8 @@ public class ApiConnection implements Callable<String> {
     private OkHttpClient createClient() {
         final OkHttpClient.Builder builder = new OkHttpClient.Builder();
         final OkHttpClient okHttpClient = builder
-                .connectTimeout(15000, TimeUnit.MILLISECONDS)
-                .readTimeout(10000, TimeUnit.MILLISECONDS)
+                .connectTimeout(40, TimeUnit.SECONDS)
+                .readTimeout(40, TimeUnit.SECONDS)
                 .build();
 
         return okHttpClient;

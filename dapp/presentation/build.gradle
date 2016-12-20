@@ -112,6 +112,7 @@ dependencies {
 
     compile presentationDependencies.butterKnife
     compile presentationDependencies.annotationProcessor
+    compile presentationDependencies.supportV4
     compile presentationDependencies.appCompat
     compile presentationDependencies.recyclerView
     compile presentationDependencies.cardView
@@ -120,7 +121,6 @@ dependencies {
     compile presentationDependencies.constraintLayout
     compile presentationDependencies.rxJava
     compile presentationDependencies.rxAndroid
-    compile presentationDependencies.supportV4
     compile presentationDependencies.glide
 
     androidTestCompile presentationTestDependencies.mockito
@@ -131,6 +131,4 @@ dependencies {
 
     //Development
     compile developmentDependencies.leakCanary
-    compile 'com.android.support:support-v4:25.0.1'
-    compile 'com.android.support.constraint:constraint-layout:1.0.0-beta4'
 }

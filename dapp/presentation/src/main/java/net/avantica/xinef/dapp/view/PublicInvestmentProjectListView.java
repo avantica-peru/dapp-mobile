@@ -19,7 +19,7 @@ public interface PublicInvestmentProjectListView extends LoadDataView {
     /**
      * View a {@link PublicInvestmentProjectModel} profile/details.
      *
-     * @param publicInvestmentProjectModel The public investment project that will be shown.
+     * @param uniqueCode The public investment project that will be shown.
      */
-    void viewPublicInvestmentProject(PublicInvestmentProjectModel publicInvestmentProjectModel);
+    void viewPublicInvestmentProject(String uniqueCode);
 }

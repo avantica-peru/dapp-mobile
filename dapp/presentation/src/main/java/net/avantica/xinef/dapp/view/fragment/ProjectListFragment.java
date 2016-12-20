@@ -28,10 +28,6 @@ import butterknife.Unbinder;
 
 public class ProjectListFragment extends BaseFragment implements PublicInvestmentProjectListView {
 
-    public interface PublicInvestmentProjectListListener {
-        void onPublicInvestmentProjectClicked(final PublicInvestmentProjectModel userModel);
-    }
-
     @BindView(R.id.rv_project_list)
     RecyclerView projectListRecyclerView;
 
@@ -85,6 +81,7 @@ public class ProjectListFragment extends BaseFragment implements PublicInvestmen
         this.publicInvestmentProjectListPresenter.setView(this);
 
         if (savedInstanceState == null) {
+            this.publicInvestmentProjectListPresenter.setView(this);
             this.loadPublicInvestmentProjectList();
         }
     }
@@ -148,8 +145,8 @@ public class ProjectListFragment extends BaseFragment implements PublicInvestmen
     }
 
     @Override
-    public void viewPublicInvestmentProject(PublicInvestmentProjectModel publicInvestmentProjectModel) {
-        this.publicInvestmentProjectListListener.onPublicInvestmentProjectClicked(publicInvestmentProjectModel);
+    public void viewPublicInvestmentProject(String uniqueCode) {
+        this.publicInvestmentProjectListListener.onPublicInvestmentProjectClicked(uniqueCode);
     }
 
     @Override
@@ -187,7 +184,7 @@ public class ProjectListFragment extends BaseFragment implements PublicInvestmen
                 @Override
                 public void onPublicInvestmentProjectItemClicked(PublicInvestmentProjectModel publicInvestmentProjectModel) {
                     if (ProjectListFragment.this.publicInvestmentProjectListPresenter != null && publicInvestmentProjectModel != null) {
-                        ProjectListFragment.this.publicInvestmentProjectListPresenter.onPublicInvestmentProjectClicked(publicInvestmentProjectModel);
+                        ProjectListFragment.this.publicInvestmentProjectListPresenter.onPublicInvestmentProjectClicked(publicInvestmentProjectModel.getUniqueCode());
                     }
                 }
             };

@@ -9,6 +9,16 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.MapsInitializer;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+
 import net.avantica.xinef.dapp.R;
 import net.avantica.xinef.dapp.di.components.PublicInvestmentProjectComponent;
 import net.avantica.xinef.dapp.model.PublicInvestmentProjectModel;
@@ -22,16 +32,15 @@ import javax.inject.Inject;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class ProjectsMapFragment extends BaseFragment implements PublicInvestmentProjectListView {
-
-    public interface PublicInvestmentProjectsMapListener {
-        void onPublicInvestmentProjectClicked(final PublicInvestmentProjectModel userModel);
-    }
+public class ProjectsMapFragment extends BaseFragment implements PublicInvestmentProjectListView, OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
     @Inject
     PublicInvestmentProjectListPresenter publicInvestmentProjectListPresenter;
 
-//    private PublicInvestmentProjectsMapListener publicInvestmentProjectListListener;
+    MapView mapView;
+    GoogleMap googleMap;
+
+    private PublicInvestmentProjectListListener publicInvestmentProjectListListener;
 
     private Unbinder unbinder;
 
@@ -54,7 +63,7 @@ public class ProjectsMapFragment extends BaseFragment implements PublicInvestmen
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-//        this.publicInvestmentProjectListListener = (PublicInvestmentProjectsMapListener) context;
+        this.publicInvestmentProjectListListener = (PublicInvestmentProjectListListener) context;
     }
 
     @Override
@@ -63,6 +72,13 @@ public class ProjectsMapFragment extends BaseFragment implements PublicInvestmen
         unbinder = ButterKnife.bind(this, view);
 
         setHasOptionsMenu(true);
+
+        // Gets the MapView from the XML layout and creates it
+        this.mapView = (MapView) view.findViewById(R.id.mapview);
+        this.mapView.onCreate(savedInstanceState);
+
+        // Gets to GoogleMap from the MapView and does initialization stuff
+        mapView.getMapAsync(this);
 
         return view;
     }
@@ -73,20 +89,66 @@ public class ProjectsMapFragment extends BaseFragment implements PublicInvestmen
 
         this.publicInvestmentProjectListPresenter.setView(this);
 
-        if (savedInstanceState == null) {
-            this.loadPublicInvestmentProjectList();
+//        if (savedInstanceState == null) {
+//            this.loadPublicInvestmentProjectList();
+//        }
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        this.publicInvestmentProjectListPresenter.setView(this);
+        this.loadPublicInvestmentProjectList();
+
+        this.googleMap = googleMap;
+        this.googleMap.setOnMarkerClickListener(this);
+
+        this.googleMap.getUiSettings().setMyLocationButtonEnabled(false);
+        this.googleMap.getUiSettings().setAllGesturesEnabled(true);
+        this.googleMap.getUiSettings().setZoomControlsEnabled(true);
+//        googleMap.setMyLocationEnabled(true);
+
+        // Needs to call MapsInitializer before doing any CameraUpdateFactory calls
+//        try {
+        MapsInitializer.initialize(this.getActivity());
+//        } catch (GooglePlayServicesNotAvailableException e) {
+//            e.printStackTrace();
+//        }
+
+        // Updates the location and zoom of the MapView
+        final LatLng sydney = new LatLng(-10.5, -76);
+        final CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(sydney, 5);
+        this.googleMap.animateCamera(cameraUpdate);
+
+//        map.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+    }
+
+    private MarkerOptions getMarkerFromProject(PublicInvestmentProjectModel publicInvestmentProjectModel) {
+        final double latitude = Double.valueOf(publicInvestmentProjectModel.getLatitude());
+        final double longitude = Double.valueOf(publicInvestmentProjectModel.getLongitude());
+        final LatLng latLng = new LatLng(latitude, longitude);
+
+        return new MarkerOptions().position(latLng).title(publicInvestmentProjectModel.getUniqueCode());
+    }
+
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        if (this.publicInvestmentProjectListPresenter != null) {
+            this.publicInvestmentProjectListPresenter.onPublicInvestmentProjectClicked(marker.getTitle());
         }
+        return false;
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        this.mapView.onResume();
         this.publicInvestmentProjectListPresenter.resume();
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        this.mapView.onPause();
         this.publicInvestmentProjectListPresenter.pause();
     }
 
@@ -99,13 +161,20 @@ public class ProjectsMapFragment extends BaseFragment implements PublicInvestmen
     @Override
     public void onDestroy() {
         super.onDestroy();
-        this.publicInvestmentProjectListPresenter.destroy();
+        this.mapView.onDestroy();
+//        this.publicInvestmentProjectListPresenter.destroy();//TODO edward.carrion si hago el detruir presentador, en la otra vista de listado se pierde el presenter
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-//        this.publicInvestmentProjectListListener = null;
+        this.publicInvestmentProjectListListener = null;
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        this.mapView.onLowMemory();
     }
 
     private void loadPublicInvestmentProjectList() {
@@ -121,13 +190,16 @@ public class ProjectsMapFragment extends BaseFragment implements PublicInvestmen
     @Override
     public void renderPublicInvestmentProjectList(Collection<PublicInvestmentProjectModel> publicInvestmentProjectModelCollection) {
         if (publicInvestmentProjectModelCollection != null) {
-
+            for (PublicInvestmentProjectModel publicInvestmentProjectModel : publicInvestmentProjectModelCollection) {
+                MarkerOptions markerOptions = getMarkerFromProject(publicInvestmentProjectModel);
+                this.googleMap.addMarker(markerOptions);
+            }
         }
     }
 
     @Override
-    public void viewPublicInvestmentProject(PublicInvestmentProjectModel publicInvestmentProjectModel) {
-//        this.publicInvestmentProjectListListener.onPublicInvestmentProjectClicked(publicInvestmentProjectModel);
+    public void viewPublicInvestmentProject(String uniqueCode) {
+        this.publicInvestmentProjectListListener.onPublicInvestmentProjectClicked(uniqueCode);
     }
 
     @Override

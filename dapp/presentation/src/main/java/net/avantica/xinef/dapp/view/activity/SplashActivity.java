@@ -1,11 +1,11 @@
 package net.avantica.xinef.dapp.view.activity;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 
-import com.raizlabs.android.dbflow.config.FlowManager;
-
 import net.avantica.xinef.dapp.R;
-import net.avantica.xinef.dapp.data.repository.AppDataBase;
 import net.avantica.xinef.dapp.di.HasComponent;
 import net.avantica.xinef.dapp.di.components.DaggerPublicInvestmentProjectComponent;
 import net.avantica.xinef.dapp.di.components.PublicInvestmentProjectComponent;
@@ -23,19 +23,24 @@ public class SplashActivity extends BaseActivity implements HasComponent<PublicI
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-//        try {
-//            FlowManager.getDatabase(AppDataBase.class).reset(getApplicationContext());
-//            FlowManager.destroy();
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-
         this.initializeInjector();
 
         setContentView(R.layout.activity_splash);
 
         addFragment(R.id.fragment_container, SplashFragment.newInstance());
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            int accessCoarseLocation = checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION);
+            int accessFineLocation = checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION);
+
+            if (checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                requestCoarseLocation();
+            }
+        }
+
+    }
+
+    private void requestCoarseLocation() {
 
     }
 

@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">DAPP</string>
 
+    <string name="google_maps_key">AIzaSyDU30SjWh1zmw7mbwM25VH8B2yhQ15pJQY</string>
+
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
