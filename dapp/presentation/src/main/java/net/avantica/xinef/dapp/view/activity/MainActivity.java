@@ -3,7 +3,6 @@ package net.avantica.xinef.dapp.view.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
@@ -11,7 +10,6 @@ import net.avantica.xinef.dapp.R;
 import net.avantica.xinef.dapp.di.HasComponent;
 import net.avantica.xinef.dapp.di.components.DaggerPublicInvestmentProjectComponent;
 import net.avantica.xinef.dapp.di.components.PublicInvestmentProjectComponent;
-import net.avantica.xinef.dapp.model.PublicInvestmentProjectModel;
 import net.avantica.xinef.dapp.view.fragment.BaseFragment;
 import net.avantica.xinef.dapp.view.fragment.ProjectListFragment;
 import net.avantica.xinef.dapp.view.fragment.ProjectsMapFragment;
@@ -40,14 +38,6 @@ public class MainActivity extends BaseActivity implements HasComponent<PublicInv
         this.initializeInjector();
 
         replaceFragment(R.id.container, ProjectsMapFragment.newInstance());
-    }
-
-    private void showProjectListView() {
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-
-        ProjectListFragment newFragment = ProjectListFragment.newInstance();
-        fragmentTransaction.replace(R.id.container, newFragment, ProjectListFragment.class.getName());
-        fragmentTransaction.commit();
     }
 
     private void initializeInjector() {
@@ -79,6 +69,5 @@ public class MainActivity extends BaseActivity implements HasComponent<PublicInv
             default:
                 return super.onOptionsItemSelected(item);
         }
-//        replaceFragment(R.id.container, ProjectListFragment.newInstance());return true;
     }
 }

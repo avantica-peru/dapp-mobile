@@ -29,18 +29,18 @@ import rx.Observable;
  */
 public class GetPublicInvestmentProjectDetails extends UseCase {
 
-    private final String userId;
-    private final PublicInvestmentProjectRepository userRepository;
+    private final String projectId;
+    private final PublicInvestmentProjectRepository publicInvestmentProjectRepository;
 
     @Inject
-    public GetPublicInvestmentProjectDetails(String userId, PublicInvestmentProjectRepository userRepository, ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread) {
+    public GetPublicInvestmentProjectDetails(String projectId, PublicInvestmentProjectRepository publicInvestmentProjectRepository, ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread) {
         super(threadExecutor, postExecutionThread);
-        this.userId = userId;
-        this.userRepository = userRepository;
+        this.projectId = projectId;
+        this.publicInvestmentProjectRepository = publicInvestmentProjectRepository;
     }
 
     @Override
     protected Observable buildUseCaseObservable() {
-        return this.userRepository.publicInvestmentProject(this.userId);
+        return this.publicInvestmentProjectRepository.publicInvestmentProject(this.projectId);
     }
 }

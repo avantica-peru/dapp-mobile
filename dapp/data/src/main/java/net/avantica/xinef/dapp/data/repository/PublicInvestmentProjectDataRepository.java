@@ -41,8 +41,8 @@ public class PublicInvestmentProjectDataRepository implements PublicInvestmentPr
     }
 
     @Override
-    public Observable<List<PublicInvestmentProject>> publicInvestmentProject(String uniqueCode) {
+    public Observable<List<PublicInvestmentProject>> publicInvestmentProject(String snipCode) {
         final PublicInvestmentProjectDataStore publicInvestmentProjectDataStore = this.publicInvestmentProjectDataStoreFactory.create();
-        return publicInvestmentProjectDataStore.publicInvestmentProjectEntityDetails(uniqueCode).map(this.publicInvestmentProjectEntityDataMapper::transform);
+        return publicInvestmentProjectDataStore.publicInvestmentProjectEntityDetails(snipCode).map(this.publicInvestmentProjectEntityDataMapper::transform);
     }
 }

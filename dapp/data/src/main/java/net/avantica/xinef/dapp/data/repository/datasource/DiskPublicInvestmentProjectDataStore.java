@@ -39,7 +39,7 @@ public class DiskPublicInvestmentProjectDataStore implements PublicInvestmentPro
             try {
                 final Select select = SQLite.select();
                 final From from = select.from(PublicInvestmentProjectEntity.class);
-                final Where where = from.groupBy(PublicInvestmentProjectEntity_Table.UniqueCode);
+                final Where where = from.groupBy(PublicInvestmentProjectEntity_Table.SnipCode);
                 List<PublicInvestmentProjectEntity> list = where.queryList();
 
                 subscriber.onNext(list);
@@ -51,12 +51,12 @@ public class DiskPublicInvestmentProjectDataStore implements PublicInvestmentPro
     }
 
     @Override
-    public Observable<List<PublicInvestmentProjectEntity>> publicInvestmentProjectEntityDetails(String uniqueCode) {
+    public Observable<List<PublicInvestmentProjectEntity>> publicInvestmentProjectEntityDetails(String snipCode) {
         return Observable.create(subscriber -> {
             try {
                 final Select select = SQLite.select();
                 final From from = select.from(PublicInvestmentProjectEntity.class);
-                final Where where = from.where(PublicInvestmentProjectEntity_Table.UniqueCode.like(uniqueCode));
+                final Where where = from.where(PublicInvestmentProjectEntity_Table.SnipCode.like(snipCode));
 
                 List<PublicInvestmentProjectEntity> publicInvestmentProjectEntity = where.queryList();
 

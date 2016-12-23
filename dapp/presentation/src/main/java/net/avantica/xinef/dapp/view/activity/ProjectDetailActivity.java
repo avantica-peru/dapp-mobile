@@ -41,9 +41,6 @@ public class ProjectDetailActivity extends BaseActivity implements HasComponent<
                 .build();
     }
 
-    /**
-     * Initializes this activity.
-     */
     private void initializeActivity(Bundle savedInstanceState) {
         if (savedInstanceState == null) {
             this.uniqueCode = getIntent().getStringExtra(INTENT_EXTRA_PARAM_UNIQUE_CODE);

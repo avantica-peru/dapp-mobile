@@ -127,7 +127,7 @@ public class ProjectsMapFragment extends BaseFragment implements PublicInvestmen
         final double longitude = Double.valueOf(publicInvestmentProjectModel.getLongitude());
         final LatLng latLng = new LatLng(latitude, longitude);
 
-        return new MarkerOptions().position(latLng).title(publicInvestmentProjectModel.getUniqueCode());
+        return new MarkerOptions().position(latLng).title(publicInvestmentProjectModel.getSnipCode());
     }
 
     @Override
@@ -198,8 +198,8 @@ public class ProjectsMapFragment extends BaseFragment implements PublicInvestmen
     }
 
     @Override
-    public void viewPublicInvestmentProject(String uniqueCode) {
-        this.publicInvestmentProjectListListener.onPublicInvestmentProjectClicked(uniqueCode);
+    public void viewPublicInvestmentProject(String snipCode) {
+        this.publicInvestmentProjectListListener.onPublicInvestmentProjectClicked(snipCode);
     }
 
     @Override

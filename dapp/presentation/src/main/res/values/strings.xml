@@ -45,4 +45,10 @@
     <string name="costo">Costo</string>
 
     <string name="currency_x">S/ %1$s</string>
+    <string name="gps_not_enabled">GPS no habilitado</string>
+    <string name="do_you_want_enable_gps">¿Desea activar el GPS?</string>
+    <string name="yes">Sí</string>
+    <string name="no">No</string>
+    <string name="retry">UNDO</string>
+    <string name="gps_is_required">Message is deleted</string>
 </resources>

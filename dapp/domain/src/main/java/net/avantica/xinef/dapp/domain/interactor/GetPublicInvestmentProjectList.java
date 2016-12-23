@@ -30,17 +30,17 @@ import rx.Observable;
 public class GetPublicInvestmentProjectList extends UseCase {
 
     private final boolean cloud;
-    private final PublicInvestmentProjectRepository userRepository;
+    private final PublicInvestmentProjectRepository publicInvestmentProjectRepository;
 
     @Inject
-    public GetPublicInvestmentProjectList(boolean cloud, PublicInvestmentProjectRepository userRepository, ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread) {
+    public GetPublicInvestmentProjectList(boolean cloud, PublicInvestmentProjectRepository publicInvestmentProjectRepository, ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread) {
         super(threadExecutor, postExecutionThread);
         this.cloud = cloud;
-        this.userRepository = userRepository;
+        this.publicInvestmentProjectRepository = publicInvestmentProjectRepository;
     }
 
     @Override
     public Observable buildUseCaseObservable() {
-        return this.userRepository.publicInvestmentProjects(cloud);
+        return this.publicInvestmentProjectRepository.publicInvestmentProjects(cloud);
     }
 }

@@ -8,7 +8,7 @@ import java.util.List;
 import rx.Observable;
 
 public interface RestApi {
-    String API_URL_GET_PUBLIC_INVESTMENT_PROJECT_LIST = BuildConfig.HOST + "datastreams/PIP-GEORE-DE-GOBIE-LOCAL/data.json/?auth_key=" + BuildConfig.AUTH_KEY /*+ "&limit=50"*/;
+    String API_URL_GET_PUBLIC_INVESTMENT_PROJECT_LIST = BuildConfig.HOST + "datastreams/PIP-GEORE-DE-GOBIE-LOCAL/data.json/?auth_key=" + BuildConfig.AUTH_KEY + "&limit=50";
     String API_URL_GET_PUBLIC_INVESTMENT_PROJECT_DETAIL = BuildConfig.HOST + "datastreams/PIP-GEORE-DE-GOBIE-LOCAL/data.json/?auth_key=" + BuildConfig.AUTH_KEY + "&limit=2";
 
     /**

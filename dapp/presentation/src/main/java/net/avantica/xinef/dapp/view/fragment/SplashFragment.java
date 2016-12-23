@@ -107,7 +107,7 @@ public class SplashFragment extends BaseFragment implements PublicInvestmentProj
     }
 
     @Override
-    public void viewPublicInvestmentProject(String uniqueCode) {
+    public void viewPublicInvestmentProject(String snipCode) {
         //Not needed
     }
 

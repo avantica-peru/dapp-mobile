@@ -71,8 +71,8 @@ public class PublicInvestmentProjectListPresenter implements Presenter {
         this.getPublicInvestmentProjectList();
     }
 
-    public void onPublicInvestmentProjectClicked(String uniqueCode) {
-        this.viewListView.viewPublicInvestmentProject(uniqueCode);
+    public void onPublicInvestmentProjectClicked(String snipCode) {
+        this.viewListView.viewPublicInvestmentProject(snipCode);
     }
 
     private void showViewLoading() {

@@ -34,14 +34,14 @@ import dagger.Provides;
 @Module
 public class PublicInvestmentProjectModule {
 
-    private String uniqueCode = "";
+    private String snipCode = "";
     private boolean cloud;
 
     public PublicInvestmentProjectModule() {
     }
 
-    public PublicInvestmentProjectModule(String uniqueCode) {
-        this.uniqueCode = uniqueCode;
+    public PublicInvestmentProjectModule(String snipCode) {
+        this.snipCode = snipCode;
     }
 
     public PublicInvestmentProjectModule(boolean cloud) {
@@ -63,6 +63,6 @@ public class PublicInvestmentProjectModule {
     UseCase provideGetPublicInvestmentProjectDetailsUseCase(
             PublicInvestmentProjectRepository publicInvestmentProjectRepository, ThreadExecutor threadExecutor,
             PostExecutionThread postExecutionThread) {
-        return new GetPublicInvestmentProjectDetails(uniqueCode, publicInvestmentProjectRepository, threadExecutor, postExecutionThread);
+        return new GetPublicInvestmentProjectDetails(snipCode, publicInvestmentProjectRepository, threadExecutor, postExecutionThread);
     }
 }

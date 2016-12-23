@@ -42,7 +42,6 @@ public class ProjectListFragment extends BaseFragment implements PublicInvestmen
     private Unbinder unbinder;
 
     public ProjectListFragment() {
-        // Required empty public constructor
         setRetainInstance(true);
     }
 
@@ -145,8 +144,8 @@ public class ProjectListFragment extends BaseFragment implements PublicInvestmen
     }
 
     @Override
-    public void viewPublicInvestmentProject(String uniqueCode) {
-        this.publicInvestmentProjectListListener.onPublicInvestmentProjectClicked(uniqueCode);
+    public void viewPublicInvestmentProject(String snipCode) {
+        this.publicInvestmentProjectListListener.onPublicInvestmentProjectClicked(snipCode);
     }
 
     @Override
@@ -184,7 +183,7 @@ public class ProjectListFragment extends BaseFragment implements PublicInvestmen
                 @Override
                 public void onPublicInvestmentProjectItemClicked(PublicInvestmentProjectModel publicInvestmentProjectModel) {
                     if (ProjectListFragment.this.publicInvestmentProjectListPresenter != null && publicInvestmentProjectModel != null) {
-                        ProjectListFragment.this.publicInvestmentProjectListPresenter.onPublicInvestmentProjectClicked(publicInvestmentProjectModel.getUniqueCode());
+                        ProjectListFragment.this.publicInvestmentProjectListPresenter.onPublicInvestmentProjectClicked(publicInvestmentProjectModel.getSnipCode());
                     }
                 }
             };

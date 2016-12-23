@@ -202,11 +202,11 @@ public class RestApiImpl implements RestApi {
 
     @RxLogObservable
     @Override
-    public Observable<List<PublicInvestmentProjectEntity>> publicInvestmentProjectEntityById(String uniqueCode) {
+    public Observable<List<PublicInvestmentProjectEntity>> publicInvestmentProjectEntityById(String snipCode) {
         return Observable.create(subscriber -> {
             if (isThereInternetConnection()) {
                 try {
-                    String responseUserEntities = getPublicInvestmentProjectDetailsFromApi(uniqueCode);
+                    String responseUserEntities = getPublicInvestmentProjectDetailsFromApi(snipCode);
 
                     PIPResult pipResult = publicInvestmentProjectEntityJsonMapper.transformPublicInvestmentProjectEntity(responseUserEntities);
 
