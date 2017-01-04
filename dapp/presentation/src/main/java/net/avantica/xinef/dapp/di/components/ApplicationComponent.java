@@ -6,6 +6,7 @@ import net.avantica.xinef.dapp.di.modules.ApplicationModule;
 import net.avantica.xinef.dapp.domain.executor.PostExecutionThread;
 import net.avantica.xinef.dapp.domain.executor.ThreadExecutor;
 import net.avantica.xinef.dapp.domain.repository.PublicInvestmentProjectRepository;
+import net.avantica.xinef.dapp.domain.repository.ReverseGeocodingRepository;
 import net.avantica.xinef.dapp.view.activity.BaseActivity;
 
 import javax.inject.Singleton;
@@ -28,4 +29,6 @@ public interface ApplicationComponent {
     PostExecutionThread postExecutionThread();
 
     PublicInvestmentProjectRepository publicInvestmentProjectRepository();
+
+    ReverseGeocodingRepository reverseGeocodingRepository();
 }
