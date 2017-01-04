@@ -61,14 +61,20 @@ android {
     productFlavors {
         prd {
             versionName globalConfiguration.getAt("androidPrdVersionName")
-            buildConfigField 'String', 'HOST', '"http://api.datosabiertos.mef.gob.pe/api/v2/"'
-            buildConfigField 'String', 'AUTH_KEY', '"6acbfd912e4e0005152999134b066e64f44396e8"'
+            buildConfigField 'String', 'HOST_MEF', '"http://api.datosabiertos.mef.gob.pe/api/v2/"'
+            buildConfigField 'String', 'HOST_MAPS', '"https://maps.googleapis.com/maps/api/geocode/"'
+            buildConfigField 'String', 'AUTH_MEF_KEY', '"6acbfd912e4e0005152999134b066e64f44396e8"'
+            buildConfigField "String", "GOOGLE_MAPS_GEOCODING_API_KEY", '"AIzaSyDw48kGGXlxn9OVkN8LIE2unTzqzt_qPa4"'
+            resValue "string", "GOOGLE_MAPS_KEY", 'AIzaSyDU30SjWh1zmw7mbwM25VH8B2yhQ15pJQY'
         }
 
         qa {
             versionName globalConfiguration.getAt("androidQAVersionName")
-            buildConfigField 'String', 'HOST', '"http://api.datosabiertos.mef.gob.pe/api/v2/"'
-            buildConfigField 'String', 'AUTH_KEY', '"6acbfd912e4e0005152999134b066e64f44396e8"'
+            buildConfigField 'String', 'HOST_MEF', '"http://api.datosabiertos.mef.gob.pe/api/v2/"'
+            buildConfigField 'String', 'HOST_MAPS', '"https://maps.googleapis.com/maps/api/geocode/"'
+            buildConfigField 'String', 'AUTH_MEF_KEY', '"6acbfd912e4e0005152999134b066e64f44396e8"'
+            buildConfigField "String", "GOOGLE_MAPS_GEOCODING_API_KEY", '"AIzaSyDw48kGGXlxn9OVkN8LIE2unTzqzt_qPa4"'
+            resValue "string", "GOOGLE_MAPS_KEY", 'AIzaSyDU30SjWh1zmw7mbwM25VH8B2yhQ15pJQY'
         }
     }
 }
