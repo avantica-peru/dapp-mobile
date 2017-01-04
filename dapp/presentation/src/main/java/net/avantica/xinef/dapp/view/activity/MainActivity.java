@@ -10,6 +10,7 @@ import net.avantica.xinef.dapp.R;
 import net.avantica.xinef.dapp.di.HasComponent;
 import net.avantica.xinef.dapp.di.components.DaggerPublicInvestmentProjectComponent;
 import net.avantica.xinef.dapp.di.components.PublicInvestmentProjectComponent;
+import net.avantica.xinef.dapp.di.modules.PublicInvestmentProjectModule;
 import net.avantica.xinef.dapp.view.fragment.BaseFragment;
 import net.avantica.xinef.dapp.view.fragment.ProjectListFragment;
 import net.avantica.xinef.dapp.view.fragment.ProjectsMapFragment;
@@ -18,6 +19,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends BaseActivity implements HasComponent<PublicInvestmentProjectComponent>, BaseFragment.PublicInvestmentProjectListListener {
+    private double latitude;
+    private double longitude;
+    private String departmentName;
+
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
@@ -35,15 +40,23 @@ public class MainActivity extends BaseActivity implements HasComponent<PublicInv
 
         setSupportActionBar(toolbar);
 
+        latitude = getLatitude(this);
+        longitude = getLongitude(this);
+        departmentName = getDepartmentName(this);
+
         this.initializeInjector();
 
-        replaceFragment(R.id.container, ProjectsMapFragment.newInstance());
+        replaceFragment(R.id.container, ProjectsMapFragment.newInstance(latitude, longitude));
     }
 
     private void initializeInjector() {
+        PublicInvestmentProjectModule publicInvestmentProjectModule = new PublicInvestmentProjectModule();
+        publicInvestmentProjectModule.setDepartmentName(departmentName);
+
         this.publicInvestmentProjectComponent = DaggerPublicInvestmentProjectComponent.builder()
                 .applicationComponent(getApplicationComponent())
                 .activityModule(getActivityModule())
+                .publicInvestmentProjectModule(publicInvestmentProjectModule)
                 .build();
     }
 
@@ -61,7 +74,7 @@ public class MainActivity extends BaseActivity implements HasComponent<PublicInv
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_maps_map:
-                replaceFragment(R.id.container, ProjectsMapFragment.newInstance());
+                replaceFragment(R.id.container, ProjectsMapFragment.newInstance(latitude, longitude));
                 return true;
             case R.id.action_action_view_list:
                 replaceFragment(R.id.container, ProjectListFragment.newInstance());

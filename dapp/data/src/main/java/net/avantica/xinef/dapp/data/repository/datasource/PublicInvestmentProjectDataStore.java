@@ -8,7 +8,7 @@ import rx.Observable;
 
 public interface PublicInvestmentProjectDataStore {
 
-    Observable<List<PublicInvestmentProjectEntity>> publicInvestmentProjectEntityList();
+    Observable<List<PublicInvestmentProjectEntity>> publicInvestmentProjectEntityList(final String departmentName);
 
     Observable<List<PublicInvestmentProjectEntity>> publicInvestmentProjectEntityDetails(final String uniqueCode);
 }

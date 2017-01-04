@@ -34,7 +34,7 @@ public class DiskPublicInvestmentProjectDataStore implements PublicInvestmentPro
     }
 
     @Override
-    public Observable<List<PublicInvestmentProjectEntity>> publicInvestmentProjectEntityList() {
+    public Observable<List<PublicInvestmentProjectEntity>> publicInvestmentProjectEntityList(String departmentName) {
         return Observable.create(subscriber -> {
             try {
                 final Select select = SQLite.select();

@@ -43,11 +43,11 @@ public class RestApiImpl implements RestApi {
 
     @RxLogObservable
     @Override
-    public Observable<List<PublicInvestmentProjectEntity>> publicInvestmentProjectEntityList() {
+    public Observable<List<PublicInvestmentProjectEntity>> publicInvestmentProjectEntityList(String departmentName) {
         return Observable.create(subscriber -> {
             if (isThereInternetConnection()) {
                 try {
-                    String responseUserEntities = getPublicInvestmentProjectListFromApi();
+                    String responseUserEntities = getPublicInvestmentProjectListFromApi(departmentName);
 
                     PIPResult pipResult = publicInvestmentProjectEntityJsonMapper.transformPublicInvestmentProjectEntity(responseUserEntities);
 
@@ -222,8 +222,10 @@ public class RestApiImpl implements RestApi {
         });
     }
 
-    private String getPublicInvestmentProjectListFromApi() throws MalformedURLException {
-        return ApiConnection.createGET(API_URL_GET_PUBLIC_INVESTMENT_PROJECT_LIST).requestSyncCall();
+    private String getPublicInvestmentProjectListFromApi(String departmentName) throws MalformedURLException {
+//        return ApiConnection.createGET(API_URL_GET_PUBLIC_INVESTMENT_PROJECT_LIST).requestSyncCall();
+        String url = API_URL_GET_PUBLIC_INVESTMENT_PROJECT_LIST_BY_DEPARTMENT + departmentName;
+        return ApiConnection.createGET(url).requestSyncCall();
     }
 
     private String getPublicInvestmentProjectDetailsFromApi(String uniqueCode) throws MalformedURLException {
