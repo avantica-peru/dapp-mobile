@@ -53,7 +53,7 @@ public class GeolocationApiImplTest {
     public void shouldReturnDepartmentWhenRetrievingSuccessfullyFromApi() throws MalformedURLException {
         doReturn(true).when(geolocationApi).isThereInternetConnection();
 
-        ReverseGeocodingEntity entity = preparateReverseGeocodingEntity();
+        ReverseGeocodingEntity entity = preparateReverseGeocodingEntity("Lambayeque", "Lambayeque", singletonList("administrative_area_level_1"));
 
         given(jsonMapper.transformReverseGeocodingEntity(anyString())).willReturn(entity);
         given(geolocationApi.getDepartmentFromLatitudeLongitudeFromApi(14, 15)).willReturn("{}");
@@ -65,11 +65,11 @@ public class GeolocationApiImplTest {
     }
 
     @NonNull
-    private ReverseGeocodingEntity preparateReverseGeocodingEntity() {
+    private ReverseGeocodingEntity preparateReverseGeocodingEntity(String longName, String shortName, List<String> types) {
         AddressComponent addressComponent = new AddressComponent();
-        addressComponent.setLongName("Lambayeque");
-        addressComponent.setShortName("Lambayeque");
-        addressComponent.setTypes(singletonList("administrative_area_level_1"));
+        addressComponent.setLongName(longName);
+        addressComponent.setShortName(shortName);
+        addressComponent.setTypes(types);
 
         ReverseGeocodingResult reverseGeocodingResult = new ReverseGeocodingResult();
         reverseGeocodingResult.setAddressComponents(singletonList(addressComponent));
@@ -95,7 +95,20 @@ public class GeolocationApiImplTest {
         geolocationApi.getDepartmentFromlatitudeLongitude(14, 15).subscribe(testSubscriber);
 
         testSubscriber.assertError(NetworkConnectionException.class);
+    }
 
+    @Test
+    public void shouldReturnEmptyStringWhenThereIsNotAnAdministrativeAreaLevel1() throws MalformedURLException {
+        doReturn(true).when(geolocationApi).isThereInternetConnection();
 
+        ReverseGeocodingEntity entity = preparateReverseGeocodingEntity("Lambayeque", "Lambayeque", singletonList(""));
+
+        given(jsonMapper.transformReverseGeocodingEntity(anyString())).willReturn(entity);
+        given(geolocationApi.getDepartmentFromLatitudeLongitudeFromApi(14, 15)).willReturn("{}");
+
+        TestSubscriber<String> testSubscriber = new TestSubscriber<>();
+        geolocationApi.getDepartmentFromlatitudeLongitude(14, 15).subscribe(testSubscriber);
+
+        testSubscriber.assertReceivedOnNext(singletonList(""));
     }
 }
