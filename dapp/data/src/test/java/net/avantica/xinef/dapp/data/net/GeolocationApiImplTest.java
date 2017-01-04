@@ -15,8 +15,9 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.net.MalformedURLException;
+import java.util.ArrayList;
+import java.util.List;
 
-import rx.Observable;
 import rx.observers.TestSubscriber;
 
 import static java.util.Collections.singletonList;
@@ -43,7 +44,7 @@ public class GeolocationApiImplTest {
         doReturn(false).when(geolocationApi).isThereInternetConnection();
         TestSubscriber<String> testSubscriber = new TestSubscriber<>();
         geolocationApi.getDepartmentFromlatitudeLongitude(14, 15)
-            .subscribe(testSubscriber);
+                .subscribe(testSubscriber);
 
         testSubscriber.assertError(NetworkConnectionException.class);
     }
@@ -77,5 +78,24 @@ public class GeolocationApiImplTest {
         entity.setResults(singletonList(reverseGeocodingResult));
         entity.setStatus("Ok");
         return entity;
+    }
+
+    @Test
+    public void shouldNotifyAnErrorWhenListOfResultFromReverseGeocodingEntityIsEmpty() throws MalformedURLException {
+        doReturn(true).when(geolocationApi).isThereInternetConnection();
+
+        ReverseGeocodingEntity entity = new ReverseGeocodingEntity();
+        List<ReverseGeocodingResult> results = new ArrayList<>();
+        entity.setResults(results);
+
+        given(jsonMapper.transformReverseGeocodingEntity(anyString())).willReturn(entity);
+        given(geolocationApi.getDepartmentFromLatitudeLongitudeFromApi(14, 15)).willReturn("{}");
+
+        TestSubscriber<String> testSubscriber = new TestSubscriber<>();
+        geolocationApi.getDepartmentFromlatitudeLongitude(14, 15).subscribe(testSubscriber);
+
+        testSubscriber.assertError(NetworkConnectionException.class);
+
+
     }
 }
