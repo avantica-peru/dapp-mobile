@@ -33,6 +33,12 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 public class ProjectsMapFragment extends BaseFragment implements PublicInvestmentProjectListView, OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
+    private static final String LATITUDE_KEY = "latitude_key";
+    private static final String LONGITUDE_KEY = "longitude_key";
+    private static final int CAMERA_ZOOM = 8;
+
+    private double latitude;
+    private double longitude;
 
     @Inject
     PublicInvestmentProjectListPresenter publicInvestmentProjectListPresenter;
@@ -49,8 +55,12 @@ public class ProjectsMapFragment extends BaseFragment implements PublicInvestmen
         setRetainInstance(true);
     }
 
-    public static ProjectsMapFragment newInstance() {
+    public static ProjectsMapFragment newInstance(double latitude, double longitude) {
         ProjectsMapFragment fragment = new ProjectsMapFragment();
+        Bundle args = new Bundle();
+        args.putDouble(LATITUDE_KEY, latitude);
+        args.putDouble(LONGITUDE_KEY, longitude);
+        fragment.setArguments(args);
         return fragment;
     }
 
@@ -58,6 +68,10 @@ public class ProjectsMapFragment extends BaseFragment implements PublicInvestmen
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.getComponent(PublicInvestmentProjectComponent.class).inject(this);
+
+        latitude = getArguments().getDouble(LATITUDE_KEY);
+        longitude = getArguments().getDouble(LONGITUDE_KEY);
+
     }
 
     @Override
@@ -115,11 +129,11 @@ public class ProjectsMapFragment extends BaseFragment implements PublicInvestmen
 //        }
 
         // Updates the location and zoom of the MapView
-        final LatLng sydney = new LatLng(-10.5, -76);
-        final CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(sydney, 5);
+        final LatLng latLng = new LatLng(latitude, longitude);
+        final CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, CAMERA_ZOOM);
         this.googleMap.animateCamera(cameraUpdate);
 
-//        map.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+//        map.moveCamera(CameraUpdateFactory.newLatLng(latLng));
     }
 
     private MarkerOptions getMarkerFromProject(PublicInvestmentProjectModel publicInvestmentProjectModel) {

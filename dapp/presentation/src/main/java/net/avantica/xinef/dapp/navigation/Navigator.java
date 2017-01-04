@@ -30,7 +30,7 @@ public class Navigator {
      *
      * @param context A Context needed to open the destiny activity.
      */
-    public void navigateToPublicInvestmentProjectrList(Context context, List<PublicInvestmentProjectModel> publicInvestmentProjectModels) {
+    public void navigateToMainActivity(Context context) {
         if (context != null) {
             Intent intentToLaunch = MainActivity.getCallingIntent(context);
             context.startActivity(intentToLaunch);

@@ -20,8 +20,10 @@ import net.avantica.xinef.dapp.domain.executor.PostExecutionThread;
 import net.avantica.xinef.dapp.domain.executor.ThreadExecutor;
 import net.avantica.xinef.dapp.domain.interactor.GetPublicInvestmentProjectDetails;
 import net.avantica.xinef.dapp.domain.interactor.GetPublicInvestmentProjectList;
+import net.avantica.xinef.dapp.domain.interactor.GetReverseGeocoding;
 import net.avantica.xinef.dapp.domain.interactor.UseCase;
 import net.avantica.xinef.dapp.domain.repository.PublicInvestmentProjectRepository;
+import net.avantica.xinef.dapp.domain.repository.ReverseGeocodingRepository;
 
 import javax.inject.Named;
 
@@ -36,6 +38,10 @@ public class PublicInvestmentProjectModule {
 
     private String snipCode = "";
     private boolean cloud;
+    private String departmentName;
+
+    private double latitude;
+    private double longitude;
 
     public PublicInvestmentProjectModule() {
     }
@@ -44,8 +50,13 @@ public class PublicInvestmentProjectModule {
         this.snipCode = snipCode;
     }
 
-    public PublicInvestmentProjectModule(boolean cloud) {
-        this.cloud = cloud;
+    public PublicInvestmentProjectModule(double latitude, double longitude) {
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
+
+    public void setDepartmentName(String departmentName) {
+        this.departmentName = departmentName;
     }
 
     @Provides
@@ -54,7 +65,7 @@ public class PublicInvestmentProjectModule {
     UseCase provideGetUserListUseCase(
             PublicInvestmentProjectRepository publicInvestmentProjectRepository, ThreadExecutor threadExecutor,
             PostExecutionThread postExecutionThread) {
-        return new GetPublicInvestmentProjectList(this.cloud, publicInvestmentProjectRepository, threadExecutor, postExecutionThread);
+        return new GetPublicInvestmentProjectList(this.departmentName, publicInvestmentProjectRepository, threadExecutor, postExecutionThread);
     }
 
     @Provides
@@ -64,5 +75,14 @@ public class PublicInvestmentProjectModule {
             PublicInvestmentProjectRepository publicInvestmentProjectRepository, ThreadExecutor threadExecutor,
             PostExecutionThread postExecutionThread) {
         return new GetPublicInvestmentProjectDetails(snipCode, publicInvestmentProjectRepository, threadExecutor, postExecutionThread);
+    }
+
+    @Provides
+    @PerActivity
+    @Named("reverseGeocoding")
+    UseCase provideGetReverseGeocodingUseCase(
+            ReverseGeocodingRepository publicInvestmentProjectRepository, ThreadExecutor threadExecutor,
+            PostExecutionThread postExecutionThread) {
+        return new GetReverseGeocoding(latitude, longitude, publicInvestmentProjectRepository, threadExecutor, postExecutionThread);
     }
 }

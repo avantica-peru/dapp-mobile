@@ -9,18 +9,14 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.view.View;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import net.avantica.xinef.dapp.R;
 import net.avantica.xinef.dapp.di.HasComponent;
 import net.avantica.xinef.dapp.di.components.DaggerPublicInvestmentProjectComponent;
 import net.avantica.xinef.dapp.di.components.PublicInvestmentProjectComponent;
 import net.avantica.xinef.dapp.di.modules.PublicInvestmentProjectModule;
-import net.avantica.xinef.dapp.model.PublicInvestmentProjectModel;
 import net.avantica.xinef.dapp.util.TrackGPS;
 import net.avantica.xinef.dapp.view.fragment.SplashFragment;
-
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,16 +30,12 @@ public class SplashActivity extends BaseActivity implements HasComponent<PublicI
     private final int PERMISSION_ACCESS_COARSE_LOCATION = 100;
 
     private TrackGPS gps;
-    private double longitude;
-    private double latitude;
 
     private Unbinder unbinder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        this.initializeInjector();
 
         setContentView(R.layout.activity_splash);
         unbinder = ButterKnife.bind(this);
@@ -57,6 +49,8 @@ public class SplashActivity extends BaseActivity implements HasComponent<PublicI
             } else {
                 getLocation();
             }
+        } else {
+            getLocation();
         }
 
     }
@@ -70,7 +64,6 @@ public class SplashActivity extends BaseActivity implements HasComponent<PublicI
     private void requestCoarseLocation() {
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, PERMISSION_ACCESS_COARSE_LOCATION);
     }
-
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -100,12 +93,8 @@ public class SplashActivity extends BaseActivity implements HasComponent<PublicI
         gps = new TrackGPS(this);
 
         if (gps.canGetLocation()) {
-
-            longitude = gps.getLongitude();
-            latitude = gps.getLatitude();
-
-            Toast.makeText(getApplicationContext(), "Longitude:" + Double.toString(longitude) + "\nLatitude:" + Double.toString(latitude), Toast.LENGTH_SHORT).show();
-
+            storeLatitudeLongitude(this, gps.getLatitude(), gps.getLongitude());
+            this.initializeInjector(gps.getLatitude(), gps.getLongitude());
             addFragment(R.id.fragment_container, SplashFragment.newInstance());
         } else {
             gps.showSettingsAlert();
@@ -113,20 +102,21 @@ public class SplashActivity extends BaseActivity implements HasComponent<PublicI
     }
 
     @Override
-    public void successfulLoad(List<PublicInvestmentProjectModel> publicInvestmentProjectModels) {
-        this.navigator.navigateToPublicInvestmentProjectrList(this, publicInvestmentProjectModels);
+    public void success(String departmentName) {
+        storeDepartmentName(this, departmentName);
+        this.navigator.navigateToMainActivity(this);
     }
 
     @Override
-    public void loadFailed() {
+    public void error() {
 
     }
 
-    private void initializeInjector() {
+    private void initializeInjector(double latitude, double longitude) {
         this.publicInvestmentProjectComponent = DaggerPublicInvestmentProjectComponent.builder()
                 .applicationComponent(getApplicationComponent())
                 .activityModule(getActivityModule())
-                .publicInvestmentProjectModule(new PublicInvestmentProjectModule(true))
+                .publicInvestmentProjectModule(new PublicInvestmentProjectModule(latitude, longitude))
                 .build();
     }
 

@@ -10,27 +10,23 @@ import android.view.ViewGroup;
 
 import net.avantica.xinef.dapp.R;
 import net.avantica.xinef.dapp.di.components.PublicInvestmentProjectComponent;
-import net.avantica.xinef.dapp.model.PublicInvestmentProjectModel;
-import net.avantica.xinef.dapp.presenter.PublicInvestmentProjectListPresenter;
-import net.avantica.xinef.dapp.view.PublicInvestmentProjectListView;
-
-import java.util.Collection;
-import java.util.List;
+import net.avantica.xinef.dapp.presenter.ReverseGeocodingPresenter;
+import net.avantica.xinef.dapp.view.ReverseGeocodingView;
 
 import javax.inject.Inject;
 
-public class SplashFragment extends BaseFragment implements PublicInvestmentProjectListView {
+public class SplashFragment extends BaseFragment implements ReverseGeocodingView {
 
     public interface SplashListener {
-        void successfulLoad(final List<PublicInvestmentProjectModel> publicInvestmentProjectModels);
+        void success(String departmentName);
 
-        void loadFailed();
+        void error();
     }
 
     @Inject
-    PublicInvestmentProjectListPresenter publicInvestmentProjectListPresenter;
+    ReverseGeocodingPresenter reverseGeocodingPresenter;
 
-    private SplashListener publicInvestmentProjectListListener;
+    private SplashListener splashListener;
 
     public SplashFragment() {
         // Required empty public constructor
@@ -44,7 +40,7 @@ public class SplashFragment extends BaseFragment implements PublicInvestmentProj
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        this.publicInvestmentProjectListListener = (SplashFragment.SplashListener) context;
+        this.splashListener = (SplashListener) context;
     }
 
     @Override
@@ -63,10 +59,10 @@ public class SplashFragment extends BaseFragment implements PublicInvestmentProj
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        this.publicInvestmentProjectListPresenter.setView(this);
+        this.reverseGeocodingPresenter.setView(this);
 
         if (savedInstanceState == null) {
-            this.loadPublicInvestmentProjectList();
+            this.loadDepartmentName();
         }
     }
 
@@ -74,41 +70,29 @@ public class SplashFragment extends BaseFragment implements PublicInvestmentProj
     public void onDetach() {
         super.onDetach();
 
-        this.publicInvestmentProjectListListener = null;
+        this.splashListener = null;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        this.publicInvestmentProjectListPresenter.resume();
+        this.reverseGeocodingPresenter.resume();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        this.publicInvestmentProjectListPresenter.pause();
+        this.reverseGeocodingPresenter.pause();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        this.publicInvestmentProjectListPresenter.destroy();
+        this.reverseGeocodingPresenter.destroy();
     }
 
-    private void loadPublicInvestmentProjectList() {
-        this.publicInvestmentProjectListPresenter.initialize();
-    }
-
-    @Override
-    public void renderPublicInvestmentProjectList(Collection<PublicInvestmentProjectModel> publicInvestmentProjectModelCollection) {
-        if (publicInvestmentProjectModelCollection != null) {
-            this.publicInvestmentProjectListListener.successfulLoad((List<PublicInvestmentProjectModel>) publicInvestmentProjectModelCollection);
-        }
-    }
-
-    @Override
-    public void viewPublicInvestmentProject(String snipCode) {
-        //Not needed
+    private void loadDepartmentName() {
+        this.reverseGeocodingPresenter.initialize();
     }
 
     @Override
@@ -133,11 +117,16 @@ public class SplashFragment extends BaseFragment implements PublicInvestmentProj
 
     @Override
     public void showError(String message) {
-        showToastMessage("Error!");
+        showToastMessage(getString(R.string.there_is_a_bug_in_application));
     }
 
     @Override
     public Context context() {
         return this.getActivity().getApplicationContext();
+    }
+
+    @Override
+    public void getDepartmentName(String departmentName) {
+        splashListener.success(departmentName);
     }
 }
