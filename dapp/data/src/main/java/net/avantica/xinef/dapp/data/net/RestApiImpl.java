@@ -47,9 +47,13 @@ public class RestApiImpl implements RestApi {
         return Observable.create(subscriber -> {
             if (isThereInternetConnection()) {
                 try {
-                    String responseUserEntities = getPublicInvestmentProjectListFromApi(departmentName);
 
-                    PIPResult pipResult = publicInvestmentProjectEntityJsonMapper.transformPublicInvestmentProjectEntity(responseUserEntities);
+                    String departmentNameNew = clearDepartmentName(departmentName);
+
+
+                    String responseJson = getPublicInvestmentProjectListFromApi(departmentNameNew);
+
+                    PIPResult pipResult = publicInvestmentProjectEntityJsonMapper.transformPublicInvestmentProjectEntity(responseJson);
 
                     final List<PublicInvestmentProjectEntity> entities = new ArrayList<>();
                     final List<Array> arrayResult = pipResult.getResult().getfArray();
@@ -200,15 +204,29 @@ public class RestApiImpl implements RestApi {
         });
     }
 
+    private String clearDepartmentName(String departmentName) {
+        String aux = new String(departmentName);
+        aux = aux.toUpperCase();
+        aux = aux.replaceAll("DEPARTAMENTO", "");
+        aux = aux.replaceAll("PROVINCIA", "");
+        aux = aux.replaceAll("DISTRITO", "");
+        aux = aux.replaceAll("DEPARTMENT", "");
+        aux = aux.replaceAll("PROVINCE", "");
+        aux = aux.replaceAll("REGION", "");
+        aux = aux.replaceAll("DE", "");
+        aux = aux.replaceAll("CUZCO", "CUSCO");
+        return aux.trim();
+    }
+
     @RxLogObservable
     @Override
     public Observable<List<PublicInvestmentProjectEntity>> publicInvestmentProjectEntityById(String snipCode) {
         return Observable.create(subscriber -> {
             if (isThereInternetConnection()) {
                 try {
-                    String responseUserEntities = getPublicInvestmentProjectDetailsFromApi(snipCode);
+                    String responseJson = getPublicInvestmentProjectDetailsFromApi(snipCode);
 
-                    PIPResult pipResult = publicInvestmentProjectEntityJsonMapper.transformPublicInvestmentProjectEntity(responseUserEntities);
+                    PIPResult pipResult = publicInvestmentProjectEntityJsonMapper.transformPublicInvestmentProjectEntity(responseJson);
 
 
                     subscriber.onNext(null);
