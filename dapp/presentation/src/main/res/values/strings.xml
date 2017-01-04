@@ -1,15 +1,6 @@
 <resources>
     <string name="app_name">DAPP</string>
 
-    <string name="google_maps_key">AIzaSyDU30SjWh1zmw7mbwM25VH8B2yhQ15pJQY</string>
-
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-
-    <string name="action_settings">Settings</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_project_list">Proyectos de Inversión Pública</string>
     <string name="title_activity_project_detail">Detalle del Proyecto</string>
 
@@ -51,4 +42,5 @@
     <string name="no">No</string>
     <string name="retry">UNDO</string>
     <string name="gps_is_required">Message is deleted</string>
+    <string name="there_is_a_bug_in_application">Se produjo un error en la aplicación</string>
 </resources>
