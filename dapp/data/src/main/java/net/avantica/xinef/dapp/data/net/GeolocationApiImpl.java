@@ -10,8 +10,12 @@ import net.avantica.xinef.dapp.data.entity.ReverseGeocodingEntity;
 import net.avantica.xinef.dapp.data.entity.ReverseGeocodingResult;
 import net.avantica.xinef.dapp.data.entity.mapper.ReverseGeocodingEntityJsonMapper;
 import net.avantica.xinef.dapp.data.exception.NetworkConnectionException;
+import net.avantica.xinef.dapp.data.exception.ReverseGeocodingNotFoundException;
 
-import java.net.MalformedURLException;
+import org.json.JSONException;
+
+import java.io.IOException;
+import java.net.SocketTimeoutException;
 
 import rx.Observable;
 
@@ -53,10 +57,12 @@ public class GeolocationApiImpl implements GeolocationApi {
                         subscriber.onNext(departmentName);
                         subscriber.onCompleted();
                     } else {
-                        subscriber.onError(new NetworkConnectionException());
+                        subscriber.onError(new ReverseGeocodingNotFoundException());
                     }
+                } catch (SocketTimeoutException e) {
+                    subscriber.onError(new SocketTimeoutException());
                 } catch (Exception e) {
-                    subscriber.onError(new NetworkConnectionException(e.getCause()));
+                    subscriber.onError(new JSONException(e.getMessage()));
                 }
             } else {
                 subscriber.onError(new NetworkConnectionException());
@@ -64,7 +70,7 @@ public class GeolocationApiImpl implements GeolocationApi {
         });
     }
 
-    protected String getDepartmentFromLatitudeLongitudeFromApi(double latitude, double longitude) throws MalformedURLException {
+    protected String getDepartmentFromLatitudeLongitudeFromApi(double latitude, double longitude) throws IOException {
         return ApiConnection.createGET(String.format(API_URL_GET_REVERSE_GEOCODING, latitude, longitude)).requestSyncCall();
     }
 

@@ -20,6 +20,8 @@ public class ApiConnection implements Callable<String> {
 
     private static final String CONTENT_TYPE_LABEL = "Content-Type";
     private static final String CONTENT_TYPE_VALUE_JSON = "application/json; charset=utf-8";
+    private static final int CONNECTION_TIME_OUT = 40;
+    private static final int READ_TIME_OUT = 40;
 
     private URL url;
     private String response;
@@ -39,12 +41,12 @@ public class ApiConnection implements Callable<String> {
      * @return A string response
      */
     @Nullable
-    public String requestSyncCall() {
+    public String requestSyncCall() throws IOException {
         connectToApi();
         return response;
     }
 
-    private void connectToApi() {
+    private void connectToApi() throws IOException {
         OkHttpClient okHttpClient = this.createClient();
         final Request request = new Request.Builder()
                 .url(this.url)
@@ -52,18 +54,16 @@ public class ApiConnection implements Callable<String> {
                 .get()
                 .build();
 
-        try {
-            this.response = okHttpClient.newCall(request).execute().body().string();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+        this.response = okHttpClient.newCall(request).execute().body().string();
+
     }
 
     private OkHttpClient createClient() {
         final OkHttpClient.Builder builder = new OkHttpClient.Builder();
         final OkHttpClient okHttpClient = builder
-                .connectTimeout(40, TimeUnit.SECONDS)
-                .readTimeout(40, TimeUnit.SECONDS)
+                .connectTimeout(CONNECTION_TIME_OUT, TimeUnit.SECONDS)
+                .readTimeout(READ_TIME_OUT, TimeUnit.SECONDS)
                 .build();
 
         return okHttpClient;

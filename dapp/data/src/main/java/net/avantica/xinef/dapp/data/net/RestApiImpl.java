@@ -14,9 +14,13 @@ import net.avantica.xinef.dapp.data.entity.Array;
 import net.avantica.xinef.dapp.data.entity.PIPResult;
 import net.avantica.xinef.dapp.data.entity.PublicInvestmentProjectEntity;
 import net.avantica.xinef.dapp.data.entity.mapper.PublicInvestmentProjectEntityJsonMapper;
+import net.avantica.xinef.dapp.data.exception.JsonException;
 import net.avantica.xinef.dapp.data.exception.NetworkConnectionException;
 
-import java.net.MalformedURLException;
+import org.json.JSONException;
+
+import java.io.IOException;
+import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -195,8 +199,10 @@ public class RestApiImpl implements RestApi {
 
                     subscriber.onNext(entities);
                     subscriber.onCompleted();
+                } catch (SocketTimeoutException e) {
+                    subscriber.onError(new SocketTimeoutException());
                 } catch (Exception e) {
-                    subscriber.onError(new NetworkConnectionException(e.getCause()));
+                    subscriber.onError(new JSONException(e.getMessage()));
                 }
             } else {
                 subscriber.onError(new NetworkConnectionException());
@@ -222,31 +228,31 @@ public class RestApiImpl implements RestApi {
     @Override
     public Observable<List<PublicInvestmentProjectEntity>> publicInvestmentProjectEntityById(String snipCode) {
         return Observable.create(subscriber -> {
-            if (isThereInternetConnection()) {
-                try {
-                    String responseJson = getPublicInvestmentProjectDetailsFromApi(snipCode);
+            if (isThereInternetConnection()) try {
+                String responseJson = getPublicInvestmentProjectDetailsFromApi(snipCode);
 
-                    PIPResult pipResult = publicInvestmentProjectEntityJsonMapper.transformPublicInvestmentProjectEntity(responseJson);
+                PIPResult pipResult = publicInvestmentProjectEntityJsonMapper.transformPublicInvestmentProjectEntity(responseJson);
 
-
-                    subscriber.onNext(null);
-                    subscriber.onCompleted();
-                } catch (Exception e) {
-                    subscriber.onError(new NetworkConnectionException(e.getCause()));
-                }
-            } else {
+                subscriber.onNext(null);
+                subscriber.onCompleted();
+            } catch (SocketTimeoutException e) {
+                subscriber.onError(new SocketTimeoutException());
+            } catch (Exception e) {
+                subscriber.onError(new JsonException(e.getCause()));
+            }
+            else {
                 subscriber.onError(new NetworkConnectionException());
             }
         });
     }
 
-    private String getPublicInvestmentProjectListFromApi(String departmentName) throws MalformedURLException {
+    private String getPublicInvestmentProjectListFromApi(String departmentName) throws IOException {
 //        return ApiConnection.createGET(API_URL_GET_PUBLIC_INVESTMENT_PROJECT_LIST).requestSyncCall();
         String url = API_URL_GET_PUBLIC_INVESTMENT_PROJECT_LIST_BY_DEPARTMENT + departmentName;
         return ApiConnection.createGET(url).requestSyncCall();
     }
 
-    private String getPublicInvestmentProjectDetailsFromApi(String uniqueCode) throws MalformedURLException {
+    private String getPublicInvestmentProjectDetailsFromApi(String uniqueCode) throws IOException {
         String apiUrl = API_URL_GET_PUBLIC_INVESTMENT_PROJECT_DETAIL;
         return ApiConnection.createGET(apiUrl).requestSyncCall();
     }

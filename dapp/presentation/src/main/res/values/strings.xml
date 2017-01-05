@@ -9,11 +9,13 @@
     <string name="menu_list">Listado</string>
 
     <!--Exception messages-->
-    <string name="exception_message_generic">There was an application error</string>
-    <string name="exception_message_no_connection">There is no internet connection</string>
-    <string name="exception_message_public_investment_project_not_found">Cannot retrieve public investment project data. Check your internet connection</string>
+    <string name="exception_message_generic">Hubo un error de la aplicacion</string>
+    <string name="exception_message_no_connection">No hay conexión a internet</string>
+    <string name="exception_message_public_investment_project_not_found">No se pudo recuperar información del proyecto. Revisa tu conexión a internet</string>
+    <string name="exception_message_cannot_get_information_of_your_ubication">No se pudo obetner información de su ubicación</string>
+    <string name="exception_message_there_was_a_error_in_service">Hubo un error con el servicio</string>
+    <string name="exception_message_time_out">Tiempo de espera agotado</string>
 
-    <string name="title_activity_splash">DAPP</string>
     <string name="centro_poblado">Centro poblado</string>
     <string name="unidad_formuladora">Unidad formuladora</string>
     <string name="sector">Sector</string>
