@@ -54,6 +54,8 @@ public class ProjectListFragment extends BaseFragment implements PublicInvestmen
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.getComponent(PublicInvestmentProjectComponent.class).inject(this);
+
+        PAGE = 0;
     }
 
     @Override
@@ -77,7 +79,7 @@ public class ProjectListFragment extends BaseFragment implements PublicInvestmen
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        this.publicInvestmentProjectListPresenter.setView(this);
+//        this.publicInvestmentProjectListPresenter.setView(this);
 
         if (savedInstanceState == null) {
             this.publicInvestmentProjectListPresenter.setView(this);
@@ -127,7 +129,7 @@ public class ProjectListFragment extends BaseFragment implements PublicInvestmen
     }
 
     private void loadPublicInvestmentProjectList() {
-        this.publicInvestmentProjectListPresenter.initialize();
+        this.publicInvestmentProjectListPresenter.initialize(PAGE);
     }
 
     @Override
@@ -140,6 +142,12 @@ public class ProjectListFragment extends BaseFragment implements PublicInvestmen
     public void renderPublicInvestmentProjectList(Collection<PublicInvestmentProjectModel> publicInvestmentProjectModelCollection) {
         if (publicInvestmentProjectModelCollection != null) {
             this.projectListAdapter.setPublicInvestmentProjectCollection(publicInvestmentProjectModelCollection);
+            
+            if (PAGE == 0) {
+
+            } else {
+
+            }
         }
     }
 

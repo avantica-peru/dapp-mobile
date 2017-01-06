@@ -18,6 +18,9 @@ public abstract class BaseFragment extends Fragment {
         void onPublicInvestmentProjectClicked(final String uniqueCode);
     }
 
+    protected static int PAGE = 0;
+    protected static final int LIMIT = 50;
+
     /**
      * Shows a {@link android.widget.Toast} message.
      *

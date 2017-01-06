@@ -7,7 +7,7 @@ import net.avantica.xinef.dapp.domain.entity.PublicInvestmentProject;
 import net.avantica.xinef.dapp.domain.exception.DefaultErrorBundle;
 import net.avantica.xinef.dapp.domain.exception.ErrorBundle;
 import net.avantica.xinef.dapp.domain.interactor.DefaultSubscriber;
-import net.avantica.xinef.dapp.domain.interactor.UseCase;
+import net.avantica.xinef.dapp.domain.interactor.GetPublicInvestmentProjectList;
 import net.avantica.xinef.dapp.exception.ErrorMessageFactory;
 import net.avantica.xinef.dapp.mapper.PublicInvestmentProjectModelDataMapper;
 import net.avantica.xinef.dapp.model.PublicInvestmentProjectModel;
@@ -28,11 +28,11 @@ public class PublicInvestmentProjectListPresenter implements Presenter {
 
     private PublicInvestmentProjectListView viewListView;
 
-    private final UseCase getPublicInvestmentProjectListUseCase;
+    private final GetPublicInvestmentProjectList getPublicInvestmentProjectListUseCase;
     private final PublicInvestmentProjectModelDataMapper publicInvestmentProjectModelDataMapper;
 
     @Inject
-    public PublicInvestmentProjectListPresenter(@Named("publicInvestmentProjectList") UseCase getPublicInvestmentProjectListUseCase, PublicInvestmentProjectModelDataMapper publicInvestmentProjectModelDataMapper) {
+    public PublicInvestmentProjectListPresenter(@Named("publicInvestmentProjectList") GetPublicInvestmentProjectList getPublicInvestmentProjectListUseCase, PublicInvestmentProjectModelDataMapper publicInvestmentProjectModelDataMapper) {
         this.getPublicInvestmentProjectListUseCase = getPublicInvestmentProjectListUseCase;
         this.publicInvestmentProjectModelDataMapper = publicInvestmentProjectModelDataMapper;
     }
@@ -58,17 +58,17 @@ public class PublicInvestmentProjectListPresenter implements Presenter {
     /**
      * Initializes the presenter by start retrieving the publicInvestmentProject list.
      */
-    public void initialize() {
-        this.loadPublicInvestmentProjectList();
+    public void initialize(int page) {
+        this.loadPublicInvestmentProjectList(page);
     }
 
     /**
      * Loads all public investment projects.
      */
-    private void loadPublicInvestmentProjectList() {
+    private void loadPublicInvestmentProjectList(int page) {
         this.hideViewRetry();
         this.showViewLoading();
-        this.getPublicInvestmentProjectList();
+        this.getPublicInvestmentProjectList(page);
     }
 
     public void onPublicInvestmentProjectClicked(String snipCode) {
@@ -103,8 +103,8 @@ public class PublicInvestmentProjectListPresenter implements Presenter {
         this.viewListView.renderPublicInvestmentProjectList(publicInvestmentProjectModelsCollection);
     }
 
-    private void getPublicInvestmentProjectList() {
-        this.getPublicInvestmentProjectListUseCase.execute(new PublicInvestmentProjectListSubscriber());
+    private void getPublicInvestmentProjectList(int page) {
+        this.getPublicInvestmentProjectListUseCase.getPublicInvestmentProjectList(new PublicInvestmentProjectListSubscriber(), page);
     }
 
     private final class PublicInvestmentProjectListSubscriber extends DefaultSubscriber<List<PublicInvestmentProject>> {

@@ -34,10 +34,10 @@ public class PublicInvestmentProjectDataRepository implements PublicInvestmentPr
     }
 
     @Override
-    public Observable<List<PublicInvestmentProject>> publicInvestmentProjects(String departmentName) {
+    public Observable<List<PublicInvestmentProject>> publicInvestmentProjects(String departmentName, int page) {
         //we always get all publicInvestmentProjects from the cloud
         final PublicInvestmentProjectDataStore publicInvestmentProjectDataStore = this.publicInvestmentProjectDataStoreFactory.createCloudDataStore();
-        return publicInvestmentProjectDataStore.publicInvestmentProjectEntityList(departmentName).map(this.publicInvestmentProjectEntityDataMapper::transform);
+        return publicInvestmentProjectDataStore.publicInvestmentProjectEntityList(departmentName, page).map(this.publicInvestmentProjectEntityDataMapper::transform);
     }
 
     @Override

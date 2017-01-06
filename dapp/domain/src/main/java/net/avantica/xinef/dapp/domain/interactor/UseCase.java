@@ -42,7 +42,12 @@ public abstract class UseCase {
      */
     @SuppressWarnings("unchecked")
     public void execute(Subscriber useCaseSubscriber) {
-        this.subscription = this.buildUseCaseObservable()
+        execute(this.buildUseCaseObservable(), useCaseSubscriber);
+    }
+
+    @SuppressWarnings("unchecked")
+    public void execute(Observable observable, Subscriber useCaseSubscriber) {
+        this.subscription = observable
                 .subscribeOn(Schedulers.from(threadExecutor))
                 .observeOn(postExecutionThread.getScheduler())
                 .subscribe(useCaseSubscriber);

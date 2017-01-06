@@ -13,7 +13,7 @@ public interface PublicInvestmentProjectRepository {
     /**
      * Get an {@link Observable} which will emit a List of {@link PublicInvestmentProject}.
      */
-    Observable<List<PublicInvestmentProject>> publicInvestmentProjects(String departmentName);
+    Observable<List<PublicInvestmentProject>> publicInvestmentProjects(String departmentName, int page);
 
     /**
      * Get an {@link Observable} which will emit a {@link PublicInvestmentProject}.

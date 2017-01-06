@@ -47,7 +47,7 @@ public class RestApiImpl implements RestApi {
 
     @RxLogObservable
     @Override
-    public Observable<List<PublicInvestmentProjectEntity>> publicInvestmentProjectEntityList(String departmentName) {
+    public Observable<List<PublicInvestmentProjectEntity>> publicInvestmentProjectEntityList(String departmentName, int page) {
         return Observable.create(subscriber -> {
             if (isThereInternetConnection()) {
                 try {
@@ -55,7 +55,7 @@ public class RestApiImpl implements RestApi {
                     String departmentNameNew = clearDepartmentName(departmentName);
 
 
-                    String responseJson = getPublicInvestmentProjectListFromApi(departmentNameNew);
+                    String responseJson = getPublicInvestmentProjectListFromApi(departmentNameNew, page);
 
                     PIPResult pipResult = publicInvestmentProjectEntityJsonMapper.transformPublicInvestmentProjectEntity(responseJson);
 
@@ -70,8 +70,15 @@ public class RestApiImpl implements RestApi {
 //                    String[] columns = {"department", "province", "district", "zipCode"};
 
                     Delete.table(PublicInvestmentProjectEntity.class);
+                    int row;
 
-                    for (int row = totalCols; row < totalSize; row += totalCols) {
+                    if (page == 0) {
+                        row = totalCols;
+                    } else {
+                        row = 0;
+                    }
+
+                    for (; row < totalSize; row += totalCols) {
                         col = row;
                         final PublicInvestmentProjectEntity entity = new PublicInvestmentProjectEntity();
 
@@ -246,9 +253,9 @@ public class RestApiImpl implements RestApi {
         });
     }
 
-    private String getPublicInvestmentProjectListFromApi(String departmentName) throws IOException {
+    private String getPublicInvestmentProjectListFromApi(String departmentName, int page) throws IOException {
 //        return ApiConnection.createGET(API_URL_GET_PUBLIC_INVESTMENT_PROJECT_LIST).requestSyncCall();
-        String url = API_URL_GET_PUBLIC_INVESTMENT_PROJECT_LIST_BY_DEPARTMENT + departmentName;
+        String url = API_URL_GET_PUBLIC_INVESTMENT_PROJECT_LIST_BY_DEPARTMENT + departmentName + "&limit=" + "50" + "&offset=0&page=" + page;
         return ApiConnection.createGET(url).requestSyncCall();
     }
 

@@ -62,7 +62,7 @@ public class PublicInvestmentProjectModule {
     @Provides
     @PerActivity
     @Named("publicInvestmentProjectList")
-    UseCase provideGetUserListUseCase(
+    GetPublicInvestmentProjectList provideGetUserListUseCase(
             PublicInvestmentProjectRepository publicInvestmentProjectRepository, ThreadExecutor threadExecutor,
             PostExecutionThread postExecutionThread) {
         return new GetPublicInvestmentProjectList(this.departmentName, publicInvestmentProjectRepository, threadExecutor, postExecutionThread);

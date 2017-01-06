@@ -192,7 +192,7 @@ public class ProjectsMapFragment extends BaseFragment implements PublicInvestmen
     }
 
     private void loadPublicInvestmentProjectList() {
-        this.publicInvestmentProjectListPresenter.initialize();
+        this.publicInvestmentProjectListPresenter.initialize(PAGE);
     }
 
     @Override

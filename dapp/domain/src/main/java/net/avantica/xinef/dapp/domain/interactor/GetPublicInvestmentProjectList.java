@@ -22,6 +22,7 @@ import net.avantica.xinef.dapp.domain.repository.PublicInvestmentProjectReposito
 import javax.inject.Inject;
 
 import rx.Observable;
+import rx.Subscriber;
 
 /**
  * This class is an implementation of {@link UseCase} that represents a use case for
@@ -41,6 +42,11 @@ public class GetPublicInvestmentProjectList extends UseCase {
 
     @Override
     public Observable buildUseCaseObservable() {
-        return this.publicInvestmentProjectRepository.publicInvestmentProjects(departmentName);
+        return this.publicInvestmentProjectRepository.publicInvestmentProjects(this.departmentName, 0);
+    }
+
+    public void getPublicInvestmentProjectList(Subscriber useCaseSubscriber, int page) {
+        Observable observable = this.publicInvestmentProjectRepository.publicInvestmentProjects(this.departmentName, page);
+        execute(observable, useCaseSubscriber);
     }
 }

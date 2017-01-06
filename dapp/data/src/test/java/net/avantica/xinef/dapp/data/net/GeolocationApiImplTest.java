@@ -14,7 +14,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import java.net.MalformedURLException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,7 +50,7 @@ public class GeolocationApiImplTest {
     }
 
     @Test
-    public void shouldReturnDepartmentWhenRetrievingSuccessfullyFromApi() throws MalformedURLException {
+    public void shouldReturnDepartmentWhenRetrievingSuccessfullyFromApi() throws IOException {
         doReturn(true).when(geolocationApi).isThereInternetConnection();
 
         ReverseGeocodingEntity entity = preparateReverseGeocodingEntity("Lambayeque", "Lambayeque", singletonList("administrative_area_level_1"));
@@ -81,7 +81,7 @@ public class GeolocationApiImplTest {
     }
 
     @Test
-    public void shouldNotifyAnErrorWhenListOfResultFromReverseGeocodingEntityIsEmpty() throws MalformedURLException {
+    public void shouldNotifyAnErrorWhenListOfResultFromReverseGeocodingEntityIsEmpty() throws IOException {
         doReturn(true).when(geolocationApi).isThereInternetConnection();
 
         ReverseGeocodingEntity entity = new ReverseGeocodingEntity();
@@ -98,7 +98,7 @@ public class GeolocationApiImplTest {
     }
 
     @Test
-    public void shouldReturnEmptyStringWhenThereIsNotAnAdministrativeAreaLevel1() throws MalformedURLException {
+    public void shouldReturnEmptyStringWhenThereIsNotAnAdministrativeAreaLevel1() throws IOException {
         doReturn(true).when(geolocationApi).isThereInternetConnection();
 
         ReverseGeocodingEntity entity = preparateReverseGeocodingEntity("Lambayeque", "Lambayeque", singletonList(""));
