@@ -45,4 +45,21 @@
     <string name="retry">UNDO</string>
     <string name="gps_is_required">Message is deleted</string>
     <string name="there_is_a_bug_in_application">Se produjo un error en la aplicación</string>
+
+    <string name="department">Departamento</string>
+    <string name="province">Provincia</string>
+    <string name="district">Distrito</string>
+    <string name="snip_code">Código SNIP</string>
+    <string name="populated_center">Centro poblado</string>
+    <string name="cancel">Cancelar</string>
+    <string name="apply">Aplicar</string>
+    <string name="filter">Filtrar</string>
+    <string name="search_filter">Filtrar búsqueda</string>
+
+    <string-array name="aux">
+        <item>Chachapoyas 1</item>
+        <item>Chachapoyas 2</item>
+        <item>Chachapoyas 3</item>
+        <item>Chachapoyas 4</item>
+    </string-array>
 </resources>

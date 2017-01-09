@@ -142,7 +142,7 @@ public class ProjectListFragment extends BaseFragment implements PublicInvestmen
     public void renderPublicInvestmentProjectList(Collection<PublicInvestmentProjectModel> publicInvestmentProjectModelCollection) {
         if (publicInvestmentProjectModelCollection != null) {
             this.projectListAdapter.setPublicInvestmentProjectCollection(publicInvestmentProjectModelCollection);
-            
+
             if (PAGE == 0) {
 
             } else {

@@ -8,4 +8,5 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="margin_1">8dp</dimen>
     <dimen name="margin_2">16dp</dimen>
+    <dimen name="mergin_3">24dp</dimen>
 </resources>

@@ -117,7 +117,7 @@ public class SplashFragment extends BaseFragment implements ReverseGeocodingView
 
     @Override
     public void showError(String message) {
-        showToastMessage(getString(R.string.there_is_a_bug_in_application));
+        showToastMessage(message);
     }
 
     @Override

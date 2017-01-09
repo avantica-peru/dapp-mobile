@@ -3,6 +3,7 @@ package net.avantica.xinef.dapp.view.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
@@ -12,6 +13,7 @@ import net.avantica.xinef.dapp.di.components.DaggerPublicInvestmentProjectCompon
 import net.avantica.xinef.dapp.di.components.PublicInvestmentProjectComponent;
 import net.avantica.xinef.dapp.di.modules.PublicInvestmentProjectModule;
 import net.avantica.xinef.dapp.view.fragment.BaseFragment;
+import net.avantica.xinef.dapp.view.fragment.FilterDialogFragment;
 import net.avantica.xinef.dapp.view.fragment.ProjectListFragment;
 import net.avantica.xinef.dapp.view.fragment.ProjectsMapFragment;
 
@@ -79,8 +81,16 @@ public class MainActivity extends BaseActivity implements HasComponent<PublicInv
             case R.id.action_action_view_list:
                 replaceFragment(R.id.container, ProjectListFragment.newInstance());
                 return true;
+            case R.id.action_filter:
+                showFilterDialog();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void showFilterDialog() {
+        DialogFragment newFragment = FilterDialogFragment.newInstance();
+        newFragment.show(getSupportFragmentManager(), "dialog");
     }
 }
