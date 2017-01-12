@@ -1,13 +1,12 @@
 package net.avantica.xinef.dapp.view.fragment;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatSpinner;
 import android.view.LayoutInflater;
@@ -15,6 +14,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import net.avantica.xinef.dapp.R;
+import net.avantica.xinef.dapp.di.HasComponent;
+import net.avantica.xinef.dapp.di.components.PublicInvestmentProjectComponent;
+import net.avantica.xinef.dapp.presenter.FilterProjectPresenter;
+import net.avantica.xinef.dapp.view.FilterProjectView;
+
+import java.util.Collection;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,7 +32,7 @@ import butterknife.Unbinder;
  * edward.carrion29@gmail.com
  */
 
-public class FilterDialogFragment extends DialogFragment {
+public class FilterDialogFragment extends BaseDialogFragment implements FilterProjectView {
     @BindView(R.id.sp_department)
     AppCompatSpinner departmentSpinner;
     @BindView(R.id.sp_province)
@@ -39,6 +46,9 @@ public class FilterDialogFragment extends DialogFragment {
 
     private Unbinder unbinder;
 
+    @Inject
+    FilterProjectPresenter filterProjectPresenter;
+
     public static FilterDialogFragment newInstance() {
         FilterDialogFragment filterFragment = new FilterDialogFragment();
 
@@ -51,6 +61,8 @@ public class FilterDialogFragment extends DialogFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        this.getComponent(PublicInvestmentProjectComponent.class).inject(this);
     }
 
     @Nullable
@@ -61,6 +73,14 @@ public class FilterDialogFragment extends DialogFragment {
         unbinder = ButterKnife.bind(this, view);
 
         return view;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        this.filterProjectPresenter.setView(this);
+        loadDepartments();
     }
 
     @NonNull
@@ -88,9 +108,78 @@ public class FilterDialogFragment extends DialogFragment {
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        this.filterProjectPresenter.destroy();
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
 
         unbinder.unbind();
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        this.filterProjectPresenter.resume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        this.filterProjectPresenter.pause();
+    }
+
+    private void loadDepartments() {
+        this.filterProjectPresenter.getDepartments();
+    }
+
+    @Override
+    public void renderDepartments(Collection<String> departments) {
+
+    }
+
+    @Override
+    public void renderProvinces(Collection<String> departments) {
+
+    }
+
+    @Override
+    public void renderDistricts(Collection<String> departments) {
+
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
+    }
+
+    @Override
+    public void showRetry() {
+
+    }
+
+    @Override
+    public void hideRetry() {
+
+    }
+
+    @Override
+    public void showError(String message) {
+
+    }
+
+    @Override
+    public Context context() {
+        return null;
+    }
+
 }

@@ -27,20 +27,25 @@ ext {
     javaxInjectVersion = '1'
     gsonVersion = '2.3'
     okHttpVersion = '3.5.0'
-    androidAnnotationsVersion = '21.0.3'
+    androidAnnotationsVersion = '22.1.1'//'21.0.3'
     glideVersion = '3.7.0'
     dbFlowProcessorVersion = '3.1.1'
     dbFlowCoreVersion = '3.1.1'
     dbFlowVersion = '3.1.1'
 
     //Testing
+
     robolectricVersion = '3.0'
     jUnitVersion = '4.12'
     assertJVersion = '1.7.1'
     mockitoVersion = '1.9.5'
     dexmakerVersion = '1.0'
-    espressoVersion = '2.0'
+    espressoVersion = '2.2.2'
     testingSupportLibVersion = '0.1'
+    testRunnerVersion = '0.5'
+    testRulesVersion = '0.5'
+//    espressoInetnsVersion = '2.2.2'
+//    espressoWebVersion = '2.2.2'
 
     //Development
     leakCanaryVersion = '1.3.1'
@@ -64,11 +69,13 @@ ext {
     ]
 
     presentationTestDependencies = [
-            mockito          : "org.mockito:mockito-core:${mockitoVersion}",
-            dexmaker         : "com.google.dexmaker:dexmaker:${dexmakerVersion}",
-            dexmakerMockito  : "com.google.dexmaker:dexmaker-mockito:${dexmakerVersion}",
+//            mockito          : "org.mockito:mockito-core:${mockitoVersion}",
+//            dexmaker         : "com.google.dexmaker:dexmaker:${dexmakerVersion}",
+//            dexmakerMockito  : "com.google.dexmaker:dexmaker-mockito:${dexmakerVersion}",
+//            testingSupportLib: "com.android.support.test:testing-support-lib:${testingSupportLibVersion}",
             espresso         : "com.android.support.test.espresso:espresso-core:${espressoVersion}",
-            testingSupportLib: "com.android.support.test:testing-support-lib:${testingSupportLibVersion}"
+            testRunner       : "com.android.support.test:runner:${testRunnerVersion}",
+            testRules        : "com.android.support.test:rules:${testRulesVersion}"
     ]
 
     domainDependencies = [

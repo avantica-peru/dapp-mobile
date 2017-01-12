@@ -7,10 +7,12 @@ import net.avantica.xinef.dapp.UIThread;
 import net.avantica.xinef.dapp.data.cache.PublicInvestmentProjectCache;
 import net.avantica.xinef.dapp.data.cache.PublicInvestmentProjectCacheImpl;
 import net.avantica.xinef.dapp.data.executor.JobExecutor;
+import net.avantica.xinef.dapp.data.repository.FilterProjectDataRepository;
 import net.avantica.xinef.dapp.data.repository.PublicInvestmentProjectDataRepository;
 import net.avantica.xinef.dapp.data.repository.ReverseGeocodingDataRepository;
 import net.avantica.xinef.dapp.domain.executor.PostExecutionThread;
 import net.avantica.xinef.dapp.domain.executor.ThreadExecutor;
+import net.avantica.xinef.dapp.domain.repository.FilterProjectRepository;
 import net.avantica.xinef.dapp.domain.repository.PublicInvestmentProjectRepository;
 import net.avantica.xinef.dapp.domain.repository.ReverseGeocodingRepository;
 
@@ -64,5 +66,11 @@ public class ApplicationModule {
     @Singleton
     ReverseGeocodingRepository provideReverseGeocodingRepository(ReverseGeocodingDataRepository reverseGeocodingDataRepository) {
         return reverseGeocodingDataRepository;
+    }
+
+    @Provides
+    @Singleton
+    FilterProjectRepository provideFilterProjectRepository(FilterProjectDataRepository filterProjectDataRepository) {
+        return filterProjectDataRepository;
     }
 }
