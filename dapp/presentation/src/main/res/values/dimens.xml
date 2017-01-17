@@ -8,5 +8,7 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="margin_1">8dp</dimen>
     <dimen name="margin_2">16dp</dimen>
-    <dimen name="mergin_3">24dp</dimen>
+    <dimen name="margin_3">24dp</dimen>
+    <dimen name="margin_4">20dp</dimen>
+    <dimen name="title_dialog">20sp</dimen>
 </resources>

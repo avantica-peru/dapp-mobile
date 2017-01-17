@@ -16,6 +16,11 @@ public interface PublicInvestmentProjectRepository {
     Observable<List<PublicInvestmentProject>> publicInvestmentProjects(String departmentName, int page);
 
     /**
+     * Get an {@link Observable} which will emit a Filtered list of {@link PublicInvestmentProject}.
+     */
+    Observable<List<PublicInvestmentProject>> publicInvestmentProjectsFiltered(String departmentName, String page);
+
+    /**
      * Get an {@link Observable} which will emit a {@link PublicInvestmentProject}.
      *
      * @param publicInvestmentProjectId The public investment project id used to retrieve public investment project data.

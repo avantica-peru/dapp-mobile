@@ -4,8 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import net.avantica.xinef.dapp.R;
 import net.avantica.xinef.dapp.di.HasComponent;
@@ -20,7 +22,7 @@ import net.avantica.xinef.dapp.view.fragment.ProjectsMapFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends BaseActivity implements HasComponent<PublicInvestmentProjectComponent>, BaseFragment.PublicInvestmentProjectListListener {
+public class MainActivity extends BaseActivity implements HasComponent<PublicInvestmentProjectComponent>, BaseFragment.PublicInvestmentProjectListListener, FilterDialogFragment.OnFiltersSelectedListener {
     private double latitude;
     private double longitude;
     private String departmentName;
@@ -92,5 +94,11 @@ public class MainActivity extends BaseActivity implements HasComponent<PublicInv
     private void showFilterDialog() {
         DialogFragment newFragment = FilterDialogFragment.newInstance();
         newFragment.show(getSupportFragmentManager(), "dialog");
+    }
+
+    @Override
+    public void onUbigeoEntered(String ubigeo) {
+        Fragment projectListFragment = getSupportFragmentManager().findFragmentById(R.id.container);
+        Toast.makeText(this, ubigeo, Toast.LENGTH_SHORT).show();
     }
 }

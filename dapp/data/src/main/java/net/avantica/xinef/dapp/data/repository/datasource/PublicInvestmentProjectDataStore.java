@@ -10,5 +10,7 @@ public interface PublicInvestmentProjectDataStore {
 
     Observable<List<PublicInvestmentProjectEntity>> publicInvestmentProjectEntityList(final String departmentName, int page);
 
+    Observable<List<PublicInvestmentProjectEntity>> publicInvestmentProjectEntityFilteredList(String ubigeo, String snipCode);
+
     Observable<List<PublicInvestmentProjectEntity>> publicInvestmentProjectEntityDetails(final String uniqueCode);
 }

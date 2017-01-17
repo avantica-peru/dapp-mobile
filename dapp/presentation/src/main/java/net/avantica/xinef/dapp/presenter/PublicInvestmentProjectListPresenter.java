@@ -71,6 +71,12 @@ public class PublicInvestmentProjectListPresenter implements Presenter {
         this.getPublicInvestmentProjectList(page);
     }
 
+    private void loadPublicInvestmentProjectFilteredList(String ubigeo, String snipCode) {
+        this.hideViewRetry();
+        this.showViewLoading();
+        this.getPublicInvestmentProjectFilteredList(ubigeo, snipCode);
+    }
+
     public void onPublicInvestmentProjectClicked(String snipCode) {
         this.viewListView.viewPublicInvestmentProject(snipCode);
     }
@@ -105,6 +111,10 @@ public class PublicInvestmentProjectListPresenter implements Presenter {
 
     private void getPublicInvestmentProjectList(int page) {
         this.getPublicInvestmentProjectListUseCase.getPublicInvestmentProjectList(new PublicInvestmentProjectListSubscriber(), page);
+    }
+
+    private void getPublicInvestmentProjectFilteredList(String ubigeo, String snipCode) {
+        this.getPublicInvestmentProjectListUseCase.getPublicInvestmentProjectFilteredList(new PublicInvestmentProjectListSubscriber(), ubigeo, snipCode);
     }
 
     private final class PublicInvestmentProjectListSubscriber extends DefaultSubscriber<List<PublicInvestmentProject>> {

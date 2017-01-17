@@ -1,30 +1,31 @@
 package net.avantica.xinef.dapp.view.fragment;
 
-import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatSpinner;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 
 import net.avantica.xinef.dapp.R;
-import net.avantica.xinef.dapp.di.HasComponent;
 import net.avantica.xinef.dapp.di.components.PublicInvestmentProjectComponent;
-import net.avantica.xinef.dapp.presenter.FilterProjectPresenter;
-import net.avantica.xinef.dapp.view.FilterProjectView;
+import net.avantica.xinef.dapp.model.UbigeoModel;
+import net.avantica.xinef.dapp.presenter.UbigeoPresenter;
+import net.avantica.xinef.dapp.view.UbigeoView;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.OnItemSelected;
 import butterknife.Unbinder;
 
 /**
@@ -32,22 +33,26 @@ import butterknife.Unbinder;
  * edward.carrion29@gmail.com
  */
 
-public class FilterDialogFragment extends BaseDialogFragment implements FilterProjectView {
+public class FilterDialogFragment extends BaseDialogFragment implements UbigeoView {
     @BindView(R.id.sp_department)
     AppCompatSpinner departmentSpinner;
     @BindView(R.id.sp_province)
     AppCompatSpinner provinceSpinner;
     @BindView(R.id.sp_district)
     AppCompatSpinner districtSpinner;
-    @BindView(R.id.sp_populated_center)
-    AppCompatSpinner populatedCenterSpinner;
     @BindView(R.id.et_snip_code)
     AppCompatEditText snipCodeEditText;
 
     private Unbinder unbinder;
 
     @Inject
-    FilterProjectPresenter filterProjectPresenter;
+    UbigeoPresenter filterProjectPresenter;
+
+    OnFiltersSelectedListener filterSelectedCallback;
+
+    public interface OnFiltersSelectedListener {
+        void onUbigeoEntered(String ubigeo);
+    }
 
     public static FilterDialogFragment newInstance() {
         FilterDialogFragment filterFragment = new FilterDialogFragment();
@@ -56,6 +61,17 @@ public class FilterDialogFragment extends BaseDialogFragment implements FilterPr
         filterFragment.setArguments(args);
 
         return filterFragment;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        try {
+            filterSelectedCallback = (OnFiltersSelectedListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString());
+        }
     }
 
     @Override
@@ -71,6 +87,7 @@ public class FilterDialogFragment extends BaseDialogFragment implements FilterPr
         View view = inflater.inflate(R.layout.fragment_filter, container, false);
 
         unbinder = ButterKnife.bind(this, view);
+        setCancelable(false);
 
         return view;
     }
@@ -81,30 +98,6 @@ public class FilterDialogFragment extends BaseDialogFragment implements FilterPr
 
         this.filterProjectPresenter.setView(this);
         loadDepartments();
-    }
-
-    @NonNull
-    @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-
-        View view = getActivity().getLayoutInflater().inflate(R.layout.fragment_filter, null);
-        builder.setView(view);
-        builder.setTitle(R.string.search_filter)
-                .setPositiveButton(getString(R.string.apply), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-
-                    }
-                })
-                .setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        getDialog().dismiss();
-                    }
-                });
-
-        return builder.create();
     }
 
     @Override
@@ -137,19 +130,39 @@ public class FilterDialogFragment extends BaseDialogFragment implements FilterPr
         this.filterProjectPresenter.getDepartments();
     }
 
-    @Override
-    public void renderDepartments(Collection<String> departments) {
+    private void loadProvinces(String codDepartment) {
+        this.filterProjectPresenter.getProvinces(codDepartment);
+    }
 
+    private void loadDistricts(String codDepartment, String codProvince) {
+        this.filterProjectPresenter.getDistricts(codDepartment, codProvince);
     }
 
     @Override
-    public void renderProvinces(Collection<String> departments) {
-
+    public void renderDepartments(Collection<UbigeoModel> departments) {
+        ArrayList<UbigeoModel> list = (ArrayList<UbigeoModel>) departments;
+        ArrayAdapter<UbigeoModel> dataAdapter = new ArrayAdapter<>(getActivity(),
+                android.R.layout.simple_spinner_item, list);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        departmentSpinner.setAdapter(dataAdapter);
     }
 
     @Override
-    public void renderDistricts(Collection<String> departments) {
+    public void renderProvinces(Collection<UbigeoModel> provincies) {
+        ArrayAdapter<UbigeoModel> dataAdapter = new ArrayAdapter<>(getActivity(),
+                android.R.layout.simple_spinner_item, (List<UbigeoModel>) provincies);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        provinceSpinner.setAdapter(dataAdapter);
+        provinceSpinner.setEnabled(true);
+    }
 
+    @Override
+    public void renderDistricts(Collection<UbigeoModel> districts) {
+        ArrayAdapter<UbigeoModel> dataAdapter = new ArrayAdapter<>(getActivity(),
+                android.R.layout.simple_spinner_item, (List<UbigeoModel>) districts);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        districtSpinner.setAdapter(dataAdapter);
+        districtSpinner.setEnabled(true);
     }
 
     @Override
@@ -182,4 +195,28 @@ public class FilterDialogFragment extends BaseDialogFragment implements FilterPr
         return null;
     }
 
+    @OnItemSelected(R.id.sp_department)
+    void onDepartmentSelected(int position) {
+        UbigeoModel deparmtent = (UbigeoModel) departmentSpinner.getSelectedItem();
+        loadProvinces(deparmtent.getCodDpto());
+    }
+
+    @OnItemSelected(R.id.sp_province)
+    void onProvinceSelected(int position) {
+        UbigeoModel department = (UbigeoModel) departmentSpinner.getSelectedItem();
+        UbigeoModel province = (UbigeoModel) provinceSpinner.getSelectedItem();
+        loadDistricts(department.getCodDpto(), province.getCodProv());
+    }
+
+    @OnClick(R.id.btn_cancel)
+    void onCancel() {
+        dismiss();
+    }
+
+    @OnClick(R.id.btn_apply)
+    void onApply() {
+        UbigeoModel ubigeoModel = (UbigeoModel) districtSpinner.getSelectedItem();
+        String ubigeo = ubigeoModel.getCodDpto() + ubigeoModel.getCodProv() + ubigeoModel.getCodDist();
+        filterSelectedCallback.onUbigeoEntered(ubigeo);
+    }
 }

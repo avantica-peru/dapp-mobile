@@ -5,7 +5,7 @@ import android.content.Context;
 import net.avantica.xinef.dapp.di.modules.ApplicationModule;
 import net.avantica.xinef.dapp.domain.executor.PostExecutionThread;
 import net.avantica.xinef.dapp.domain.executor.ThreadExecutor;
-import net.avantica.xinef.dapp.domain.repository.FilterProjectRepository;
+import net.avantica.xinef.dapp.domain.repository.UbigeoRepository;
 import net.avantica.xinef.dapp.domain.repository.PublicInvestmentProjectRepository;
 import net.avantica.xinef.dapp.domain.repository.ReverseGeocodingRepository;
 import net.avantica.xinef.dapp.view.activity.BaseActivity;
@@ -33,5 +33,5 @@ public interface ApplicationComponent {
 
     ReverseGeocodingRepository reverseGeocodingRepository();
 
-    FilterProjectRepository filterProjectRepository();
+    UbigeoRepository filterProjectRepository();
 }

@@ -2,6 +2,8 @@ package net.avantica.xinef.dapp.view.activity;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,12 +13,16 @@ import android.view.View;
 import android.widget.RelativeLayout;
 
 import net.avantica.xinef.dapp.R;
+import net.avantica.xinef.dapp.data.repository.datasource.migrate.OpcionesMenuSQLiteOpenHelper;
 import net.avantica.xinef.dapp.di.HasComponent;
 import net.avantica.xinef.dapp.di.components.DaggerPublicInvestmentProjectComponent;
 import net.avantica.xinef.dapp.di.components.PublicInvestmentProjectComponent;
 import net.avantica.xinef.dapp.di.modules.PublicInvestmentProjectModule;
+import net.avantica.xinef.dapp.util.DataBaseHelper;
 import net.avantica.xinef.dapp.util.TrackGPS;
 import net.avantica.xinef.dapp.view.fragment.SplashFragment;
+
+import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,6 +42,10 @@ public class SplashActivity extends BaseActivity implements HasComponent<PublicI
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+//        loadDataBase();
+        SQLiteOpenHelper db = new OpcionesMenuSQLiteOpenHelper(this);
+        db.getWritableDatabase();
 
         setContentView(R.layout.activity_splash);
         unbinder = ButterKnife.bind(this);
@@ -123,5 +133,30 @@ public class SplashActivity extends BaseActivity implements HasComponent<PublicI
     @Override
     public PublicInvestmentProjectComponent getComponent() {
         return this.publicInvestmentProjectComponent;
+    }
+
+    private void loadDataBase() {
+        DataBaseHelper myDbHelper = new DataBaseHelper(getApplicationContext());
+        myDbHelper = new DataBaseHelper(this);
+
+        try {
+
+            myDbHelper.createDataBase();
+
+        } catch (IOException ioe) {
+
+            throw new Error("Unable to create database");
+
+        }
+
+        try {
+
+            myDbHelper.openDataBase();
+
+        }catch(SQLException sqle){
+
+            throw sqle;
+
+        }
     }
 }

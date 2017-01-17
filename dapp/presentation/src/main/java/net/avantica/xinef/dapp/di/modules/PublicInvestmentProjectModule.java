@@ -18,12 +18,12 @@ package net.avantica.xinef.dapp.di.modules;
 import net.avantica.xinef.dapp.di.PerActivity;
 import net.avantica.xinef.dapp.domain.executor.PostExecutionThread;
 import net.avantica.xinef.dapp.domain.executor.ThreadExecutor;
-import net.avantica.xinef.dapp.domain.interactor.GetFilterProjectList;
+import net.avantica.xinef.dapp.domain.interactor.GetUbigeo;
 import net.avantica.xinef.dapp.domain.interactor.GetPublicInvestmentProjectDetails;
 import net.avantica.xinef.dapp.domain.interactor.GetPublicInvestmentProjectList;
 import net.avantica.xinef.dapp.domain.interactor.GetReverseGeocoding;
 import net.avantica.xinef.dapp.domain.interactor.UseCase;
-import net.avantica.xinef.dapp.domain.repository.FilterProjectRepository;
+import net.avantica.xinef.dapp.domain.repository.UbigeoRepository;
 import net.avantica.xinef.dapp.domain.repository.PublicInvestmentProjectRepository;
 import net.avantica.xinef.dapp.domain.repository.ReverseGeocodingRepository;
 
@@ -90,10 +90,10 @@ public class PublicInvestmentProjectModule {
 
     @Provides
     @PerActivity
-    @Named("filterProjectPresenter")
-    GetFilterProjectList provideGetFilterProjectListUseCase(
-            FilterProjectRepository filterProjectRepository, ThreadExecutor threadExecutor,
+    @Named("ubigeoPresenter")
+    GetUbigeo provideGetFilterProjectListUseCase(
+            UbigeoRepository ubigeoRepository, ThreadExecutor threadExecutor,
             PostExecutionThread postExecutionThread) {
-        return new GetFilterProjectList(threadExecutor, postExecutionThread, filterProjectRepository);
+        return new GetUbigeo(threadExecutor, postExecutionThread, ubigeoRepository);
     }
 }

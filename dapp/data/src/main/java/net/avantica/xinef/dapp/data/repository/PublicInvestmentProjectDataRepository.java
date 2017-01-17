@@ -41,6 +41,12 @@ public class PublicInvestmentProjectDataRepository implements PublicInvestmentPr
     }
 
     @Override
+    public Observable<List<PublicInvestmentProject>> publicInvestmentProjectsFiltered(String ubigeo, String snipCode) {
+        final PublicInvestmentProjectDataStore publicInvestmentProjectDataStore = this.publicInvestmentProjectDataStoreFactory.createCloudDataStore();
+        return publicInvestmentProjectDataStore.publicInvestmentProjectEntityFilteredList(ubigeo, snipCode).map(this.publicInvestmentProjectEntityDataMapper::transform);
+    }
+
+    @Override
     public Observable<List<PublicInvestmentProject>> publicInvestmentProject(String snipCode) {
         final PublicInvestmentProjectDataStore publicInvestmentProjectDataStore = this.publicInvestmentProjectDataStoreFactory.create();
         return publicInvestmentProjectDataStore.publicInvestmentProjectEntityDetails(snipCode).map(this.publicInvestmentProjectEntityDataMapper::transform);

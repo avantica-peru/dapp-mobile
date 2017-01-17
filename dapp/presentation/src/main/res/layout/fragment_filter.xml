@@ -3,11 +3,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/margin_3"
+        android:paddingEnd="@dimen/margin_3"
+        android:paddingTop="@dimen/margin_3"
+        android:paddingBottom="@dimen/margin_4">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:textStyle="bold"
+            android:textSize="@dimen/title_dialog"
+            android:textColor="@android:color/black"
+            android:layout_height="wrap_content"
+            android:text="@string/search_filter"/>
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_2"
+        android:paddingStart="@dimen/margin_3"
+        android:paddingEnd="@dimen/margin_1"
         android:orientation="vertical">
 
         <LinearLayout
@@ -27,8 +46,7 @@
                 android:id="@+id/sp_department"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:entries="@array/aux" />
+                android:layout_weight="2" />
 
         </LinearLayout>
 
@@ -49,8 +67,7 @@
                 android:id="@+id/sp_province"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:entries="@array/aux" />
+                android:layout_weight="2" />
 
         </LinearLayout>
 
@@ -71,32 +88,30 @@
                 android:id="@+id/sp_district"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:entries="@array/aux" />
+                android:layout_weight="2" />
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_2"
-            android:orientation="horizontal">
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginBottom="@dimen/margin_2"-->
+            <!--android:orientation="horizontal">-->
 
-            <android.support.v7.widget.AppCompatTextView
-                android:id="@+id/tv_populated_center"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/populated_center" />
+            <!--<android.support.v7.widget.AppCompatTextView-->
+                <!--android:id="@+id/tv_populated_center"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="1"-->
+                <!--android:text="@string/populated_center" />-->
 
-            <android.support.v7.widget.AppCompatSpinner
-                android:id="@+id/sp_populated_center"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:entries="@array/aux" />
+            <!--<android.support.v7.widget.AppCompatSpinner-->
+                <!--android:id="@+id/sp_populated_center"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="2" />-->
 
-        </LinearLayout>
+        <!--</LinearLayout>-->
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
@@ -111,6 +126,41 @@
                 android:inputType="number" />
 
         </android.support.design.widget.TextInputLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="@dimen/margin_3"
+        android:background="@android:color/darker_gray"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:paddingTop="@dimen/margin_1"
+        android:paddingBottom="@dimen/margin_1"
+        android:paddingEnd="@dimen/margin_1"
+        android:paddingStart="@dimen/margin_3"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_cancel"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_1"
+            android:text="@string/cancel"
+            android:textColor="@color/colorAccent" />
+
+        <Button
+            android:id="@+id/btn_apply"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/apply"
+            android:textColor="@color/colorAccent" />
 
     </LinearLayout>
 

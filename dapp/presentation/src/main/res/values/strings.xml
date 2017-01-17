@@ -56,10 +56,4 @@
     <string name="filter">Filtrar</string>
     <string name="search_filter">Filtrar búsqueda</string>
 
-    <string-array name="aux">
-        <item>Chachapoyas 1</item>
-        <item>Chachapoyas 2</item>
-        <item>Chachapoyas 3</item>
-        <item>Chachapoyas 4</item>
-    </string-array>
 </resources>

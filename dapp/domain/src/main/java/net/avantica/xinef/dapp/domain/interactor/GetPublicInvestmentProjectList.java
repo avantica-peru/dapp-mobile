@@ -49,4 +49,9 @@ public class GetPublicInvestmentProjectList extends UseCase {
         Observable observable = this.publicInvestmentProjectRepository.publicInvestmentProjects(this.departmentName, page);
         execute(observable, useCaseSubscriber);
     }
+
+    public void getPublicInvestmentProjectFilteredList(Subscriber useCaseSubscriber, String ubigeo, String snipCode) {
+        Observable observable = this.publicInvestmentProjectRepository.publicInvestmentProjectsFiltered(ubigeo, snipCode);
+        execute(observable, useCaseSubscriber);
+    }
 }

@@ -12,7 +12,6 @@ import net.avantica.xinef.dapp.data.exception.NetworkConnectionException;
 import net.avantica.xinef.dapp.data.exception.PublicInvestmentProjectNotFoundException;
 import net.avantica.xinef.dapp.domain.entity.PublicInvestmentProject;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import rx.Observable;
@@ -48,6 +47,11 @@ public class DiskPublicInvestmentProjectDataStore implements PublicInvestmentPro
                 subscriber.onError(new NetworkConnectionException(e.getCause()));
             }
         });
+    }
+
+    @Override
+    public Observable<List<PublicInvestmentProjectEntity>> publicInvestmentProjectEntityFilteredList(String ubigeo, String snipCode) {
+        return null;
     }
 
     @Override

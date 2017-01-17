@@ -34,6 +34,11 @@ public class CloudPublicInvestmentProjectDataStore implements PublicInvestmentPr
     }
 
     @Override
+    public Observable<List<PublicInvestmentProjectEntity>> publicInvestmentProjectEntityFilteredList(String ubigeo, String snipCode) {
+        return null;
+    }
+
+    @Override
     public Observable<List<PublicInvestmentProjectEntity>> publicInvestmentProjectEntityDetails(String snipCode) {
         return this.restApi.publicInvestmentProjectEntityById(snipCode);
     }

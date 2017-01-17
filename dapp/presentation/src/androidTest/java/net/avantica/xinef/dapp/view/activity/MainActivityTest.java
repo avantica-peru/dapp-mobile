@@ -22,10 +22,14 @@ public class MainActivityTest {
 
 
     @Test
-    public void ensure() throws Exception {
+    public void shouldShowFilterDialog() throws Exception {
         onView(withId(R.id.action_filter)).perform(click());
-//        onView(withId(R.id.sp_department)).perform()
-        onView(withId(R.id.et_snip_code)).perform(typeText("654321"));
+    }
+
+    @Test
+    public void shouldEnterValuesToFilters() {
+        onView(withId(R.id.action_filter)).perform(click());
+
     }
 
 }
