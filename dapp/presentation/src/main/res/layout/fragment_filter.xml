@@ -3,31 +3,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingStart="@dimen/margin_3"
+        android:paddingBottom="@dimen/margin_4"
         android:paddingEnd="@dimen/margin_3"
-        android:paddingTop="@dimen/margin_3"
-        android:paddingBottom="@dimen/margin_4">
+        android:paddingStart="@dimen/margin_3"
+        android:paddingTop="@dimen/margin_3">
 
         <TextView
             android:layout_width="match_parent"
-            android:textStyle="bold"
-            android:textSize="@dimen/title_dialog"
-            android:textColor="@android:color/black"
             android:layout_height="wrap_content"
-            android:text="@string/search_filter"/>
+            android:text="@string/search_filter"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/title_dialog"
+            android:textStyle="bold" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingStart="@dimen/margin_3"
+        android:orientation="vertical"
         android:paddingEnd="@dimen/margin_1"
-        android:orientation="vertical">
+        android:paddingStart="@dimen/margin_3">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -93,23 +93,23 @@
         </LinearLayout>
 
         <!--<LinearLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginBottom="@dimen/margin_2"-->
-            <!--android:orientation="horizontal">-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginBottom="@dimen/margin_2"-->
+        <!--android:orientation="horizontal">-->
 
-            <!--<android.support.v7.widget.AppCompatTextView-->
-                <!--android:id="@+id/tv_populated_center"-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_weight="1"-->
-                <!--android:text="@string/populated_center" />-->
+        <!--<android.support.v7.widget.AppCompatTextView-->
+        <!--android:id="@+id/tv_populated_center"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_weight="1"-->
+        <!--android:text="@string/populated_center" />-->
 
-            <!--<android.support.v7.widget.AppCompatSpinner-->
-                <!--android:id="@+id/sp_populated_center"-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_weight="2" />-->
+        <!--<android.support.v7.widget.AppCompatSpinner-->
+        <!--android:id="@+id/sp_populated_center"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_weight="2" />-->
 
         <!--</LinearLayout>-->
 
@@ -123,7 +123,9 @@
                 android:layout_height="wrap_content"
                 android:digits="0123456789"
                 android:hint="@string/snip_code"
-                android:inputType="number" />
+                android:inputType="number"
+                android:maxLength="6"
+                android:maxLines="1" />
 
         </android.support.design.widget.TextInputLayout>
 
@@ -133,17 +135,17 @@
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:layout_marginTop="@dimen/margin_3"
-        android:background="@android:color/darker_gray"/>
+        android:background="@android:color/darker_gray" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="end"
-        android:paddingTop="@dimen/margin_1"
+        android:orientation="horizontal"
         android:paddingBottom="@dimen/margin_1"
         android:paddingEnd="@dimen/margin_1"
         android:paddingStart="@dimen/margin_3"
-        android:orientation="horizontal">
+        android:paddingTop="@dimen/margin_1">
 
         <Button
             android:id="@+id/btn_cancel"

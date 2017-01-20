@@ -17,9 +17,9 @@ public class CloudPublicInvestmentProjectDataStore implements PublicInvestmentPr
     private final RestApi restApi;
     private final PublicInvestmentProjectCache publicInvestmentProjectCache;
 
-    private final Action1<PublicInvestmentProjectEntity> saveTocacheAction = publicInvestmentProjectEntity -> {
-        if (publicInvestmentProjectEntity != null) {
-            CloudPublicInvestmentProjectDataStore.this.publicInvestmentProjectCache.put(publicInvestmentProjectEntity);
+    private final Action1<List<PublicInvestmentProjectEntity>> saveToDataBase = publicInvestmentProjectEntityList -> {
+        if (publicInvestmentProjectEntityList != null) {
+            
         }
     };
 
@@ -30,7 +30,7 @@ public class CloudPublicInvestmentProjectDataStore implements PublicInvestmentPr
 
     @Override
     public Observable<List<PublicInvestmentProjectEntity>> publicInvestmentProjectEntityList(String departmentName, int page) {
-        return this.restApi.publicInvestmentProjectEntityList(departmentName, page);
+        return this.restApi.publicInvestmentProjectEntityList(departmentName, page).doOnNext(saveToDataBase);
     }
 
     @Override

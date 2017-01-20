@@ -13,7 +13,7 @@ import android.view.View;
 import android.widget.RelativeLayout;
 
 import net.avantica.xinef.dapp.R;
-import net.avantica.xinef.dapp.data.repository.datasource.migrate.OpcionesMenuSQLiteOpenHelper;
+import net.avantica.xinef.dapp.data.repository.datasource.migrate.UbigeoSQLiteOpenHelper;
 import net.avantica.xinef.dapp.di.HasComponent;
 import net.avantica.xinef.dapp.di.components.DaggerPublicInvestmentProjectComponent;
 import net.avantica.xinef.dapp.di.components.PublicInvestmentProjectComponent;
@@ -44,7 +44,7 @@ public class SplashActivity extends BaseActivity implements HasComponent<PublicI
         super.onCreate(savedInstanceState);
 
 //        loadDataBase();
-        SQLiteOpenHelper db = new OpcionesMenuSQLiteOpenHelper(this);
+        SQLiteOpenHelper db = new UbigeoSQLiteOpenHelper(this);
         db.getWritableDatabase();
 
         setContentView(R.layout.activity_splash);

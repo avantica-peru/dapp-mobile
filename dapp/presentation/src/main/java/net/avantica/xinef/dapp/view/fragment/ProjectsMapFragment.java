@@ -3,6 +3,7 @@ package net.avantica.xinef.dapp.view.fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -206,6 +207,7 @@ public class ProjectsMapFragment extends BaseFragment implements PublicInvestmen
         if (publicInvestmentProjectModelCollection != null) {
             for (PublicInvestmentProjectModel publicInvestmentProjectModel : publicInvestmentProjectModelCollection) {
                 MarkerOptions markerOptions = getMarkerFromProject(publicInvestmentProjectModel);
+                Log.d(getClass().getSimpleName(), publicInvestmentProjectModel.getSnipCode() + ": " + publicInvestmentProjectModel.getLatitude() + ", " + publicInvestmentProjectModel.getLongitude());
                 this.googleMap.addMarker(markerOptions);
             }
         }

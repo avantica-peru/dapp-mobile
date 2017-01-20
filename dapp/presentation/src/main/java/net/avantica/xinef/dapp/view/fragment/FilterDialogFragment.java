@@ -8,7 +8,9 @@ import android.support.v7.widget.AppCompatSpinner;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout.LayoutParams;
 
 import net.avantica.xinef.dapp.R;
 import net.avantica.xinef.dapp.di.components.PublicInvestmentProjectComponent;
@@ -89,6 +91,8 @@ public class FilterDialogFragment extends BaseDialogFragment implements UbigeoVi
         unbinder = ButterKnife.bind(this, view);
         setCancelable(false);
 
+        getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+
         return view;
     }
 
@@ -98,6 +102,13 @@ public class FilterDialogFragment extends BaseDialogFragment implements UbigeoVi
 
         this.filterProjectPresenter.setView(this);
         loadDepartments();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        getDialog().getWindow().setLayout(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
     }
 
     @Override
